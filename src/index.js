@@ -1,12 +1,12 @@
-const express = require("express");
-// const router = require("./router");
+import express, { json } from "express";
+import router from "./router";
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+app.use(json());
 
-// app.use("/api", router);
+app.use("/api", router);
 
 app.get("/", (req, res, next) => {
   res.send("2023 DBP Server");
