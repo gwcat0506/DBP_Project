@@ -1,0 +1,43 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 12px 20px;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+body {
+    margin: 0;
+    font-family: 'Source Sans Pro';
+}
+
+.navbar_menu{
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+
+}
+
+.navbar_menu li {
+    padding: 8px 12px;
+    color: white;
+}
+
+.navbar_menu li a:hover {
+    color: red;
+}
+.navbar_icons{
+    list-style: none;
+    color: white;
+    display: flex;
+    
+}
+
+.navbar_icons li {
+    padding: 8px 12px;
+    size: 50px;
+}
