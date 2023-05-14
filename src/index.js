@@ -1,5 +1,6 @@
-import express, { json } from "express";
-import router from "./router";
+const express = require('express')
+const json = require('express')
+const router = require('./router')
 
 const app = express();
 const PORT = 3000;

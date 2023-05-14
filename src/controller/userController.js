@@ -67,4 +67,5 @@ const userController = {
   deleteUser,
 };
 
-export default userController;
+module.exports = userController
+// export default userController;
