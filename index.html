@@ -18,7 +18,7 @@
         </script>
         <nav class="navbar">
             <div class="navbar_logo">
-                <img src="images/prompt_logo.png" width="150px">
+                <img src="images/prompt_logo.png" width="120px">
             </div>
             <ul class="navbar_menu">
                 <li><a href="">Project</a></li>
@@ -33,7 +33,7 @@
     <section class="contents-wrap">
         <div class="con_title-group">
             <div class="con-title">
-                "프로젝트 조회"
+                프로젝트 조회
             </div>
         </div>
         <div class="basic-group">
@@ -41,6 +41,7 @@
                 <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
                     <a href="#" class="btn-basic btn-gray">초기화</a>
                     <a href="#" class="btn-basic btn-gray">조회</a>
+                    <!-- 여기 js추가해야함 -->
                 </div>
             </div>
         </div>
@@ -127,7 +128,38 @@
                     </div>
                 </div>
         </div>
-
+        <div class="basic-group">
+            <div class="card-item basic">
+                <div id="result">
+                    <div class="read-table">
+                        <div class="horizontal-scroller">
+                            <table>
+                                <colgroup>
+                                <!-- 이후에 지정 -->
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>프로젝트 번호</th>
+                                        <th>프로젝트 명</th>
+                                        <th>프로젝트 설명</th>
+                                        <th>프로젝트 착수일자</th>
+                                        <th>프로젝트 종료일자</th>
+                                        <th>프로젝트 마감일자</th>
+                                        <th>프로젝트 발주처</th>
+                                        <th>프로젝트 예산</th>
+                                        <th>프로젝트 투입인원</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 내용 -->
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </section>
 </body>
