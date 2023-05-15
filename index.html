@@ -33,7 +33,6 @@
     <section class="contents-wrap">
         <div class="con_title-group">
             <div class="con-title">
-                ::before
                 "프로젝트 조회"
             </div>
         </div>
@@ -50,7 +49,81 @@
                 <input type="hidden" name="page" value>
                 <div class="card-item basic">
                     <div>
-                    
+                        <div class="flex-table">
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">착수일자</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <input type="date" name="start" size="4" style="text-align:center;"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">종료일자</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <input type="date" name="start" size="4" style="text-align:center;"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">검색구분</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <select name="searchType" title="검색구분" id="typeselect">
+                                                <option value="1">프로젝트 번호</option>
+                                                <option value="2">프로젝트 명</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">발주처</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <input type="text" name="orderFrom" maxlength="10" size="4" style="text-align:center;" title="orderFrom"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-1 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-20 m-width-per-30">
+                                        <div class="flex-align-self-center">
+                                            <div class="searchdiv searchcase1" style>프로젝트 번호</div>
+                                            <div class="searchdiv searchcase2" style="display:none;">프로젝트 명</div>
+                                        </div>
+                                    </div>
+                                    <div class="item-title width-per-80 m-width-per-70">
+                                        <div class="flex-align-self-center" style="width:100%;">
+                                            <div class="searchdiv searchcase1" style>
+                                                <input type="text" name="p_id" maxlength="20" size="4" style="text-align: center;">
+                                            </div>
+                                            <div class="searchdiv searchcase2" style="display: none;">
+                                                <input type="text" name="p_name" maxlength="20" size="4" style="text-align: center;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                        </div>
                     </div>
                 </div>
         </div>
