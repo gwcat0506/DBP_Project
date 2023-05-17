@@ -7,18 +7,90 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model Project {
-  id   Int?
-  name Int?
-
-  @@ignore
+model employee {
+  e_id                 String                 @id @db.VarChar(25)
+  e_name               String                 @db.VarChar(50)
+  resident_id          String                 @db.Char(13)
+  education            String                 @db.VarChar(50)
+  career               Int
+  authority            String                 @default("2") @db.VarChar(25)
+  status               String                 @db.VarChar(25)
+  salary               Int                    @default(0)
+  employee_skill       employee_skill[]
+  evaluate_colleague   evaluate_colleague[]
+  evaluate_pm_customer evaluate_pm_customer[]
+  login_password       login_password?
+  project_employee     project_employee[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model User {
-  id   Int?
-  name Int?
+model employee_skill {
+  e_id     String   @db.VarChar(25)
+  skill    String   @db.VarChar(50)
+  employee employee @relation(fields: [e_id], references: [e_id], onDelete: NoAction, onUpdate: NoAction, map: "employee_skill_employee__fk")
 
-  @@ignore
+  @@id([e_id, skill])
+}
+
+model evaluate_colleague {
+  p_id                  String   @db.VarChar(50)
+  e_id                  String   @db.VarChar(25)
+  evaluator_id          String   @db.VarChar(25)
+  working_score         Int?
+  working_comment       String?  @db.VarChar(255)
+  communication_score   Int
+  communication_comment String?  @db.VarChar(255)
+  employee              employee @relation(fields: [e_id], references: [e_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_evaluate_colleague_employee")
+  project               project  @relation(fields: [p_id], references: [p_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_evaluate_colleague_project")
+
+  @@id([e_id, evaluator_id, p_id])
+  @@index([p_id], map: "fk_evaluate_colleague_project")
+}
+
+model evaluate_pm_customer {
+  p_id                  String   @db.VarChar(50)
+  e_id                  String   @db.VarChar(25)
+  estimator_type        String   @db.VarChar(25)
+  working_score         Int
+  working_comment       String?  @db.VarChar(255)
+  communication_score   Int
+  communication_comment String?  @db.VarChar(255)
+  employee              employee @relation(fields: [e_id], references: [e_id], onDelete: NoAction, onUpdate: NoAction, map: "evaluate_pm_customer_employee__fk")
+  project               project  @relation(fields: [p_id], references: [p_id], onDelete: NoAction, onUpdate: NoAction, map: "evaluate_pm_customer_project__fk")
+
+  @@id([p_id, estimator_type, e_id])
+  @@index([e_id], map: "evaluate_pm_customer_employee__fk")
+}
+
+model project {
+  p_id                 String                 @id @db.VarChar(50)
+  p_name               String                 @db.VarChar(50)
+  p_description        String                 @db.VarChar(255)
+  start_date           DateTime               @db.Date
+  end_date             DateTime               @db.Date
+  dead_line            DateTime?              @db.Date
+  client               String                 @db.VarChar(50)
+  budget               Int
+  evaluate_colleague   evaluate_colleague[]
+  evaluate_pm_customer evaluate_pm_customer[]
+  project_employee     project_employee[]
+}
+
+model project_employee {
+  p_id         String    @db.VarChar(50)
+  e_id         String    @db.VarChar(25)
+  position     String    @db.VarChar(50)
+  put_in_date  DateTime  @db.Date
+  put_out_date DateTime? @db.Date
+  employee     employee  @relation(fields: [e_id], references: [e_id], onDelete: NoAction, onUpdate: NoAction, map: "e_id")
+  project      project   @relation(fields: [p_id], references: [p_id], onDelete: NoAction, onUpdate: NoAction, map: "p_id")
+
+  @@id([p_id, e_id])
+  @@index([e_id], map: "project_employee_e_id_fk")
+}
+
+model login_password {
+  e_id           String   @id @db.VarChar(25)
+  login_id       String?  @db.VarChar(50)
+  login_password String?  @db.VarChar(50)
+  employee       employee @relation(fields: [e_id], references: [e_id], onDelete: NoAction, onUpdate: NoAction, map: "login_password_employee__fk")
 }
