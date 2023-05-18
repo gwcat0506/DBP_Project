@@ -1,1 +1,5 @@
-export { default as userService } from "./userService";
+const projectService = require("./projectService");
+
+module.exports = {
+  projectService,
+};
