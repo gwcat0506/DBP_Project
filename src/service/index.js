@@ -1,7 +1,7 @@
 const projectService = require("./projectService");
-const registerService = require("./registerService");
+const authService = require("./authService");
 
 module.exports = {
   projectService,
-  registerService
+  authService
 };
