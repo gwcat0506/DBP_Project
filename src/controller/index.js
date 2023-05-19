@@ -1,7 +1,7 @@
 const projectController = require("./projectController");
-const registerController = require("./registerController");
+const authController = require("./authController");
 
 module.exports = {
   projectController,
-  registerController
+  authController
 };
