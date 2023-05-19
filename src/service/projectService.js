@@ -2,8 +2,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // 전체 프로젝트 조회
-const getAllProjects = async () => {
-  const project = await prisma.project.findMany();
+const getAllProjects = async (props) => {
+  const project = await prisma.project.findMany(props);
 
   return project;
 };
@@ -32,7 +32,7 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       contains: client,
     };
   }
-  const searchProjects = await prisma.project.findMany({
+  return await prisma.project.findMany({
     where: whereClause,
     select: {
       p_id: true,
@@ -42,7 +42,6 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       client: true,
     },
   });
-  return searchProjects;
 };
 
 module.exports = {
