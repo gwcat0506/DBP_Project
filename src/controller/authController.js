@@ -30,6 +30,40 @@ const signupUser = async (req, res) => {
       return res.status(500).json({ status: 500, success: false, message: "회원가입 실패" });}
 };
 
-module.exports = { checkUser,signupUser };
+// 로그인
+const loginUser = async (req, res) => {
+  const { user_id, password } = req.body;
+  if (!user_id || !password)
+    return res.status(400).json({ status: 404, message: "모든 값을 입력해주세요." });
+
+  const check = await authService.loginUser(user_id, password);
+  if (check){
+    return res.status(200).json({ status: 200, success: true, message: "로그인 성공" });
+  }else{
+    return res.status(500).json({ status: 500, success: false, message: "로그인 실패" });}
+  // try {
+  //   if (check){
+  //     // 로그인 성공시 토큰발급
+  //     const acc_payload = {
+  //       user_id:req.body.user_id,
+  //       password:req.body.password
+
+  //     }
+  //     const ref_payload = {
+  //       user_id:req.body.user_id,
+  //       password:req.body.password
+
+  //     }
+  //     const access_token = jwt.token().access(acc_payload);
+  //     const refresh_payload = jwt.token().refresh(ref_payload);
+  //     return res.status(200).json({ status: 200, success: true, message: "로그인 성공",ref_tkn:refresh_token,acc_tkn:access_token });}
+  // } catch {
+  //     return res.status(500).json({ status: 500, success: false, message: "로그인 실패" });}
+};
+
+
+
+
+module.exports = { checkUser,signupUser,loginUser };
 
 
