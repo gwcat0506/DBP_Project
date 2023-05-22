@@ -32,7 +32,8 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       contains: client,
     };
   }
-  return await prisma.project.findMany({
+
+  const projects = await prisma.project.findMany({
     where: whereClause,
     select: {
       p_id: true,
@@ -42,6 +43,8 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       client: true,
     },
   });
+
+  return { projects };
 };
 
 // 프로젝트 상세 조회
