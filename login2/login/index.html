@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" id="pj_html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Solution</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f6319e9033.js" crossorigin="anonymous"></script>
+</head>
+<body id="pj_body">
+    <header id="header_pj">
+        <script>
+
+        </script>
+        <nav class="navbar">
+            <div class="navbar_logo">
+                <img src="prompt.png" width="150px">
+            </div>
+            <ul class="navbar_menu">
+                <li><a href="">Project</a></li>
+                <li><a href="">Employee</a></li>
+            </ul>
+            <ul class="navbar_icons">
+                <li><i class="fa-solid fa-right-from-bracket"></i></li>
+                <li><i class="fa-solid fa-user"></i></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="contents-wrap">
+        <div class="con_title-group">
+            <div class="con-title">
+                프로젝트 조회
+            </div>
+        </div>
+        <div class="basic-group">
+            <div class="btn-group">
+                <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
+                    <a href="#" class="btn-basic btn-gray">초기화</a>
+                    <a href="#" class="btn-basic btn-gray">조회</a>
+                    <!-- 여기 js추가해야함 -->
+                </div>
+            </div>
+        </div>
+        <div class="basic-group">
+            <form id="command" name="form1" action="#" method="post" autocomplete="off">
+                <input type="hidden" name="page" value>
+                <div class="card-item basic">
+                    <div>
+                        <div class="flex-table">
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">착수일자</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <input type="date" name="start" size="4" style="text-align:center;"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">종료일자</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <input type="date" name="start" size="4" style="text-align:center;"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">검색구분</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <select name="searchType" title="검색구분" id="typeselect">
+                                                <option value="1">프로젝트 번호</option>
+                                                <option value="2">프로젝트 명</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">발주처</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <input type="text" name="orderFrom" maxlength="10" size="4" style="text-align:center;" title="orderFrom"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-1 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-20 m-width-per-30">
+                                        <div class="flex-align-self-center">
+                                            <div class="searchdiv searchcase1" style>프로젝트 번호</div>
+                                            <div class="searchdiv searchcase2" style="display:none;">프로젝트 명</div>
+                                        </div>
+                                    </div>
+                                    <div class="item-title width-per-80 m-width-per-70">
+                                        <div class="flex-align-self-center" style="width:100%;">
+                                            <div class="searchdiv searchcase1" style>
+                                                <input type="text" name="p_id" maxlength="20" size="4" style="text-align: center;">
+                                            </div>
+                                            <div class="searchdiv searchcase2" style="display: none;">
+                                                <input type="text" name="p_name" maxlength="20" size="4" style="text-align: center;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="basic-group">
+            <div class="card-item basic">
+                <div id="result">
+                    <div class="read-table">
+                        <div class="horizontal-scroller">
+                            <table class="index_table">
+                                <colgroup>
+                                <!-- 이후에 지정 -->
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>프로젝트 번호</th>
+                                        <th>프로젝트 명</th>
+                                        <th>프로젝트 설명</th>
+                                        <th>프로젝트 착수일자</th>
+                                        <th>프로젝트 종료일자</th>
+                                        <th>프로젝트 마감일자</th>
+                                        <th>프로젝트 발주처</th>
+                                        <th>프로젝트 예산</th>
+                                        <th>프로젝트 투입인원</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 내용 -->
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>

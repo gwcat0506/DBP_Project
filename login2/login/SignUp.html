@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/cf416b0d1e.js" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="loginForm.js"></script>
+
+    
+</head>
+
+<header id="header_pj">
+    <script>
+
+    </script>
+    <nav class="navbar">
+        <div class="navbar_logo">
+            <img src="prompt.png" width="150px">
+        </div>
+        <ul class="navbar_menu">
+            <li><a href="">Project</a></li>
+<li><a href="">Employee</a></li>
+        </ul>
+        <ul class="navbar_icons">
+            <li><i class="fa-solid fa-right-from-bracket"></i></li>
+            <li><i class="fa-solid fa-user"></i></li>
+        </ul>
+    </nav>
+</header>
+<body class="sign_body">
+   <form method="post" action="">
+       <div class="container">
+     <div class="insert">
+     
+         <table id="sign_table">
+     <caption id="sign_caption"><h2>회원가입</h2></caption>
+     <tr>
+         <td class="col1">사번</td>
+         <td class="col2"><input type="text" name="name" maxlength="5"></td>
+     </tr>
+     <tr>
+         <td class="col1">아이디</td>
+         <td class="col2">
+             <input type="text" name="id" maxlength="10">
+             <input class='but1' type="button" value="중복확인" onclick="">
+         </td>
+     </tr>
+     <tr>
+         <td class="col1">비밀번호</td>
+         <td class="col2">
+             <input type="password" name="pwd" maxlength="16">
+            
+         </td>
+     </tr>
+     
+     
+     </table>
+     
+   </div>
+  
+   <div id="sign_create">
+     
+         <input class="but3" type="button" value="가입취소" onclick="">
+         <input class="but4" type="button" value="회원가입" onclick="formCheck(this.form)">
+     
+   </div>
+   </div>
+   </form>
+  </body>
+ </html>
