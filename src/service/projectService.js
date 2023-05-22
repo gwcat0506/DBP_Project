@@ -44,7 +44,48 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
   });
 };
 
+// 프로젝트 상세 조회
+const getProjectById = async (projectId) => {
+  const rawResults = await prisma.$queryRaw`
+    SELECT *
+    FROM project 
+    LEFT JOIN project_employee ON project.p_id = project_employee.p_id
+    LEFT JOIN employee ON project_employee.e_id = employee.e_id
+    WHERE project.p_id = ${projectId};
+  `;
+
+  if (rawResults.length === 0) {
+    return null;
+  }
+
+  const project = rawResults.reduce((acc, curr) => {
+    if (!acc.p_id) {
+      acc = {
+        p_id: curr.p_id,
+        p_name: curr.p_name,
+        p_description: curr.p_description,
+        start_date: curr.start_date,
+        end_date: curr.end_date,
+        deal_line: curr.deal_line,
+        client: curr.client,
+        budget: curr.budget,
+        employee: [],
+      };
+    }
+    acc.employee.push({
+      e_id: curr.e_id,
+      position: curr.position,
+      e_name: curr.e_name,
+    });
+
+    return acc;
+  }, {});
+
+  return { project };
+};
+
 module.exports = {
   getAllProjects,
   searchProjects,
+  getProjectById,
 };
