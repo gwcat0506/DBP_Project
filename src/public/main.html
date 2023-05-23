@@ -185,12 +185,13 @@
                                 document.getElementById('search_button').addEventListener('click', function() {
                 
                                 var p_info = document.getElementById('p_info').value;
-                                var start_date = new Date(document.getElementById('start_date').value);
-                                var end_date = new Date(document.getElementById('end_date').value);
+                                var start_date = document.getElementById('start_date').value;
+                                var end_date = document.getElementById('end_date').value;
                                 var client = document.getElementById('client').value;
                                 
                                 console.log("=====================")
-                                console.log(p_info,start_date,end_date,client)
+                                console.log(start_date,end_date)
+                                
                                 
                                 // 프로젝트 검색구분에 따라 parameter 조정
                                 var selectElement = document.getElementById("typeselect");
