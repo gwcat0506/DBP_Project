@@ -7,8 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="public/css/style.css" />
     <script src="https://kit.fontawesome.com/cf416b0d1e.js" crossorigin="anonymous"></script>
-    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="loginForm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     
 </head>
@@ -40,19 +39,56 @@
      <caption id="sign_caption"><h2>회원가입</h2></caption>
      <tr>
          <td class="col1">사번</td>
-         <td class="col2"><input type="text" name="name" maxlength="5"></td>
+         <td class="col2"><input type="text" name="name" maxlength="5" id = "user_num_check"></td>
      </tr>
      <tr>
          <td class="col1">아이디</td>
          <td class="col2">
-             <input type="text" name="id" maxlength="10">
-             <input class='but1' type="button" value="중복확인" onclick="">
+             <input type="text" name="id" id="user_id_check" maxlength="10">
+             <input class='but1' id="duplicate_check" value="중복확인" onclick="checkDuplicateAndSignUp()">
+             <div id="messageContainer"></div>
+             <script>
+                function checkDuplicateAndSignUp() {
+                  var user_id = document.getElementById('user_id_check').value;
+                  var messageContainer = document.getElementById('messageContainer');
+
+                  // 기존 메시지 제거
+                  messageContainer.innerHTML = '';
+          
+                  // axios를 사용하여 서버에 POST 요청 보내기 (중복확인)
+                  axios
+                    .post('/auth/signup/check', {
+                      user_id: user_id
+                    })
+                    .then(function(response) {
+                      // 사용가능한 아이디 입니다.
+                        console.log(response.data)
+                      if (response.data.success) {
+                        var message = '사용가능한 아이디 입니다.';
+                        var messageElement = document.createElement('p');
+                        messageElement.style.color = 'green';
+                        messageElement.textContent = message;
+                        messageContainer.appendChild(messageElement);
+                    }})
+                    .catch(function(error) {
+                        // 중복되는 아이디가 이미 존재하는 경우
+                      //if (!response.data.success) {
+                        var message = '이미 존재하는 아이디입니다.';
+                        var messageElement = document.createElement('p');
+                        messageElement.style.color = 'red';
+                        messageElement.textContent = message;
+                        messageContainer.appendChild(messageElement);
+                    
+                      console.error(error);
+                    });
+                }
+            </script>
          </td>
      </tr>
      <tr>
          <td class="col1">비밀번호</td>
          <td class="col2">
-             <input type="password" name="pwd" maxlength="16">
+             <input type="password" name="pwd" maxlength="16" id = "password_check">
             
          </td>
      </tr>
@@ -65,7 +101,34 @@
    <div id="sign_create">
      
          <input class="but3" type="button" value="가입취소" onclick="location.href='/'">
-         <input class="but4" type="button" value="회원가입" onclick="formCheck(this.form)">
+         <input class="but4" type="button" value="회원가입" onclick="SignUp()">
+         <script>
+            function SignUp() {
+              var user_num = document.getElementById('user_num_check').value;
+              var user_id = document.getElementById('user_id_check').value;
+              var password = document.getElementById('password_check').value;
+      
+              // axios를 사용하여 서버에 POST 요청 보내기 (중복확인)
+              axios
+                .post('/auth/signup', {
+                  user_num: user_num,
+                  user_id: user_id,
+                  password: password
+                })
+                .then(function(response) {
+                    // 회원가입 성공시 login 페이지로 이동
+                    window.location.href = '/';
+
+                    // 회원가입 성공 메시지 표시
+                    alert('회원가입이 성공적으로 완료되었습니다! 다시 로그인해주세요.');
+                  })
+                .catch(function(error) {
+                  // 요청이 실패한 경우
+                  console.error(error);
+                });
+            }
+        </script>
+         
      
    </div>
    </div>
