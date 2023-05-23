@@ -5,10 +5,11 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(express.static('src'));
 
 app.use("/", router);
-app.get("/", (req, res, next) => {
-  res.send("2023 DBP Server");
+app.get("/", (req, res) => {
+  res.sendFile(__dirname+"/src/public/login.html");
 });
 
 app.listen(PORT, () => {
