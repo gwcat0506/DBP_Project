@@ -1,13 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-// 전체 프로젝트 조회
-const getAllProjects = async (props) => {
-  const project = await prisma.project.findMany(props);
-
-  return project;
-};
-
 // 프로젝트 검색
 const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
   // 인용 부호 제거
@@ -148,7 +141,6 @@ const createProject = async (
 };
 
 module.exports = {
-  getAllProjects,
   searchProjects,
   getProjectById,
   createProject,
