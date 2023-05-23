@@ -7,8 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="public/css/style.css" />
     <script src="https://kit.fontawesome.com/cf416b0d1e.js" crossorigin="anonymous"></script>
-    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <!-- <script src="loginForm.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -38,12 +37,12 @@
         <h1>Login</h1>
         <form name="loginForm" action="C:\Users\hiyon\dbp\login\index.html" method="get">
             <div class="txt_field">
-                <input type="text" name="Id" required>
+                <input type="text" id="useridInput" required>
                 <span> </span>
                 <label for="Username">Username</label>
             </div>
             <div class="txt_field">
-                <input type="password" name="password" id="password" required>
+                <input type="password"  id="passwordInput" required>
                 <span> </span>
                 <label for="Password">Password</label>
                 <div class="eyes">
@@ -54,7 +53,32 @@
             <div class="pass">
                 <a>Forgot Password?</a>
             </div>
-            <input type="button" onclick="login()" value="Login" id="sign_button">
+            <input type="button" value="Login" id="sign_button">
+            <script>
+                // 버튼 클릭 이벤트 핸들러
+                document.getElementById('sign_button').addEventListener('click', function() {
+                  // 입력된 값을 가져오기
+                  var user_id = document.getElementById('useridInput').value;
+                  var password = document.getElementById('passwordInput').value;
+          
+                  // axios를 사용하여 서버에 POST 요청 보내기
+                  axios
+                    .post('/auth/login', {
+                      user_id: user_id,
+                      password: password
+                    })
+                    .then(function(response) {
+                      // 로그인 성공시 main.html로 이동
+                      window.location.href = '/main';
+                      console.log(response.data);
+                    })
+                    .catch(function(error) {
+                      // 로그인 실패
+                      console.error(error);
+                    });
+                });
+              </script>
+
             <div class="signup_link">
                 Not a member? <a href="signup">SignUp</a>
             </div>

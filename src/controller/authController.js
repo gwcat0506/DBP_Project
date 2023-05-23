@@ -36,10 +36,13 @@ require('dotenv').config();
 
 const loginUser = async (req, res) => {
   const { user_id, password } = req.body;
+  console.log(user_id,password)
+
   if (!user_id || !password)
     return res.status(400).json({ status: 404, message: "모든 값을 입력해주세요." });
 
   const check = await authService.loginUser(user_id, password);
+  console.log(check)
   if (check){
     const docs = req.body;
     const payload = { // putting data into a payload
