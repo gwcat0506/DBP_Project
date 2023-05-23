@@ -10,7 +10,12 @@ const getAllProjects = async (props) => {
 
 // 프로젝트 검색
 const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
-  
+  // 인용 부호 제거
+  let clean_start_date =
+    start_date !== undefined ? start_date.replace(/['"]+/g, "") : null;
+  let clean_end_date =
+    end_date !== undefined ? end_date.replace(/['"]+/g, "") : null;
+
   const whereClause = {};
   if (p_id !== null) {
     whereClause.p_id = {
@@ -22,11 +27,21 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       contains: p_name,
     };
   }
-  if (start_date !== null) {
-    whereClause.start_date = start_date;
-  }
-  if (end_date !== null) {
-    whereClause.end_date = end_date;
+  if (clean_start_date !== null && clean_end_date !== null) {
+    whereClause.start_date = {
+      gte: new Date(clean_start_date),
+    };
+    whereClause.end_date = {
+      lte: new Date(clean_end_date),
+    };
+  } else if (clean_start_date !== null) {
+    whereClause.start_date = {
+      gte: new Date(clean_start_date),
+    };
+  } else if (clean_end_date !== null) {
+    whereClause.end_date = {
+      lte: new Date(clean_end_date),
+    };
   }
   if (client !== null) {
     whereClause.client = {
@@ -43,7 +58,18 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       client: true,
     },
   });
-  return { projects };
+
+  const formattedProjects = projects.map((project) => ({
+    ...project,
+    start_date: project.start_date
+      ? project.start_date.toISOString().slice(0, 10)
+      : null,
+    end_date: project.end_date
+      ? project.end_date.toISOString().slice(0, 10)
+      : null,
+  }));
+
+  return { projects: formattedProjects };
 };
 
 // 프로젝트 상세 조회
@@ -70,7 +96,7 @@ const getProjectById = async (projectId) => {
         end_date: curr.end_date,
         deal_line: curr.deal_line,
         client: curr.client,
-        budget: curr.budget
+        budget: curr.budget,
         // employee: [],
       };
     }
