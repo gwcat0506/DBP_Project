@@ -87,8 +87,44 @@ const getProjectById = async (projectId) => {
   return { project };
 };
 
+// 프로젝트 생성
+const createProject = async (
+  p_name,
+  start_date,
+  dead_line,
+  client,
+  p_description,
+  budget
+) => {
+  const lastProject = await prisma.project.findFirst({
+    orderBy: { p_id: "desc" },
+  });
+
+  let p_id = "P0001";
+  if (lastProject) {
+    const lastPId = lastProject.p_id;
+    const lastNumber = parseInt(lastPId.substr(1));
+    p_id = `P${("0000" + (lastNumber + 1)).slice(-4)}`;
+  }
+
+  const data = await prisma.project.create({
+    data: {
+      p_id: p_id,
+      p_name: p_name,
+      start_date: start_date,
+      end_date: null,
+      dead_line: dead_line,
+      client: client,
+      p_description: p_description,
+      budget: budget,
+    },
+  });
+  return data;
+};
+
 module.exports = {
   getAllProjects,
   searchProjects,
   getProjectById,
+  createProject,
 };

@@ -66,8 +66,8 @@ model project {
   p_name               String                 @db.VarChar(50)
   p_description        String                 @db.VarChar(255)
   start_date           DateTime               @db.Date
-  end_date             DateTime               @db.Date
-  dead_line            DateTime?              @db.Date
+  end_date             DateTime?              @db.Date
+  dead_line            DateTime               @db.Date
   client               String                 @db.VarChar(50)
   budget               Int
   evaluate_colleague   evaluate_colleague[]
@@ -89,7 +89,7 @@ model project_employee {
 }
 
 model login_password {
-  e_id           String   @id @db.VarChar(25) 
+  e_id           String   @id @db.VarChar(25)
   login_id       String?  @db.VarChar(50)
   login_password String?  @db.VarChar(50)
   employee       employee @relation(fields: [e_id], references: [e_id], onDelete: NoAction, onUpdate: NoAction, map: "login_password_employee__fk")
