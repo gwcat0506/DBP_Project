@@ -21,20 +21,49 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
     };
   }
   if (clean_start_date !== null && clean_end_date !== null) {
-    whereClause.start_date = {
-      gte: new Date(clean_start_date),
-    };
-    whereClause.end_date = {
-      lte: new Date(clean_end_date),
-    };
+    whereClause.OR = [
+      {
+        AND: [
+          {
+            start_date: {
+              gte: new Date(clean_start_date),
+            },
+          },
+          {
+            end_date: {
+              lte: new Date(clean_end_date),
+            },
+          },
+        ],
+      },
+      {
+        AND: [
+          {
+            start_date: {
+              gte: new Date(clean_start_date),
+            },
+          },
+          {
+            end_date: null,
+          },
+        ],
+      },
+    ];
   } else if (clean_start_date !== null) {
     whereClause.start_date = {
       gte: new Date(clean_start_date),
     };
   } else if (clean_end_date !== null) {
-    whereClause.end_date = {
-      lte: new Date(clean_end_date),
-    };
+    whereClause.OR = [
+      {
+        end_date: {
+          lte: new Date(clean_end_date),
+        },
+      },
+      {
+        end_date: null,
+      },
+    ];
   }
   if (client !== null) {
     whereClause.client = {
@@ -59,7 +88,7 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       : null,
     end_date: project.end_date
       ? project.end_date.toISOString().slice(0, 10)
-      : null,
+      : "진행 중", //end_date가 null인 경우
   }));
 
   return { projects: formattedProjects };
