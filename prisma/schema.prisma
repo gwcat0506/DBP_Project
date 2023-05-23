@@ -66,8 +66,8 @@ model project {
   p_name               String                 @db.VarChar(50)
   p_description        String                 @db.VarChar(255)
   start_date           DateTime               @db.Date
-  end_date             DateTime?              @db.Date
-  dead_line            DateTime               @db.Date
+  end_date             DateTime?               @db.Date
+  dead_line            DateTime?              @db.Date
   client               String                 @db.VarChar(50)
   budget               Int
   evaluate_colleague   evaluate_colleague[]

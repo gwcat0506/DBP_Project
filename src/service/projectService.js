@@ -10,6 +10,7 @@ const getAllProjects = async (props) => {
 
 // 프로젝트 검색
 const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
+  
   const whereClause = {};
   if (p_id !== null) {
     whereClause.p_id = {
@@ -32,7 +33,6 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       contains: client,
     };
   }
-
   const projects = await prisma.project.findMany({
     where: whereClause,
     select: {
@@ -43,7 +43,6 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       client: true,
     },
   });
-
   return { projects };
 };
 
@@ -71,8 +70,8 @@ const getProjectById = async (projectId) => {
         end_date: curr.end_date,
         deal_line: curr.deal_line,
         client: curr.client,
-        budget: curr.budget,
-        employee: [],
+        budget: curr.budget
+        // employee: [],
       };
     }
     acc.employee.push({
