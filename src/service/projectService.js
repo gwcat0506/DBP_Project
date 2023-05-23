@@ -108,23 +108,26 @@ const getProjectById = async (projectId) => {
     return null;
   }
 
+  const formatDate = (date) => date.toISOString().slice(0, 10);
+
   const project = rawResults.reduce((acc, curr) => {
     if (!acc.p_id) {
       acc = {
         p_id: curr.p_id,
         p_name: curr.p_name,
         p_description: curr.p_description,
-        start_date: curr.start_date,
-        end_date: curr.end_date,
+        start_date: formatDate(curr.start_date),
+        end_date: formatDate(curr.end_date),
         deal_line: curr.deal_line,
         client: curr.client,
         budget: curr.budget,
-        // employee: [],
+        employee: [],
       };
     }
     acc.employee.push({
       e_id: curr.e_id,
       position: curr.position,
+      put_in_date: formatDate(curr.put_in_date),
       e_name: curr.e_name,
     });
 
