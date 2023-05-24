@@ -10,5 +10,6 @@ router.post("/", projectController.createProject);
 router.get("/putEmployee/deadline", projectController.searchDeadline);
 router.get("/putEmployee/career", projectController.searchCareer);
 router.get("/putEmployee/score", projectController.searchScore);
+router.get("/evaluation/:e_id/:p_id", projectController.getEvaluationById);
 
 module.exports = router;

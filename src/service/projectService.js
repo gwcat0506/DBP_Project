@@ -1,6 +1,92 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// 평가 점수 평균 계산 함수
+function calculateAverage(evaluations) {
+  let total_work_score = 0;
+  let total_communication_score = 0;
+
+  for (let evaluation of evaluations) {
+    total_work_score += evaluation.working_score;
+    total_communication_score += evaluation.communication_score;
+  }
+
+  const work_avg = total_work_score / evaluations.length;
+  const com_avg = total_communication_score / evaluations.length;
+
+  return {
+    work_avg,
+    com_avg,
+  };
+}
+
+// 평가 조회
+const getEvaluationById = async (e_id, p_id) => {
+  const pm_customer_evaluations = await prisma.evaluate_pm_customer.findMany({
+    where: {
+      e_id: e_id,
+      p_id: p_id,
+    },
+  });
+
+  const colleague_evaluations = await prisma.evaluate_colleague.findMany({
+    where: {
+      e_id: e_id,
+      p_id: p_id,
+    },
+  });
+
+  const pm =
+    pm_customer_evaluations.find(
+      (evaluation) => evaluation.estimator_type === "PM"
+    ) || {};
+  const customer =
+    pm_customer_evaluations.find(
+      (evaluation) => evaluation.estimator_type === "CUSTOMER"
+    ) || {};
+
+  const pm_avg_scores = calculateAverage([pm]);
+  const customer_avg_scores = calculateAverage([customer]);
+  const colleague_avg_scores = calculateAverage(colleague_evaluations);
+
+  if (!pm.working_comment) pm.working_comment = "미기입";
+  if (!pm.communication_comment) pm.communication_comment = "미기입";
+  if (!customer.working_comment) customer.working_comment = "미기입";
+  if (!customer.communication_comment)
+    customer.communication_comment = "미기입";
+
+  for (let i = 0; i < colleague_evaluations.length; i++) {
+    if (!colleague_evaluations[i].working_comment)
+      colleague_evaluations[i].working_comment = "미기입";
+    if (!colleague_evaluations[i].communication_comment)
+      colleague_evaluations[i].communication_comment = "미기입";
+  }
+
+  ["p_id", "e_id", "estimator_type"].forEach((field) => {
+    delete pm[field];
+    delete customer[field];
+    colleague_evaluations.forEach((evaluation) => delete evaluation[field]);
+  });
+
+  const response = {
+    pm: {
+      ...pm,
+    },
+    customer: {
+      ...customer,
+    },
+    peer: {
+      evaluation: colleague_evaluations,
+      avg_score: {
+        work_avg: colleague_avg_scores.work_avg,
+        com_avg: colleague_avg_scores.com_avg,
+      },
+    },
+  };
+
+  return response;
+};
+
 // 직원 평가순 조회
 const searchScore = async () => {
   const rawResults = await prisma.$queryRaw`
@@ -281,6 +367,7 @@ const createProject = async (
 };
 
 module.exports = {
+  getEvaluationById,
   searchScore,
   searchCareer,
   searchDeadline,
