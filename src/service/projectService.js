@@ -1,16 +1,33 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-// 전체 프로젝트 조회
-const getAllProjects = async (props) => {
-  const project = await prisma.project.findMany(props);
+// 프로젝트 직원 투입
+const putEmployees = async (p_id, employees) => {
+  const currentDate = new Date().toISOString();
 
-  return project;
+  const employeeData = employees.map((employee) => ({
+    p_id: p_id,
+    e_id: employee.e_id,
+    position: employee.position,
+    put_in_date: currentDate,
+    put_out_date: null,
+  }));
+
+  await prisma.project_employee.createMany({
+    data: employeeData,
+  });
+
+  return employeeData;
 };
 
 // 프로젝트 검색
 const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
-  
+  // 인용 부호 제거
+  let clean_start_date =
+    start_date !== undefined ? start_date.replace(/['"]+/g, "") : null;
+  let clean_end_date =
+    end_date !== undefined ? end_date.replace(/['"]+/g, "") : null;
+
   const whereClause = {};
   if (p_id !== null) {
     whereClause.p_id = {
@@ -22,11 +39,50 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       contains: p_name,
     };
   }
-  if (start_date !== null) {
-    whereClause.start_date = start_date;
-  }
-  if (end_date !== null) {
-    whereClause.end_date = end_date;
+  if (clean_start_date !== null && clean_end_date !== null) {
+    whereClause.OR = [
+      {
+        AND: [
+          {
+            start_date: {
+              gte: new Date(clean_start_date),
+            },
+          },
+          {
+            end_date: {
+              lte: new Date(clean_end_date),
+            },
+          },
+        ],
+      },
+      {
+        AND: [
+          {
+            start_date: {
+              gte: new Date(clean_start_date),
+            },
+          },
+          {
+            end_date: null,
+          },
+        ],
+      },
+    ];
+  } else if (clean_start_date !== null) {
+    whereClause.start_date = {
+      gte: new Date(clean_start_date),
+    };
+  } else if (clean_end_date !== null) {
+    whereClause.OR = [
+      {
+        end_date: {
+          lte: new Date(clean_end_date),
+        },
+      },
+      {
+        end_date: null,
+      },
+    ];
   }
   if (client !== null) {
     whereClause.client = {
@@ -43,7 +99,18 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       client: true,
     },
   });
-  return { projects };
+
+  const formattedProjects = projects.map((project) => ({
+    ...project,
+    start_date: project.start_date
+      ? project.start_date.toISOString().slice(0, 10)
+      : null,
+    end_date: project.end_date
+      ? project.end_date.toISOString().slice(0, 10)
+      : "진행 중", //end_date가 null인 경우
+  }));
+
+  return { projects: formattedProjects };
 };
 
 // 프로젝트 상세 조회
@@ -60,23 +127,26 @@ const getProjectById = async (projectId) => {
     return null;
   }
 
+  const formatDate = (date) => date.toISOString().slice(0, 10);
+
   const project = rawResults.reduce((acc, curr) => {
     if (!acc.p_id) {
       acc = {
         p_id: curr.p_id,
         p_name: curr.p_name,
         p_description: curr.p_description,
-        start_date: curr.start_date,
-        end_date: curr.end_date,
+        start_date: formatDate(curr.start_date),
+        end_date: formatDate(curr.end_date),
         deal_line: curr.deal_line,
         client: curr.client,
-        budget: curr.budget
-        // employee: [],
+        budget: curr.budget,
+        employee: [],
       };
     }
     acc.employee.push({
       e_id: curr.e_id,
       position: curr.position,
+      put_in_date: formatDate(curr.put_in_date),
       e_name: curr.e_name,
     });
 
@@ -122,7 +192,7 @@ const createProject = async (
 };
 
 module.exports = {
-  getAllProjects,
+  putEmployees,
   searchProjects,
   getProjectById,
   createProject,

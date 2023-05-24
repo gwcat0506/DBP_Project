@@ -5,6 +5,7 @@ const router = Router();
 
 router.get("/:projectId", projectController.getProjectById);
 router.get("/", projectController.searchProjects);
+router.post("/putEmpoyee", projectController.putEmployees);
 router.post("/", projectController.createProject);
 
 module.exports = router;
