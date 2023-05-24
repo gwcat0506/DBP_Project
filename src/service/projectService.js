@@ -1,6 +1,36 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// 직원 별 프로젝트 마감일 조회
+const searchDeadline = async () => {
+  const rawResults = await prisma.$queryRaw`
+    select e.e_id, e.e_name, p.p_name, p.start_date, p.dead_line
+    from employee e
+    left join (select p.p_id, p.p_name, pe.e_id, p.start_date, p.dead_line
+    from project_employee pe
+    join project p on p.p_id = pe.p_id
+    where put_out_date is null) as p on e.e_id = p.e_id
+    order by dead_line`;
+
+  if (rawResults.length === 0) {
+    return null;
+  }
+
+  const formatDate = (date) =>
+    date ? date.toISOString().slice(0, 10) : "미참여";
+  const checkNull = (value) => (value ? value : "미참여");
+
+  const employees = rawResults.map((curr) => ({
+    e_id: curr.e_id,
+    e_name: curr.e_name,
+    p_name: checkNull(curr.p_name),
+    start_date: formatDate(curr.start_date),
+    dead_line: formatDate(curr.dead_line),
+  }));
+
+  return employees;
+};
+
 // 프로젝트 직원 투입
 const putEmployees = async (p_id, employees) => {
   const currentDate = new Date().toISOString();
@@ -192,6 +222,7 @@ const createProject = async (
 };
 
 module.exports = {
+  searchDeadline,
   putEmployees,
   searchProjects,
   getProjectById,
