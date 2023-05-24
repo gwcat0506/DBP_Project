@@ -1,6 +1,18 @@
 const { Request, Response, NextFunction } = require("express");
 const { projectService } = require("../service");
 
+const putEmployees = async (req, res) => {
+  const { p_id, employees } = req.body;
+
+  const result = await projectService.putEmployees(p_id, employees);
+
+  if (!result) {
+    return res.status(404).json({ status: 404, message: "직원 투입 실패" });
+  }
+
+  return res.status(200).json({ status: 200, message: "직원 투입 성공" });
+};
+
 const searchProjects = async (req, res) => {
   const { p_id, p_name, start_date, end_date, client } = req.query;
 
@@ -65,6 +77,7 @@ const createProject = async (req, res) => {
 };
 
 module.exports = {
+  putEmployees,
   searchProjects,
   getProjectById,
   createProject,

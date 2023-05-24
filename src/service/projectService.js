@@ -1,6 +1,25 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// 프로젝트 직원 투입
+const putEmployees = async (p_id, employees) => {
+  const currentDate = new Date().toISOString();
+
+  const employeeData = employees.map((employee) => ({
+    p_id: p_id,
+    e_id: employee.e_id,
+    position: employee.position,
+    put_in_date: currentDate,
+    put_out_date: null,
+  }));
+
+  await prisma.project_employee.createMany({
+    data: employeeData,
+  });
+
+  return employeeData;
+};
+
 // 프로젝트 검색
 const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
   // 인용 부호 제거
@@ -173,6 +192,7 @@ const createProject = async (
 };
 
 module.exports = {
+  putEmployees,
   searchProjects,
   getProjectById,
   createProject,
