@@ -1,6 +1,40 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// 직원 평가순 조회
+const searchScore = async () => {
+  const rawResults = await prisma.$queryRaw`
+  select e.e_id, e.e_name, round(s.avg_work, 2) as avg_work, round(s.avg_com, 2) as avg_com
+from employee e
+left join (
+select e_id, avg(avg_work) as avg_work, avg(avg_com) as avg_com
+from(
+    (select e_id, avg(working_score) as avg_work, avg(communication_score) as avg_com
+    from evaluate_colleague
+    group by e_id)
+    union all
+    (select e_id, avg(working_score) as avg_work, avg(communication_score) as avg_com
+    from evaluate_pm_customer
+    group by e_id)) as score
+group by e_id) as s on s.e_id = e.e_id
+order by avg_work desc, avg_com desc`;
+
+  if (rawResults.length === 0) {
+    return null;
+  }
+
+  const checkNull = (value) => (value ? value : "기록 없음");
+
+  const employees = rawResults.map((curr) => ({
+    e_id: curr.e_id,
+    e_name: curr.e_name,
+    avg_work: checkNull(curr.avg_work),
+    avg_com: checkNull(curr.avg_com),
+  }));
+
+  return employees;
+};
+
 // 직원 경력순 조회
 const searchCareer = async () => {
   const rawResults = await prisma.$queryRaw`
@@ -247,6 +281,7 @@ const createProject = async (
 };
 
 module.exports = {
+  searchScore,
   searchCareer,
   searchDeadline,
   putEmployees,
