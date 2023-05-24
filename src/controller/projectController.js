@@ -1,6 +1,18 @@
 const { Request, Response, NextFunction } = require("express");
 const { projectService } = require("../service");
 
+const searchCareer = async (req, res) => {
+  const result = await projectService.searchCareer();
+
+  if (!result) {
+    return res.status(404).json({ status: 404, message: "경력자순 조회 실패" });
+  }
+
+  return res
+    .status(200)
+    .json({ status: 200, message: "경력자순 조회 성공", result });
+};
+
 const searchDeadline = async (req, res) => {
   const result = await projectService.searchDeadline();
 
@@ -91,6 +103,7 @@ const createProject = async (req, res) => {
 };
 
 module.exports = {
+  searchCareer,
   searchDeadline,
   putEmployees,
   searchProjects,

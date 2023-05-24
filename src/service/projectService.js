@@ -1,6 +1,31 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// 직원 경력순 조회
+const searchCareer = async () => {
+  const rawResults = await prisma.$queryRaw`
+  select e.e_id, e.e_name, e.career, es.skills from employee e
+  left join (select e_id, GROUP_CONCAT(skill separator ',') as skills
+            from employee_skill
+            group by e_id) as es on e.e_id = es.e_id
+  order by e.career desc;`;
+
+  if (rawResults.length === 0) {
+    return null;
+  }
+
+  const checkNull = (value) => (value ? value : "해당 없음");
+
+  const employees = rawResults.map((curr) => ({
+    e_id: curr.e_id,
+    e_name: curr.e_name,
+    career: curr.career,
+    skills: checkNull(curr.skills),
+  }));
+
+  return employees;
+};
+
 // 직원 별 프로젝트 마감일 조회
 const searchDeadline = async () => {
   const rawResults = await prisma.$queryRaw`
@@ -222,6 +247,7 @@ const createProject = async (
 };
 
 module.exports = {
+  searchCareer,
   searchDeadline,
   putEmployees,
   searchProjects,
