@@ -1,6 +1,25 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// 프로젝트 직원 투입
+const putEmployees = async (p_id, employees) => {
+  const currentDate = new Date().toISOString();
+
+  const employeeData = employees.map((employee) => ({
+    p_id: p_id,
+    e_id: employee.e_id,
+    position: employee.position,
+    put_in_date: currentDate,
+    put_out_date: null,
+  }));
+
+  await prisma.project_employee.createMany({
+    data: employeeData,
+  });
+
+  return employeeData;
+};
+
 // 프로젝트 검색
 const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
   // 인용 부호 제거
@@ -108,23 +127,26 @@ const getProjectById = async (projectId) => {
     return null;
   }
 
+  const formatDate = (date) => date.toISOString().slice(0, 10);
+
   const project = rawResults.reduce((acc, curr) => {
     if (!acc.p_id) {
       acc = {
         p_id: curr.p_id,
         p_name: curr.p_name,
         p_description: curr.p_description,
-        start_date: curr.start_date,
-        end_date: curr.end_date,
+        start_date: formatDate(curr.start_date),
+        end_date: formatDate(curr.end_date),
         deal_line: curr.deal_line,
         client: curr.client,
         budget: curr.budget,
-        // employee: [],
+        employee: [],
       };
     }
     acc.employee.push({
       e_id: curr.e_id,
       position: curr.position,
+      put_in_date: formatDate(curr.put_in_date),
       e_name: curr.e_name,
     });
 
@@ -170,6 +192,7 @@ const createProject = async (
 };
 
 module.exports = {
+  putEmployees,
   searchProjects,
   getProjectById,
   createProject,
