@@ -26,8 +26,21 @@
                 <li><a href="">Employee</a></li>
             </ul>
             <ul class="navbar_icons">
-                <li><i class="fa-solid fa-right-from-bracket"></i></li>
-                <li><i class="fa-solid fa-user"></i></li>
+                <li><i class="fa-solid fa-right-from-bracket" id="logout"></i></li>
+                <li><i class="fa-solid fa-user" id="mypage"></i></li>
+                <script>
+                    const logoutIcon = document.getElementById('logout');
+                    const mypageIcon = document.getElementById('mypage');
+                    //로그아웃 (로그인 페이지로 이동)
+                    logoutIcon.addEventListener('click',function(){
+                        window.location.href='/'
+                    })
+
+                    //마이페이지 이동
+                    mypageIcon.addEventListener('click',function(){
+                        window.location.href='/mypage'
+                    })
+                </script>
             </ul>
         </nav>
     </header>

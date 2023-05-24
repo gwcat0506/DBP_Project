@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <style>
+        .navbar_menu{
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+
+}
+
+.navbar_menu li {
+    padding: 8px 12px;
+    color: white;
+}
+
+.navbar_menu li a:hover {
+    color: red;
+}
+.navbar_icons{
+    list-style: none;
+    color: white;
+    display: flex;
+    
+}
+
+.navbar_icons li {
+    padding: 8px 12px;
+    size: 50px;
+}
+        .navbar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: black;
+            padding: 10px 20px;
+}
+
+        .wrap-content{
+
+        }
+        .content{
+            padding-bottom: 20px;
+        }
+        .txt_ess{
+            display: inline-block;
+            padding: 0 3px;
+            line-height: 1.2;
+            vertical-align: top;
+        }
+
+        .cont_box{
+            padding: 30px 60px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e4e4e4;
+            background-color: #fff;
+            color: #333333;
+        }
+
+        .cont_tit{
+            margin-bottom: 20px;
+            border-bottom: 1px solid #9c9c9c;
+            padding: 30px 0;
+            align-items: center;
+            font-size: 27px;
+            text-align: center;
+            line-height: 1;
+
+        }
+
+        .th{
+            color: #757575;
+            padding-top: 18px;
+        }
+
+        .th, .td{
+            border: 0;
+            background-color: transparent;
+            font-size: 15px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <script>
+
+        </script>
+        <nav class="navbar">
+            <div class="navbar_logo">
+                <img src="images/prompt_logo.png" width="120px">
+            </div>
+            <ul class="navbar_menu">
+                <li><a href="">Project</a></li>
+                <li><a href="">Employee</a></li>
+            </ul>
+            <ul class="navbar_icons">
+                <li><i class="fa-solid fa-right-from-bracket"></i></li>
+                <li><i class="fa-solid fa-user"></i></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="wrap-content">
+        <div class="content">
+            <div class="cont_box join_box modify">
+                <div class="cont_tit">
+                    <div class="tit">마이페이지</div>
+                </div>
+                <div class="cont">
+                    <div class="tbl_sheet tbl_join">
+                        <div class="tbl_row tbl_write">
+                            <form name="frmSaveChange" action="saveeditinfo.html" method="post" onsubmit="return false;">
+                            <table class="tbl">
+                                <colgroup>
+                                    <col style="width: 150px;">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">이름</th>
+                                        <td>?</td>
+                                        <input type="hidden" name="name" id="name" value="?">
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">아이디</th>
+                                        <td>?</td>
+                                        <input type="hidden" name="id" id="id" value="?">
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">비밀번호</th>
+                                        <td><a style="cursor: pointer;" class="btn_n btn_l btn_dark" onclick="pwd_pop()">비밀번호 변경</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">주민등록번호</th>
+                                        <td>?</td>
+                                        <input type="hidden" name="resident_id" id="resident_id" value="?">
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">최종학력</th>
+                                        <td>?</td>
+                                        <input type="hidden" name="education" id="education" value="?">
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">경력</th>
+                                        <td>?</td>
+                                        <input type="hidden" name="career" id="career" value="?">
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">현재 연봉</th>
+                                        <td>?</td>
+                                        <input type="hidden" name="salary" id="salary" value="?">
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- 하단 버튼 -->
+                <div class="cont_btm">
+                    <div class="btns">
+                        <a href="/mypage/my_m3.html" class="btn_n btn_l btn_line_light">회원 탈퇴</a>
+                        <a style="cursor: pointer;" onclick="validationData();" class="btn_n btn_l btn_primary">수정 완료</a>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</body>
+</html>
