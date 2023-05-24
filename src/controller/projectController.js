@@ -1,6 +1,60 @@
 const { Request, Response, NextFunction } = require("express");
 const { projectService } = require("../service");
 
+const getEvaluationById = async (req, res) => {
+  const { e_id, p_id } = req.params;
+
+  const result = await projectService.getEvaluationById(e_id, p_id);
+
+  if (!result) {
+    return res
+      .status(404)
+      .json({ status: 404, message: "해당 사원이 존재하지 않습니다." });
+  }
+
+  return res
+    .status(200)
+    .json({ status: 200, message: "평가 조회 성공", result });
+};
+
+const searchScore = async (req, res) => {
+  const result = await projectService.searchScore();
+
+  if (!result) {
+    return res.status(404).json({ status: 404, message: "평점순 조회 실패" });
+  }
+
+  return res
+    .status(200)
+    .json({ status: 200, message: "평점순 조회 성공", result });
+};
+
+const searchCareer = async (req, res) => {
+  const result = await projectService.searchCareer();
+
+  if (!result) {
+    return res.status(404).json({ status: 404, message: "경력자순 조회 실패" });
+  }
+
+  return res
+    .status(200)
+    .json({ status: 200, message: "경력자순 조회 성공", result });
+};
+
+const searchDeadline = async (req, res) => {
+  const result = await projectService.searchDeadline();
+
+  if (!result) {
+    return res
+      .status(404)
+      .json({ status: 404, message: "마감일 최신순 조회 실패" });
+  }
+
+  return res
+    .status(200)
+    .json({ status: 200, message: "마감일 최신순 조회 성공", result });
+};
+
 const putEmployees = async (req, res) => {
   const { p_id, employees } = req.body;
 
@@ -77,6 +131,10 @@ const createProject = async (req, res) => {
 };
 
 module.exports = {
+  getEvaluationById,
+  searchScore,
+  searchCareer,
+  searchDeadline,
   putEmployees,
   searchProjects,
   getProjectById,

@@ -1,6 +1,181 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// 평가 점수 평균 계산 함수
+function calculateAverage(evaluations) {
+  let total_work_score = 0;
+  let total_communication_score = 0;
+
+  for (let evaluation of evaluations) {
+    total_work_score += evaluation.working_score;
+    total_communication_score += evaluation.communication_score;
+  }
+
+  const work_avg = total_work_score / evaluations.length;
+  const com_avg = total_communication_score / evaluations.length;
+
+  return {
+    work_avg,
+    com_avg,
+  };
+}
+
+// 평가 조회
+const getEvaluationById = async (e_id, p_id) => {
+  const pm_customer_evaluations = await prisma.evaluate_pm_customer.findMany({
+    where: {
+      e_id: e_id,
+      p_id: p_id,
+    },
+  });
+
+  const colleague_evaluations = await prisma.evaluate_colleague.findMany({
+    where: {
+      e_id: e_id,
+      p_id: p_id,
+    },
+  });
+
+  const pm =
+    pm_customer_evaluations.find(
+      (evaluation) => evaluation.estimator_type === "PM"
+    ) || {};
+  const customer =
+    pm_customer_evaluations.find(
+      (evaluation) => evaluation.estimator_type === "CUSTOMER"
+    ) || {};
+
+  const pm_avg_scores = calculateAverage([pm]);
+  const customer_avg_scores = calculateAverage([customer]);
+  const colleague_avg_scores = calculateAverage(colleague_evaluations);
+
+  if (!pm.working_comment) pm.working_comment = "미기입";
+  if (!pm.communication_comment) pm.communication_comment = "미기입";
+  if (!customer.working_comment) customer.working_comment = "미기입";
+  if (!customer.communication_comment)
+    customer.communication_comment = "미기입";
+
+  for (let i = 0; i < colleague_evaluations.length; i++) {
+    if (!colleague_evaluations[i].working_comment)
+      colleague_evaluations[i].working_comment = "미기입";
+    if (!colleague_evaluations[i].communication_comment)
+      colleague_evaluations[i].communication_comment = "미기입";
+  }
+
+  ["p_id", "e_id", "estimator_type"].forEach((field) => {
+    delete pm[field];
+    delete customer[field];
+    colleague_evaluations.forEach((evaluation) => delete evaluation[field]);
+  });
+
+  const response = {
+    pm: {
+      ...pm,
+    },
+    customer: {
+      ...customer,
+    },
+    peer: {
+      evaluation: colleague_evaluations,
+      avg_score: {
+        work_avg: colleague_avg_scores.work_avg,
+        com_avg: colleague_avg_scores.com_avg,
+      },
+    },
+  };
+
+  return response;
+};
+
+// 직원 평가순 조회
+const searchScore = async () => {
+  const rawResults = await prisma.$queryRaw`
+  select e.e_id, e.e_name, round(s.avg_work, 2) as avg_work, round(s.avg_com, 2) as avg_com
+from employee e
+left join (
+select e_id, avg(avg_work) as avg_work, avg(avg_com) as avg_com
+from(
+    (select e_id, avg(working_score) as avg_work, avg(communication_score) as avg_com
+    from evaluate_colleague
+    group by e_id)
+    union all
+    (select e_id, avg(working_score) as avg_work, avg(communication_score) as avg_com
+    from evaluate_pm_customer
+    group by e_id)) as score
+group by e_id) as s on s.e_id = e.e_id
+order by avg_work desc, avg_com desc`;
+
+  if (rawResults.length === 0) {
+    return null;
+  }
+
+  const checkNull = (value) => (value ? value : "기록 없음");
+
+  const employees = rawResults.map((curr) => ({
+    e_id: curr.e_id,
+    e_name: curr.e_name,
+    avg_work: checkNull(curr.avg_work),
+    avg_com: checkNull(curr.avg_com),
+  }));
+
+  return employees;
+};
+
+// 직원 경력순 조회
+const searchCareer = async () => {
+  const rawResults = await prisma.$queryRaw`
+  select e.e_id, e.e_name, e.career, es.skills from employee e
+  left join (select e_id, GROUP_CONCAT(skill separator ',') as skills
+            from employee_skill
+            group by e_id) as es on e.e_id = es.e_id
+  order by e.career desc;`;
+
+  if (rawResults.length === 0) {
+    return null;
+  }
+
+  const checkNull = (value) => (value ? value : "해당 없음");
+
+  const employees = rawResults.map((curr) => ({
+    e_id: curr.e_id,
+    e_name: curr.e_name,
+    career: curr.career,
+    skills: checkNull(curr.skills),
+  }));
+
+  return employees;
+};
+
+// 직원 별 프로젝트 마감일 조회
+const searchDeadline = async () => {
+  const rawResults = await prisma.$queryRaw`
+    select e.e_id, e.e_name, p.p_name, p.start_date, p.dead_line
+    from employee e
+    left join (select p.p_id, p.p_name, pe.e_id, p.start_date, p.dead_line
+    from project_employee pe
+    join project p on p.p_id = pe.p_id
+    where put_out_date is null) as p on e.e_id = p.e_id
+    order by dead_line`;
+
+  if (rawResults.length === 0) {
+    return null;
+  }
+
+  const formatDate = (date) =>
+    date ? date.toISOString().slice(0, 10) : "미참여";
+  const checkNull = (value) => (value ? value : "미참여");
+
+  const employees = rawResults.map((curr) => ({
+    e_id: curr.e_id,
+    e_name: curr.e_name,
+    p_name: checkNull(curr.p_name),
+    start_date: formatDate(curr.start_date),
+    dead_line: formatDate(curr.dead_line),
+  }));
+
+  return employees;
+};
+
 // 프로젝트 직원 투입
 const putEmployees = async (p_id, employees) => {
   const currentDate = new Date().toISOString();
@@ -192,6 +367,10 @@ const createProject = async (
 };
 
 module.exports = {
+  getEvaluationById,
+  searchScore,
+  searchCareer,
+  searchDeadline,
   putEmployees,
   searchProjects,
   getProjectById,
