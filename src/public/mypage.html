@@ -1,48 +1,14 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이페이지</title>
+    <link rel="stylesheet" href="public/css/style.css" />
+    <script src="https://kit.fontawesome.com/cf416b0d1e.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
-        .navbar_menu{
-    display: flex;
-    list-style: none;
-    padding-left: 0;
-
-}
-
-.navbar_menu li {
-    padding: 8px 12px;
-    color: white;
-}
-
-.navbar_menu li a:hover {
-    color: red;
-}
-.navbar_icons{
-    list-style: none;
-    color: white;
-    display: flex;
-    
-}
-
-.navbar_icons li {
-    padding: 8px 12px;
-    size: 50px;
-}
-        .navbar{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: black;
-            padding: 10px 20px;
-}
-
-        .wrap-content{
-
-        }
         .content{
             padding-bottom: 20px;
         }
@@ -70,7 +36,6 @@
             font-size: 27px;
             text-align: center;
             line-height: 1;
-
         }
 
         .th{
@@ -87,13 +52,13 @@
     </style>
 </head>
 <body>
-    <header id="header">
+    <header id="header_pj">
         <script>
-
+    
         </script>
         <nav class="navbar">
             <div class="navbar_logo">
-                <img src="images/prompt_logo.png" width="120px">
+                <img src="public/images/prompt.png" width="150px">
             </div>
             <ul class="navbar_menu">
                 <li><a href="">Project</a></li>
@@ -160,9 +125,9 @@
                             </form>
                         </div>
                     </div>
-                </div>
-                <!-- 하단 버튼 -->
-                <div class="cont_btm">
+                </div> -->
+                <!-- 하단버튼 -->
+                <!-- <div class="cont_btm">
                     <div class="btns">
                         <a href="/mypage/my_m3.html" class="btn_n btn_l btn_line_light">회원 탈퇴</a>
                         <a style="cursor: pointer;" onclick="validationData();" class="btn_n btn_l btn_primary">수정 완료</a>
@@ -172,4 +137,158 @@
         </div>
     </div>
 </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en" id="pj_html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Solution</title>
+    <link rel="stylesheet" href="public/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f6319e9033.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body id="pj_body">
+    <header id="header_pj">
+        <script>
+
+        </script>
+        <nav class="navbar">
+            <div class="navbar_logo">
+                <img src="public/images/prompt.png" width="150px">
+            </div>
+            <ul class="navbar_menu">
+                <li><a href="/main">Project</a></li>
+                <li><a href="">Employee</a></li>
+            </ul>
+            <ul class="navbar_icons">
+                <li><i class="fa-solid fa-right-from-bracket" id="logout" style="font-size: 25px;"></i></li>
+                <li><i class="fa-solid fa-user" id="mypage" style="font-size: 25px;"></i></li>
+                <script>
+                    const logoutIcon = document.getElementById('logout');
+                    const mypageIcon = document.getElementById('mypage');
+                    //로그아웃 (로그인 페이지로 이동)
+                    logoutIcon.addEventListener('click',function(){
+                        window.location.href='/'
+                    })
+
+                    //마이페이지 이동
+                    mypageIcon.addEventListener('click',function(){
+                        window.location.href='/mypage'
+                    })
+                </script>
+            </ul>
+        </nav>
+    </header>
+    <section class="contents-wrap">
+        <div class="con_title-group" style="margin: 30px;">
+            <div class="con-title">
+                마이 페이지
+            </div>
+        </div>
+        <div class="basic-group">
+            <form id="command" name="form1" action="#" method="post" autocomplete="off">
+                <input type="hidden" name="page" value>
+                <div class="card-item basic">
+                    <div>
+                        <div class="flex-table">
+                            <div class="flex-cell grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-10">
+                                        <div class="flex-align-self-center">이름</div>
+                                    </div>
+                                    <div class="item-title width-per-90">
+                                        <div class="flex-align-self-center">
+                                            <p id="p_name" name="p_name" size="4" style="text-align:center;" > 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-1 ">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-10">
+                                        <div class="flex-align-self-center">아이디</div>
+                                    </div>
+                                    <div class="item-title width-per-90">
+                                        <div class="flex-align-self-center">
+                                            <p id="p_id" name="p_id" size="4" style="text-align:center;"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-1 ">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-10">
+                                        <div class="flex-align-self-center">비밀번호</div>
+                                    </div>
+                                    <div class="item-title width-per-90">
+                                        <div class="flex-align-self-center">
+                                            <input type="text" id="p_password" name="p_password" size="15" style="text-align:center;">
+                                            <button id="password_reset" style="border:solid black 2px; border-radius: 10px;">수정</button> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-1 ">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-10">
+                                        <div class="flex-align-self-center">주민등록번호</div>
+                                    </div>
+                                    <div class="item-title width-per-90">
+                                        <div class="flex-align-self-center">
+                                            <p id="p_resident" name="p_resident" size="4" style="text-align:left;"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-1 ">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-10">
+                                        <div class="flex-align-self-center">최종학력</div>
+                                    </div>
+                                    <div class="item-title width-per-90">
+                                        <div class="flex-align-self-center">
+                                            <p id="p_education" name="p_education" size="4" style="text-align:center;"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-1 ">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-10">
+                                        <div class="flex-align-self-center">경력</div>
+                                    </div>
+                                    <div class="item-title width-per-90">
+                                        <div class="flex-align-self-center">
+                                            <p id="p_career" name="p_career" size="4" style="text-align:center;"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-1 ">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-10">
+                                        <div class="flex-align-self-center">현재연봉</div>
+                                    </div>
+                                    <div class="item-title width-per-90">
+                                        <div class="flex-align-self-center">
+                                            <p id="p_salary" name="p_salary" size="4" style="text-align:center;"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    </section>
+</body>
 </html>
+
