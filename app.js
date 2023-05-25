@@ -22,6 +22,9 @@ app.get("/main", (req, res) => {
 app.get("/mypage", (req,res) => {
   res.sendFile(__dirname+"/src/public/mypage.html")
 })
+app.get("/employee", (req,res) => {
+  res.sendFile(__dirname+"/src/public/employee.html")
+})
 
 //서버 시작
 app.listen(PORT, () => {

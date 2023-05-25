@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" id="pj_html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Solution</title>
+    <link rel="stylesheet" href="public/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f6319e9033.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body id="pj_body">
+    <header id="header_pj">
+        <script>
+
+        </script>
+        <nav class="navbar">
+            <div class="navbar_logo">
+                <img src="public/images/prompt.png" width="150px">
+            </div>
+            <ul class="navbar_menu">
+                <li><a href="/main">Project</a></li>
+                <li><a href="/employee">Employee</a></li>
+            </ul>
+            <ul class="navbar_icons">
+                <li><i class="fa-solid fa-right-from-bracket" id="logout" style="font-size: 25px;"></i></li>
+                <li><i class="fa-solid fa-user" id="mypage" style="font-size: 25px;"></i></li>
+                <script>
+                    const logoutIcon = document.getElementById('logout');
+                    const mypageIcon = document.getElementById('mypage');
+                    //로그아웃 (로그인 페이지로 이동)
+                    logoutIcon.addEventListener('click',function(){
+                        window.location.href='/'
+                        // 로그아웃 메세지 전송
+                        alert('로그아웃 되었습니다.');
+                    })
+
+                    //마이페이지 이동
+                    mypageIcon.addEventListener('click',function(){
+                        window.location.href='/mypage'
+                    })
+                </script>
+            </ul>
+        </nav>
+    </header>
+    <section class="contents-wrap">
+        <div class="con_title-group">
+            <div class="con-title">
+                직원 조회
+            </div>
+        </div>
+        <div class="basic-group">
+            <div class="btn-group">
+                <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
+                    <!-- 초기화 할줄 몰라서 main으로 redirect 했음 -->
+                    <a href="/main" class="btn-basic btn-gray" >초기화</a>
+                    <a href="#" class="btn-basic btn-gray" id="search_button" onclick="searchProjects()">조회</a>
+                    <script>
+                    //검색하면 기존 값 초기화 되도록 
+                    //function searchProjects() {
+                    //    document.getElementById('p_info').value = '';
+                    //    document.getElementById('start_date').value = '';
+                    //    document.getElementById('end_date').value = '';
+                    //    document.getElementById('client').value = '';
+                    //    updateSearchCase();
+                    //  }
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="basic-group">
+            <form id="command" name="form1" action="#" method="post" autocomplete="off">
+                <input type="hidden" name="page" value>
+                <div class="card-item basic">
+                    <div>
+                        <div class="flex-table">
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">사번</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <input type="text" id="client" name="orderFrom" maxlength="10" size="6" style="text-align:center;" title="orderFrom" placeholder="ex)E0001"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">사용 기술</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <input type="text" id="client" name="orderFrom" maxlength="10" size="4" style="text-align:center;" title="orderFrom"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">사원명</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <input type="text" id="client" name="orderFrom" maxlength="10" size="4" style="text-align:center;" title="orderFrom"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2 m-grid-1">
+                                <div class="flex-table-item">
+                                    <div class="item-title width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">경력</div>
+                                    </div>
+                                    <div class="item-title width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            <input type="text" id="client" name="orderFrom" maxlength="10" size="4" style="text-align:center;" title="orderFrom"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="basic-group">
+            <div class="card-item basic">
+                <div id="result">
+                    <div class="read-table">
+                        <div class="horizontal-scroller">
+                            <table class="index_table" id = "projectTable">
+                                <colgroup>
+                                <!-- 이후에 지정 -->
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>사번</th>
+                                        <th>사원명</th>
+                                        <th>주민등록번호</th>
+                                        <th>경력</th>
+                                        <th>사용기술</th>
+                                        <th>연봉</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 내용 -->
+                                </tbody>
+                                
+                            </table>
+                            <script>
+                                // 버튼 클릭 이벤트 핸들러
+                                document.getElementById('search_button').addEventListener('click', function() {
+                
+                                var p_info = document.getElementById('p_info').value;
+                                var start_date = document.getElementById('start_date').value;
+                                var end_date = document.getElementById('end_date').value;
+                                var client = document.getElementById('client').value;
+                                
+                                console.log("=====================")
+                                console.log(start_date,end_date)
+                                
+                                
+                                // 프로젝트 검색구분에 따라 parameter 조정
+                                var selectElement = document.getElementById("typeselect");
+                                var selectedValue = selectElement.value;
+                                if (selectedValue === "1") {
+                                    p_id = p_info;
+                                    p_name = null;
+                                    
+                                } else if (selectedValue === "2") {
+                                    p_id = null;
+                                    p_name = p_info;
+                                }
+                                    
+                                axios
+                                  .get('/project', {
+                                    params: {
+                                        ...(p_id && { p_id: p_id }),
+                                        ...(p_name && { p_name: p_name }),
+                                        ...(start_date && { start_date: start_date }),
+                                        ...(end_date && { end_date: end_date }),
+                                        ...(client && { client: client })
+                                      }
+                                  })
+                                  .then(function(response) {
+                                    var project = response.data.result.projects;
+                                    //console.log(project)
+                                    var tableBody = document.querySelector('#projectTable tbody');
+                                
+                                    // 기존 내용 초기화
+                                    tableBody.innerHTML = '';
+                                
+                                    // 데이터를 반복하여 테이블에 추가
+                                    project.forEach(function(project) {
+                                        
+                                      var row = document.createElement('tr');
+                                      
+                                      var projectNumberCell = document.createElement('td');
+                                      projectNumberCell.textContent = project.p_id;
+                                      row.appendChild(projectNumberCell);
+                                
+                                      var projectNameCell = document.createElement('td');
+                                      projectNameCell.textContent = project.p_name;
+                                      row.appendChild(projectNameCell);
+
+                                      var projectNameCell = document.createElement('td');
+                                      projectNameCell.textContent = project.start_date;
+                                      row.appendChild(projectNameCell);
+
+                                      var projectNameCell = document.createElement('td');
+                                      projectNameCell.textContent = project.end_date;
+                                      row.appendChild(projectNameCell);
+                                      
+                                      
+                                      var projectNameCell = document.createElement('td');
+                                      projectNameCell.textContent = project.client;
+                                      row.appendChild(projectNameCell);
+                                
+                                      tableBody.appendChild(row);
+                                    })
+                                    
+                                  })
+                                  .catch(function(error) {
+                                    console.error(error);
+                                  })
+                                })
+                              </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>
