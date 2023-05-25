@@ -20,7 +20,7 @@ app.get("/main", (req, res) => {
   res.sendFile(__dirname+"/src/public/main.html");
 });
 app.get("/mypage", (req,res) => {
-  res.sendFile(__dirname+"src/public/mypage.html")
+  res.sendFile(__dirname+"/src/public/mypage.html")
 })
 
 //서버 시작
