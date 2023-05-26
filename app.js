@@ -25,6 +25,9 @@ app.get("/mypage", (req,res) => {
 app.get("/employee", (req,res) => {
   res.sendFile(__dirname+"/src/public/employee.html")
 })
+app.get("/pr", (req, res) => {
+  res.sendFile(__dirname+"/src/public/projectinquiry.html");
+});
 
 //서버 시작
 app.listen(PORT, () => {

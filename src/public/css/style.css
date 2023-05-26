@@ -482,6 +482,27 @@ a:link{
     word-break: keep-all;
 }
 
+.item-text {
+  display:flex; 
+  padding:10px 20px; 
+  font-size:14px; 
+  line-height:20px; 
+  color:#333; 
+  box-sizing:border-box; 
+  word-break: keep-all;
+}
+
+.item-text-bold {
+  display:flex; 
+  padding:10px 20px; 
+  font-size:14px; 
+  font-weight: 700;
+  line-height:20px; 
+  color:#333; 
+  box-sizing:border-box; 
+  word-break: keep-all;
+}
+
 .flex-table-item .item-data {
     display:flex; 
     padding:10px 20px; 
@@ -525,6 +546,7 @@ a:link{
 
 
 .basic-group + .basic-group {margin-top:20px;}
+.soft-group {margin-top: 20px; margin-bottom: 0px;}
 
 
 
