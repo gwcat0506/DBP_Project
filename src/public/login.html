@@ -46,8 +46,19 @@
                 <span> </span>
                 <label for="Password">Password</label>
                 <div class="eyes">
-                    <i class="fa fa-eye fa-lg"></i>
+                    <i class="fa fa-eye fa-lg" id="togglePassword"></i>
                 </div>
+                <script>
+                    // 눈 아이콘 누르면 비밀번호 보이기 기능
+                        const passwordInput = document.getElementById('passwordInput');
+                        const togglePassword = document.getElementById('togglePassword');
+                    
+                        togglePassword.addEventListener('click', function () {
+                            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                            passwordInput.setAttribute('type', type);
+                            togglePassword.classList.toggle('fa-eye-slash');
+                        });
+                    </script>
                 
             </div>
             <div class="pass">
