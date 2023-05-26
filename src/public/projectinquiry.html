@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" id="pj_html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Solution</title>
+    <link rel="stylesheet" href="public/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f6319e9033.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body id="pj_body">
+    <header id="header_pj">
+        <nav class="navbar">
+            <div class="navbar_logo">
+                <img src="public/images/prompt.png" width="150px">
+            </div>
+            <ul class="navbar_menu">
+                <li><a href="">Project</a></li>
+                <li><a href="">Employee</a></li>
+            </ul>
+            <ul class="navbar_icons">
+                <li><i class="fa-solid fa-right-from-bracket"></i></li>
+                <li><i class="fa-solid fa-user"></i></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="contents-wrap">
+        <div class="con_title-group">
+            <div class="con-title">
+                프로젝트 상세 조회
+            </div>
+        </div>
+        <div class="basic-group">
+          <div class="btn-group">
+              <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
+                  <a href="/main" class="btn-basic btn-gray" >뒤로</a>
+              </div>
+          </div>
+        </div>
+        <div class="basic-group">
+            <form id="command" name="form1" action="#" method="post" autocomplete="off">
+                <input type="hidden" name="page" value>
+                <div class="card-item basic">
+                    <div>
+                        <div class="flex-table">
+                          <div class="flex-cell grid-2">
+                            <div class="flex-table-item">
+                                <div class="item-text-bold width-per-40 m-width-per-30">
+                                    <div class="flex-align-self-center">프로젝트 번호</div>
+                                </div>
+                                <div class="item-text width-per-60 m-width-per-70">
+                                    <div class="flex-align-self-center">
+                                        P0001
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                            <div class="flex-cell grid-2">
+                                <div class="flex-table-item">
+                                    <div class="item-text-bold width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">프로젝트명</div>
+                                    </div>
+                                    <div class="item-text width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            공공데이터포털 시스템 개발
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2">
+                                <div class="flex-table-item">
+                                    <div class="item-text-bold width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">시작일</div>
+                                    </div>
+                                    <div class="item-text width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            2023-01-01
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2">
+                                <div class="flex-table-item">
+                                    <div class="item-text-bold width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">마감일</div>
+                                    </div>
+                                    <div class="item-text width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            2023-07-31
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2">
+                                <div class="flex-table-item">
+                                    <div class="item-text-bold width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">발주처</div>
+                                    </div>
+                                    <div class="item-text width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                            공공데이터포털
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-2">
+                                <div class="flex-table-item">
+                                    <div class="item-text-bold width-per-40 m-width-per-30">
+                                        <div class="flex-align-self-center">예산</div>
+                                    </div>
+                                    <div class="item-text width-per-60 m-width-per-70">
+                                        <div class="flex-align-self-center">
+                                          200000000
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-cell grid-1">
+                              <div class="flex-table-item">
+                                  <div class="item-text-bold width-per-40 m-width-per-30">
+                                      <div class="flex-align-self-center">설명</div>
+                                  </div>
+                                  <div class="item-text width-per-60 m-width-per-70">
+                                      <div class="flex-align-self-center">
+                                          공공데이터포털 시스템 개발 프로젝트 입니다.
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+      
+        <div class="soft-group">
+          <div class="con_title-group">
+            <div class="con-title">
+                투입 직원
+            </div>
+          </div>
+        </div>
+        <div class="basic-group">
+          <div class="btn-group">
+              <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
+                  <a href="/main" class="btn-basic btn-gray" >추가</a>
+              </div>
+          </div>
+        </div>
+        <div class="basic-group">
+            <div class="card-item basic">
+                <div id="result">
+                    <div class="read-table">
+                        <div class="horizontal-scroller">
+                            <table class="index_table" id = "projectTable">
+                                <colgroup>
+                                <!-- 이후에 지정 -->
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>직원 번호</th>
+                                        <th>직원 이름</th>
+                                        <th>직무</th>
+                                        <th>투입일자</th>
+                                        <th>평가</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 내용 -->
+                                    <tr>
+                                      <td>E0001</td>
+                                      <td>최고운</td>
+                                      <td>PM</td>
+                                      <td>2023-01-01</td>
+                                      <td><a href="/main" class="btn-basic btn-gray" >더보기</a></td>
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>
