@@ -66,6 +66,17 @@ const searchEmployee = async (e_id, e_name, skills, career) => {
   return { employees };
 };
 
+const updateEmployee = async (e_id, salary, status) => {
+  const data = await prisma.employee.update({
+    where: {
+      e_id: e_id,
+    },
+    data: { salary: salary, status: status },
+  });
+  return data;
+};
+
 module.exports = {
   searchEmployee,
+  updateEmployee,
 };
