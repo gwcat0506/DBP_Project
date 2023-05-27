@@ -76,6 +76,7 @@ a:link{
     box-sizing: border-box; 
     border-radius: 20px; 
     background-color: #fff;
+    overflow: scroll;
 }
 
 .card-item.basic {
@@ -83,6 +84,7 @@ a:link{
     background:#fff; 
     border-radius:20px;
     height: 300px;
+    overflow: scroll;
 }
 
 .contents-wrap{
