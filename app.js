@@ -38,6 +38,11 @@ app.get("/add", (req, res) => {
   res.sendFile(__dirname+"/src/public/pj_push.html");
 });
 
+// 프로젝트 평가 페이지
+app.get("/add", (req, res) => {
+  res.sendFile(__dirname+"/src/public/project_eval.html");
+});
+
 //서버 시작
 app.listen(PORT, () => {
   console.log(`

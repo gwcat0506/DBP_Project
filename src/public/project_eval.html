@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" id="pj_html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Solution</title>
+    <link rel="stylesheet" href="project_eval.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f6319e9033.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body id="pj_body">
+    <header id="header_pj">
+        <script>
+
+        </script>
+        <nav class="navbar">
+            <div class="navbar_logo">
+                <img src="public/images/prompt.png" width="150px">
+            </div>
+            <ul class="navbar_menu">
+                <li><a href="/main">Project</a></li>
+                <li><a href="/employee">Employee</a></li>
+
+
+            </ul>
+            <ul class="navbar_icons">
+                <li><i class="fa-solid fa-right-from-bracket" id="logout" style="font-size: 25px;"></i></li>
+                <li><i class="fa-solid fa-user" id="mypage" style="font-size: 25px;"></i></li>
+                <script>
+                    const logoutIcon = document.getElementById('logout');
+                    const mypageIcon = document.getElementById('mypage');
+                    //로그아웃 (로그인 페이지로 이동)
+                    logoutIcon.addEventListener('click',function(){
+                        window.location.href='/'
+                        // 로그아웃 메세지 전송
+                        alert('로그아웃 되었습니다.');
+                    })
+
+                    //마이페이지 이동
+                    mypageIcon.addEventListener('click',function(){
+                        window.location.href='/mypage'
+                    })
+                </script>
+            </ul>
+        </nav>
+    </header>
+    <section class="contents-wrap">
+        <div class="con_title-group" style="margin: 20px;">
+            <div class="con-title">
+                ㅇㅇㅇ프로젝트 ㅇㅇㅇ사원 평가 조회
+            </div>
+        </div>
+        <div class="eval_table">
+            <div style="margin: 20px; font-size: 15px;">
+                pm평가
+            </div>
+            
+            <div class="basic-group">
+                <div class="card-item basic">
+                    <div id="result">
+                        <div class="read-table">
+                            <div class="horizontal-scroller">
+                                <table class="index_table" id = "projectTable" border="1" style="background-color: #EAECF2;">
+                                    <colgroup>
+                                    <!-- 이후에 지정 -->
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <td colspan="2">업무 수행 능력</td>
+                                            <td colspan="2">커뮤니케이션 능력</td>
+                                        </tr>
+                                        <tr>
+                                            <td >점수</td>
+                                            <td>내용</td>
+                                            <td >점수</td>
+                                            <td>내용</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 내용 -->
+                                    </tbody>
+                                </table>
+                                <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
+                                    <p style="text-align: center;" >
+                                        평균점수 :
+                                    </p>
+                                </div>
+                                <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
+                                    <p style="text-align: center;">
+                                        평균점수 :
+                                    </p>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="eval_table">
+            <div style="margin: 20px; font-size: 15px;">
+                고객 평가
+            </div>
+            
+            <div class="basic-group">
+                <div class="card-item basic">
+                    <div id="result">
+                        <div class="read-table">
+                            <div class="horizontal-scroller">
+                                <table class="index_table" id = "projectTable" border="1" style="background-color: #EAECF2;">
+                                    <colgroup>
+                                    <!-- 이후에 지정 -->
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <td colspan="2">업무 수행 능력</td>
+                                            <td colspan="2">커뮤니케이션 능력</td>
+                                        </tr>
+                                        <tr>
+                                            <td >점수</td>
+                                            <td>내용</td>
+                                            <td >점수</td>
+                                            <td>내용</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 내용 -->
+                                    </tbody>
+                                </table>
+                                <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
+                                    <p style="text-align: center;" >
+                                        평균점수 :
+                                    </p>
+                                </div>
+                                <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
+                                    <p style="text-align: center;">
+                                        평균점수 :
+                                    </p>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="eval_table">
+            <div style="margin: 20px; font-size: 15px;">
+                동료 평가
+            </div>
+            
+            <div class="basic-group">
+                <div class="card-item basic">
+                    <div id="result">
+                        <div class="read-table">
+                            <div class="horizontal-scroller">
+                                <table class="index_table" id = "projectTable" border="1" style="background-color: #EAECF2;">
+                                    <colgroup>
+                                    <!-- 이후에 지정 -->
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <td colspan="2">업무 수행 능력</td>
+                                            <td colspan="2">커뮤니케이션 능력</td>
+                                        </tr>
+                                        <tr>
+                                            <td >점수</td>
+                                            <td>내용</td>
+                                            <td >점수</td>
+                                            <td>내용</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 내용 -->
+                                    </tbody>
+                                </table>
+                                <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
+                                    <p style="text-align: center;" >
+                                        평균점수 :
+                                    </p>
+                                </div>
+                                <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
+                                    <p style="text-align: center;">
+                                        평균점수 :
+                                    </p>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+
+    </section>
+</body>
+</html>
