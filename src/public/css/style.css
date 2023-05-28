@@ -659,3 +659,9 @@ a:hover, a:focus, a:active {text-decoration:none;}
   align-items: center;
   height: 100vh;
 }
+
+textarea {
+  width: 555%;
+  height: 6.25em;
+  resize: none;
+}
