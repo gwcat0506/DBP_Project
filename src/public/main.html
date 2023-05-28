@@ -190,6 +190,15 @@
                                 
                             </table>
                             <script>
+                                // 페이지 띄우자마자 default 값으로 프로젝트 전체조회
+                                window.addEventListener('DOMContentLoaded', function() {
+                                
+                                function autoClickButton() {
+                                    var button = document.getElementById('search_button');
+                                    button.click();
+                                }
+                                autoClickButton();
+                                })
                                 // 버튼 클릭 이벤트 핸들러
                                 document.getElementById('search_button').addEventListener('click', function() {
                 
