@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,7 +33,7 @@
 
 
 <body class="login_body">
-    
+
     <div class="center">
         <h1>Login</h1>
         <form name="loginForm" action="C:\Users\hiyon\dbp\login\index.html" method="get">
@@ -42,7 +43,7 @@
                 <label for="Username">Username</label>
             </div>
             <div class="txt_field">
-                <input type="password"  id="passwordInput" required>
+                <input type="password" id="passwordInput" required>
                 <span> </span>
                 <label for="Password">Password</label>
                 <div class="eyes">
@@ -50,16 +51,16 @@
                 </div>
                 <script>
                     // 눈 아이콘 누르면 비밀번호 보이기 기능
-                        const passwordInput = document.getElementById('passwordInput');
-                        const togglePassword = document.getElementById('togglePassword');
-                    
-                        togglePassword.addEventListener('click', function () {
-                            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                            passwordInput.setAttribute('type', type);
-                            togglePassword.classList.toggle('fa-eye-slash');
-                        });
-                    </script>
-                
+                    const passwordInput = document.getElementById('passwordInput');
+                    const togglePassword = document.getElementById('togglePassword');
+
+                    togglePassword.addEventListener('click', function () {
+                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                        passwordInput.setAttribute('type', type);
+                        togglePassword.classList.toggle('fa-eye-slash');
+                    });
+                </script>
+
             </div>
             <div class="pass">
                 <a>Forgot Password?</a>
@@ -67,28 +68,48 @@
             <input type="button" value="Login" id="sign_button">
             <script>
                 // 버튼 클릭 이벤트 핸들러
-                document.getElementById('sign_button').addEventListener('click', function() {
-                  // 입력된 값을 가져오기
-                  var user_id = document.getElementById('useridInput').value;
-                  var password = document.getElementById('passwordInput').value;
-          
-                  // axios를 사용하여 서버에 POST 요청 보내기
-                  axios
-                    .post('/api/auth/login', {
-                      user_id: user_id,
-                      password: password
-                    })
-                    .then(function(response) {
-                      // 로그인 성공시 main.html로 이동
-                      window.location.href = '/main';
-                    })
-                    .catch(function(error) {
-                      // 로그인 실패
-                      console.log(error)
-                    //   window.location.reload();
-                    });
+                document.getElementById('sign_button').addEventListener('click', function () {
+                    // 입력된 값을 가져오기
+                    var user_id = document.getElementById('useridInput').value;
+                    var password = document.getElementById('passwordInput').value;
+
+                    // axios를 사용하여 서버에 POST 요청 보내기
+                    axios
+                        .post('/api/auth/login', {
+                            user_id: user_id,
+                            password: password
+                        })
+                        .then(function (response) {
+                            // 로그인 성공
+                            if (response.data.success) {
+                                // 액세스 토큰 저장
+                                var access_token = response.data.result;
+                                localStorage.setItem('access_token', access_token);
+
+                                // main.html로 이동
+                                window.location.href = '/main';
+                            } else {
+                                // 서버 응답에 success가 false인 경우
+                                console.log(response.data.message);
+                                // 실패 메시지 표시
+                                alert('아이디와 비밀번호를 확인해주세요');
+                            }
+                        })
+                        .catch(function (error) {
+                            // 서버 요청 실패
+                            if (error.response) {
+                                console.log(error.response.data.message);
+                                // 실패 메시지 표시
+                                alert(error.response.data.message);
+                            } else {
+                                console.log(error);
+                                // 실패 메시지 표시
+                                alert('서버 요청에 실패하였습니다');
+                            }
+                        });
                 });
-              </script>
+            </script>
+
 
             <div class="signup_link">
                 Not a member? <a href="signup">SignUp</a>
@@ -96,6 +117,6 @@
         </form>
     </div>
 
-
 </body>
+
 </html>
