@@ -69,7 +69,7 @@
                                     <div class="flex-align-self-center">프로젝트 번호</div>
                                 </div>
                                 <div class="item-text width-per-60 m-width-per-70">
-                                    <div class="flex-align-self-center">
+                                    <div class="flex-align-self-center" id="p_id">
                                         
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                                         <div class="flex-align-self-center">프로젝트명</div>
                                     </div>
                                     <div class="item-text width-per-60 m-width-per-70">
-                                        <div class="flex-align-self-center">
+                                        <div class="flex-align-self-center" id="p_name">
                                             
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@
                                         <div class="flex-align-self-center">시작일</div>
                                     </div>
                                     <div class="item-text width-per-60 m-width-per-70">
-                                        <div class="flex-align-self-center">
+                                        <div class="flex-align-self-center" id="start_date">
                                             
                                         </div>
                                     </div>
@@ -105,7 +105,7 @@
                                         <div class="flex-align-self-center">마감일</div>
                                     </div>
                                     <div class="item-text width-per-60 m-width-per-70">
-                                        <div class="flex-align-self-center">
+                                        <div class="flex-align-self-center" id="end_date">
                                             
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                                         <div class="flex-align-self-center">발주처</div>
                                     </div>
                                     <div class="item-text width-per-60 m-width-per-70">
-                                        <div class="flex-align-self-center">
+                                        <div class="flex-align-self-center" id="client">
                                             
                                         </div>
                                     </div>
@@ -129,7 +129,7 @@
                                         <div class="flex-align-self-center">예산</div>
                                     </div>
                                     <div class="item-text width-per-60 m-width-per-70">
-                                        <div class="flex-align-self-center">
+                                        <div class="flex-align-self-center" id="budget">
                                           
                                         </div>
                                     </div>
@@ -138,14 +138,49 @@
                             <div class="flex-cell grid-1">
                               <div class="flex-table-item">
                                   <div class="item-text-bold width-per-40 m-width-per-30">
+                                    
                                       <div class="flex-align-self-center">설명</div>
                                   </div>
                                   <div class="item-text width-per-60 m-width-per-70">
-                                      <div class="flex-align-self-center">
+                                      <div class="flex-align-self-center" id="p_description">
                                       </div>
                                   </div>
                               </div>
                             </div>
+                            <script>
+                                // 페이지 로드 시 사용자 정보 조회
+                                window.addEventListener('DOMContentLoaded', function () {
+                                    var access_token = localStorage.getItem('access_token');
+                                    p_id = 'P0012'
+                                    axios
+                                        .get('/api/project/', {
+                                            params: {
+                                                ...(p_id && { p_id: p_id }),
+                                              }
+                                        })
+                                        .then(function (response) {
+                                            var project_info = response.data.result.projects[0];
+
+                                            console.log(project_info)
+                                            document.getElementById('p_id').textContent = project_info.p_id;
+                                            document.getElementById('p_name').textContent = project_info.p_name;
+                                            document.getElementById('start_date').textContent = project_info.start_date;
+                                            document.getElementById('end_date').textContent = project_info.end_date;
+                                            document.getElementById('client').textContent = project_info.client;
+                                            document.getElementById('budget').textContent = project_info.budget;
+                                            document.getElementById('p_description').textContent = project_info.p_description;
+                                        })
+                                        .catch(function (error) {
+                                            if (error.response) {
+                                                console.log(error.response.data.message);
+                                                alert(error.response.data.message);
+                                            } else {
+                                                console.log(error);
+                                                alert('프로젝트 조회에 실패하였습니다');
+                                            }
+                                        });
+                                });
+                            </script>
                             
 
                         </div>
@@ -191,95 +226,7 @@
                                 </tbody>
                                 
                             </table>
-                            <script>
-                                // 버튼 클릭 이벤트 핸들러
-                                document.getElementById('search_button').addEventListener('click', function() {
-                
-                                var p_info = document.getElementById('p_info').value;
-                                var start_date = document.getElementById('start_date').value;
-                                var end_date = document.getElementById('end_date').value;
-                                var client = document.getElementById('client').value;
-                                
-                                console.log("=====================")
-                                console.log(start_date,end_date)
-                                
-                                
-                                // 프로젝트 검색구분에 따라 parameter 조정
-                                var selectElement = document.getElementById("typeselect");
-                                var selectedValue = selectElement.value;
-                                if (selectedValue === "1") {
-                                    p_id = p_info;
-                                    p_name = null;
-                                    
-                                } else if (selectedValue === "2") {
-                                    p_id = null;
-                                    p_name = p_info;
-                                }
-                                    
-                                axios
-                                  .get('/api/project', {
-                                    params: {
-                                        ...(p_id && { p_id: p_id }),
-                                        ...(p_name && { p_name: p_name }),
-                                        ...(start_date && { start_date: start_date }),
-                                        ...(end_date && { end_date: end_date }),
-                                        ...(client && { client: client })
-                                      }
-                                  })
-                                  .then(function(response) {
-                                    var project = response.data.result.projects;
-                                    //console.log(project)
-                                    var tableBody = document.querySelector('#projectTable tbody');
-                                
-                                    // 기존 내용 초기화
-                                    tableBody.innerHTML = '';
-                                
-                                    // 데이터를 반복하여 테이블에 추가
-                                    project.forEach(function(project) {
-                                        
-                                      var row = document.createElement('tr');
-                                      
-                                      var projectNumberCell = document.createElement('td');
-                                      projectNumberCell.textContent = project.p_id;
-                                      row.appendChild(projectNumberCell);
-                                
-                                      var projectNameCell = document.createElement('td');
-                                      projectNameCell.textContent = project.p_name;
-                                      row.appendChild(projectNameCell);
-
-                                      var projectNameCell = document.createElement('td');
-                                      projectNameCell.textContent = project.start_date;
-                                      row.appendChild(projectNameCell);
-
-                                      var projectNameCell = document.createElement('td');
-                                      projectNameCell.textContent = project.end_date;
-                                      row.appendChild(projectNameCell);
-                                      
-                                      
-                                      var projectNameCell = document.createElement('td');
-                                      projectNameCell.textContent = project.client;
-                                      row.appendChild(projectNameCell);
-
-                                      var buttonCell = document.createElement('td');
-                                      var button = document.createElement('button');
-                                      button.textContent = "조회";
-                                      button.addEventListener('click',function(){
-                                        window.location.href='/pr';
-                                      });
-                                      button.style.margin='5px';
-
-                                      buttonCell.appendChild(button);
-                                      row.appendChild(buttonCell);
-                                
-                                      tableBody.appendChild(row);
-                                    })
-                                    
-                                  })
-                                  .catch(function(error) {
-                                    console.error(error);
-                                  })
-                                })
-                              </script>
+                            
                         </div>
                     </div>
                 </div>

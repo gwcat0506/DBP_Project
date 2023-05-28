@@ -58,8 +58,7 @@
                 <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
                     <!-- 초기화 할줄 몰라서 main으로 redirect 했음 -->
                     <a href="/main" class="btn-basic btn-gray" >취소</a>
-                    <!-- <a href="/add" id ="create_btn"class="btn-basic btn-gray">생성</a> -->
-                    /<a id ="create_btn"class="btn-basic btn-gray">생성</a>
+                    <a href="/add" id ="create_btn"class="btn-basic btn-gray">생성</a>
                 </div>
             </div>
         </div>
@@ -156,7 +155,7 @@
                                 
                                 console.log("=====================")
                                 console.log(start_date,end_date)
-                                
+
                                 project_info ={
                                     p_name: p_name,
                                     start_date: start_date,
@@ -169,7 +168,8 @@
                                 axios
                                     .post('/api/project', project_info)
                                     .then(function(response) {
-                                        console.log("프로젝트 추가 성공")
+                                        alert("프로젝트 추가 완료")
+                                        window.location.href='/pr'
                                     })
                                     .catch(function(error) {
                                     console.error(error);
