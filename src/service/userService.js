@@ -4,11 +4,24 @@ const prisma = new PrismaClient();
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+// 비밀번호 변경
+const updatePwd = async (token, login_password) => {
+  const loginId = getUserIdFromToken(token);
+  console.log(loginId, login_password);
+
+  const data = await prisma.login_password.update({
+    where: {
+      login_id: loginId,
+    },
+    data: { login_password: login_password },
+  });
+  return data;
+};
+
 // 유저 조회
 const getUser = async (token) => {
   // 토큰을 이용하여 유저 식별 정보를 가져옴
   const loginId = getUserIdFromToken(token);
-  console.log(loginId);
 
   // 유저 정보 조회
   const user = await prisma.login_password.findUnique({
@@ -53,4 +66,4 @@ function formatResidentID(residentID) {
   return `${prefix}${year}-${month}-${day}`;
 }
 
-module.exports = { getUser };
+module.exports = { getUser, updatePwd };
