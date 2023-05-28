@@ -157,7 +157,7 @@
                                 console.log(e_id,e_name)
                                     
                                 axios
-                                  .get('/employee', {
+                                  .get('/api/employee', {
                                     params: {
                                         ...(e_id && { e_id: e_id }),
                                         ...(e_name && { e_name: e_name }),
@@ -166,10 +166,7 @@
                                       }
                                   })
                                   .then(function(response) {
-                                    console.log(response)
-                                    // console.log(response.data)
                                     var employee = response.data.result.employees; //여기 모르겠음.
-                                    // console.log(employee)
                                     var tableBody = document.querySelector('#employeeTable tbody');
                                 
                                     // 기존 내용 초기화
@@ -189,7 +186,7 @@
                                       row.appendChild(employeeNameCell);
 
                                       var employeeNameCell = document.createElement('td');
-                                      employeeNameCell.textContent = employee.resident_id;
+                                      employeeNameCell.textContent = employee.birthday;
                                       row.appendChild(employeeNameCell);
 
                                       var employeeNameCell = document.createElement('td');
@@ -198,7 +195,11 @@
                                       
                                       
                                       var employeeNameCell = document.createElement('td');
-                                      employeeNameCell.textContent = employee.skill;
+                                      employeeNameCell.textContent = employee.skills;
+                                      row.appendChild(employeeNameCell);
+
+                                      var employeeNameCell = document.createElement('td');
+                                      employeeNameCell.textContent = employee.salary;
                                       row.appendChild(employeeNameCell);
                                 
                                       tableBody.appendChild(row);

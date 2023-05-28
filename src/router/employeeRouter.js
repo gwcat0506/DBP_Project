@@ -3,7 +3,8 @@ const { employeeController } = require("../controller/");
 
 const router = Router();
 
-router.post("/:e_id", employeeController.updateEmployee);
-router.get("/employee", employeeController.searchEmployee);
+
+router.patch("/:e_id", employeeController.updateEmployee);
+router.get("/", employeeController.searchEmployee);
 
 module.exports = router;

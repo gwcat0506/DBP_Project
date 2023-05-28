@@ -74,7 +74,7 @@
                                             <th>사용 가능 기술</th>
                                         </tr>
                                     `;
-                                    axios.get('/project/putEmployee/career')
+                                    axios.get('/api/project/putEmployee/career')
                                         .then(function (response) {
                                             
                                             var table = document.getElementById("projectTable");
@@ -125,7 +125,7 @@
                                             <th>프로젝트 마감일</th>
                                         </tr>
                                     `;
-                                    axios.get('/project/putEmployee/deadline')
+                                    axios.get('/api/project/putEmployee/deadline')
                                         .then(function (response) {
                                             
                                             var table = document.getElementById("projectTable");
@@ -179,7 +179,7 @@
                                             <th>커뮤니케이션 능력 평점</th>
                                         </tr>
                                     `;
-                                    axios.get('/project/putEmployee/career')
+                                    axios.get('/api/project/putEmployee/career')
                                         .then(function (response) {
                                             
                                             var table = document.getElementById("projectTable");

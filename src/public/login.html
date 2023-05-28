@@ -74,7 +74,7 @@
           
                   // axios를 사용하여 서버에 POST 요청 보내기
                   axios
-                    .post('/auth/login', {
+                    .post('/api/auth/login', {
                       user_id: user_id,
                       password: password
                     })
@@ -84,7 +84,8 @@
                     })
                     .catch(function(error) {
                       // 로그인 실패
-                      window.location.reload();
+                      console.log(error)
+                    //   window.location.reload();
                     });
                 });
               </script>
