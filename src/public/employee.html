@@ -147,7 +147,16 @@
                                 
                             </table>
                             <script>
-                                // 버튼 클릭 이벤트 핸들러
+                                // 페이지 띄우자마자 default 값으로 프로젝트 전체조회
+                                window.addEventListener('DOMContentLoaded', function() {
+                                
+                                    function autoClickButton() {
+                                        var button = document.getElementById('search_button');
+                                        button.click();
+                                    }
+                                    autoClickButton();
+                                });
+                                
                                 document.getElementById('search_button').addEventListener('click', function() {
                 
                                 var e_id = document.getElementById('e_id').value;
@@ -168,9 +177,9 @@
                                       }
                                   })
                                   .then(function(response) {
-                                    var employee = response.data.result.employees; //여기 모르겠음.
+                                    var employee = response.data.result.employees; 
                                     var tableBody = document.querySelector('#employeeTable tbody');
-                                
+                                    console.log("employeedfsdfas",employee)
                                     // 기존 내용 초기화
                                     tableBody.innerHTML = '';
                                 
@@ -208,7 +217,17 @@
                                       var button = document.createElement('button');
                                       button.textContent = "사원 정보 갱신";
                                       button.addEventListener('click',function(){
-                                        window.location.href='/empinfo'; //아직 직원 상세 조회 페이지 만들어 지지 않았음.
+                                        
+                                        // 직원 정보 값을 로컬 스토리지에 저장
+                                        localStorage.setItem('e_id', employee.e_id);
+                                        localStorage.setItem('e_name', employee.e_name);
+                                        localStorage.setItem('birthday', employee.birthday);
+                                        localStorage.setItem('career', employee.career);
+                                        localStorage.setItem('skills', employee.skills);
+                                        localStorage.setItem('salary', employee.salary);
+                                        localStorage.setItem('status', employee.status);
+
+                                        window.location.href='/empinfo'; 
                                       });
                                       button.style.margin='5px';
 

@@ -166,7 +166,7 @@
                                     .then(function(response) {
                                         alert("프로젝트 추가 완료")
                                         //console.log("res",response.data.result)
-                                        // 변수 값을 로컬 스토리지에 저장
+                                        // 프로젝트 id 값을 로컬 스토리지에 저장
                                         localStorage.setItem('p_id', response.data.result);
 
                                         window.location.href='/pr'
