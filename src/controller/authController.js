@@ -74,6 +74,7 @@ const loginUser = async (req, res) => {
       (err, token) => {
         if (err) throw err;
         else {
+          res.cookie("user", token, { maxAge: 30 * 60 * 1000 }); // 1000 is a sec
           return res
             .status(200)
             .json({
@@ -82,19 +83,16 @@ const loginUser = async (req, res) => {
               message: "로그인 성공",
               result: token,
             })
-            .cookie("user", token, { maxAge: 30 * 60 * 1000 }) // 1000 is a sec
             .end();
         }
       }
     );
   } else {
-    return res
-      .status(400)
-      .json({
-        status: 400,
-        success: false,
-        message: "아이디와 비밀번호를 확인해주세요.",
-      });
+    return res.status(400).json({
+      status: 400,
+      success: false,
+      message: "아이디와 비밀번호를 확인해주세요.",
+    });
   }
 };
 

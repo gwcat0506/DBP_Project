@@ -6,7 +6,8 @@ require("dotenv").config();
 
 // 비밀번호 수정
 const updatePwd = async (req, res) => {
-  const token = req.cookies.user;
+  const token =
+    req.headers.authorization && req.headers.authorization.split(" ")[1];
   const { login_password } = req.body;
 
   if (!token) {
@@ -27,7 +28,8 @@ const updatePwd = async (req, res) => {
 
 // 유저 정보 조회
 const getUser = async (req, res) => {
-  const token = req.cookies.user;
+  const token =
+    req.headers.authorization && req.headers.authorization.split(" ")[1];
   if (!token) {
     return res.status(401).json({ message: "로그인이 필요합니다." });
   }
