@@ -652,3 +652,10 @@ a:hover, a:focus, a:active {text-decoration:none;}
     align-items: center;
     margin-left: auto;
 }
+
+.map-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
