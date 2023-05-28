@@ -207,8 +207,10 @@
                                       var button = document.createElement('button');
                                       button.textContent = "수정";
                                       button.addEventListener('click',function(){
-                                        window.location.href='employee.html';
+                                        window.location.href='/employee'; //아직 직원 상세 조회 페이지 만들어 지지 않았음.
                                       });
+                                      button.style.margin='5px';
+
                                       buttonCell.appendChild(button);
                                       row.appendChild(buttonCell);
 

@@ -601,8 +601,8 @@ div{
 }
 
 .index_table {
-    border-collapse:collapse; 
-    border-spacing:0;
+    border-collapse:separate; 
+    border-spacing:0 10px;
     word-break:break-all;
 }
 
