@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" id="pj_html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Solution</title>
+    <link rel="stylesheet" href="public/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f6319e9033.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body id="pj_body">
+    <header id="header_pj">
+        <script>
+
+        </script>
+        <nav class="navbar">
+            <div class="navbar_logo">
+                <img src="public/images/prompt.png" width="150px">
+            </div>
+            <ul class="navbar_menu">
+                <li><a href="/main">Project</a></li>
+                <li><a href="/employee">Employee</a></li>
+                <li><a href="/roadmap">Location</a></li>
+
+
+            </ul>
+            <ul class="navbar_icons">
+                <li><i class="fa-solid fa-right-from-bracket" id="logout" style="font-size: 25px;"></i></li>
+                <li><i class="fa-solid fa-user" id="mypage" style="font-size: 25px;"></i></li>
+                <script>
+                    const logoutIcon = document.getElementById('logout');
+                    const mypageIcon = document.getElementById('mypage');
+                    //로그아웃 (로그인 페이지로 이동)
+                    logoutIcon.addEventListener('click',function(){
+                        window.location.href='/'
+                        // 로그아웃 메세지 전송
+                        alert('로그아웃 되었습니다.');
+                    })
+
+                    //마이페이지 이동
+                    mypageIcon.addEventListener('click',function(){
+                        window.location.href='/mypage'
+                    })
+                </script>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="map-center">
+      <!--
+      * 카카오맵 - 약도서비스
+      * 한 페이지 내에 약도를 2개 이상 넣을 경우에는
+      * 약도의 수 만큼 소스를 새로 생성, 삽입해야 합니다.
+      -->
+      <!-- 1. 약도 노드 -->
+      <div id="daumRoughmapContainer1685257109332" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+
+      <!-- 2. 설치 스크립트 -->
+      <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+
+      <!-- 3. 실행 스크립트 -->
+      <script charset="UTF-8">
+        new daum.roughmap.Lander({
+          "timestamp" : "1685257109332",
+          "key" : "2exhx",
+          "mapWidth" : "640",
+          "mapHeight" : "360"
+        }).render();
+      </script>
+    </div>
+</body>
+</html>
