@@ -323,7 +323,7 @@ const getProjectById = async (projectId) => {
         end_date: formatDate(curr.end_date),
         deal_line: curr.deal_line,
         client: curr.client,
-        budget: curr.budget,
+        budget: formatCurrency(curr.budget),
         employee: [],
       };
     }
@@ -373,6 +373,10 @@ const createProject = async (
     },
   });
   return data.p_id;
+};
+
+const formatCurrency = (num) => {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 };
 
 module.exports = {
