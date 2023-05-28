@@ -58,7 +58,7 @@
           
                   // axios를 사용하여 서버에 POST 요청 보내기 (중복확인)
                   axios
-                    .post('/auth/signup/check', {
+                    .post('/api/auth/signup/check', {
                       user_id: user_id
                     })
                     .then(function(response) {
@@ -111,7 +111,7 @@
       
               // axios를 사용하여 서버에 POST 요청 보내기 (중복확인)
               axios
-                .post('/auth/signup', {
+                .post('/api/auth/signup', {
                   user_num: user_num,
                   user_id: user_id,
                   password: password
