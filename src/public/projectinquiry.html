@@ -148,10 +148,13 @@
                               </div>
                             </div>
                             <script>
-                                // 페이지 로드 시 사용자 정보 조회
+                                
+                                var local_p_id = localStorage.getItem('p_id');
+                                console.log("local_p_id",local_p_id); // 로컬 스토리지에서 읽어온 p_id 값
                                 window.addEventListener('DOMContentLoaded', function () {
-                                    var access_token = localStorage.getItem('access_token');
-                                    p_id = 'P0012'
+                                    p_id = local_p_id
+                                    console.log("p_id",p_id)
+                                    console.log("local_p_id",local_p_id)
                                     axios
                                         .get('/api/project/', {
                                             params: {
@@ -159,9 +162,11 @@
                                               }
                                         })
                                         .then(function (response) {
-                                            var project_info = response.data.result.projects[0];
 
-                                            console.log(project_info)
+                                            var project_info = response.data.result.projects[0];
+                                            
+                                            //프로젝트 상세 조회
+                                            //console.log(project_info)
                                             document.getElementById('p_id').textContent = project_info.p_id;
                                             document.getElementById('p_name').textContent = project_info.p_name;
                                             document.getElementById('start_date').textContent = project_info.start_date;
@@ -169,6 +174,46 @@
                                             document.getElementById('client').textContent = project_info.client;
                                             document.getElementById('budget').textContent = project_info.budget;
                                             document.getElementById('p_description').textContent = project_info.p_description;
+
+                                            //프로젝트 직원 조회
+                                            //var employee_info = response.data.result.projects[0];
+                                            //console.log(employee_info)
+                                           
+
+                                            //var tableBody = document.querySelector('#insertEmployee tbody');
+                                            // 기존 내용 초기화
+                                            //tableBody.innerHTML = '';
+
+                                            // 테이블에 추가
+                                            //employee_info.forEach(function(employee_info) {
+                                            
+                                            //var row = document.createElement('tr');
+                                            
+                                            //var employee_NumberCell = document.createElement('td');
+                                            //employee_NumberCell.textContent = employee.e_id;
+                                            //row.appendChild(employee_NumberCell);
+                                    
+                                            //var employee_PositionCell = document.createElement('td');
+                                            //employee_PositionCell.textContent = employee.position;
+                                            //row.appendChild(employee_PositionCell);
+    
+                                            //var employee_NameCell = document.createElement('td');
+                                            //employee_NameCell.textContent = employee.e_name;
+                                            //row.appendChild(employee_NameCell);
+    
+                                            //var buttonCell = document.createElement('td');
+                                            //var button = document.createElement('button');
+                                            //button.textContent = "더보기";
+                                            //button.addEventListener('click',function(){
+                                            //window.location.href='/empinfo';
+                                            //});
+                                            //button.style.margin='5px';
+    
+                                            //buttonCell.appendChild(button);
+                                            //row.appendChild(buttonCell);
+                                    
+                                            //tableBody.appendChild(row);
+
                                         })
                                         .catch(function (error) {
                                             if (error.response) {
@@ -198,7 +243,7 @@
         <div class="basic-group">
           <div class="btn-group">
               <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
-                  <a href="/main" class="btn-basic btn-gray" style="font-size: 17px;">추가</a>
+                  <a href="/add" class="btn-basic btn-gray" style="font-size: 17px;">추가</a>
               </div>
           </div>
         </div>
@@ -207,7 +252,7 @@
                 <div id="result">
                     <div class="read-table">
                         <div class="horizontal-scroller">
-                            <table class="index_table" id = "projectTable">
+                            <table class="index_table" id = "insertEmployee">
                                 <colgroup>
                                 <!-- 이후에 지정 -->
                                 </colgroup>
@@ -224,6 +269,7 @@
                                 <tbody>
                                     <!-- 내용 -->
                                 </tbody>
+                                
                                 
                             </table>
                             
