@@ -372,7 +372,7 @@ const createProject = async (
       budget: budget,
     },
   });
-  return data;
+  return data.p_id;
 };
 
 module.exports = {
