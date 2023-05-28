@@ -43,6 +43,11 @@ app.get("/evaluate", (req, res) => {
   res.sendFile(__dirname + "/src/public/project_eval.html");
 });
 
+// 프로젝트 생성 페이지
+app.get("/prcreate", (req, res) => {
+  res.sendFile(__dirname+"/src/public/projectcreate.html");
+});
+
 //서버 시작
 app.listen(PORT, () => {
   console.log(`
