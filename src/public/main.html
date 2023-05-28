@@ -256,6 +256,17 @@
                                       var projectNameCell = document.createElement('td');
                                       projectNameCell.textContent = project.client;
                                       row.appendChild(projectNameCell);
+
+                                      var buttonCell = document.createElement('td');
+                                      var button = document.createElement('button');
+                                      button.textContent = "조회";
+                                      button.addEventListener('click',function(){
+                                        window.location.href='/pr';
+                                      });
+                                      button.style.margin='5px';
+
+                                      buttonCell.appendChild(button);
+                                      row.appendChild(buttonCell);
                                 
                                       tableBody.appendChild(row);
                                     })
