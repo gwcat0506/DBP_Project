@@ -39,7 +39,7 @@ app.get("/add", (req, res) => {
 });
 
 // 프로젝트 평가 페이지
-app.get("/add", (req, res) => {
+app.get("/add2", (req, res) => {
   res.sendFile(__dirname+"/src/public/project_eval.html");
 });
 

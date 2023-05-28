@@ -57,17 +57,7 @@
                 <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
                     <!-- 초기화 할줄 몰라서 main으로 redirect 했음 -->
                     <a href="/employee" class="btn-basic btn-gray" >초기화</a>
-                    <a href="#" class="btn-basic btn-gray" id="search_button" //onclick="searchEmployee()">조회</a>
-                    <script>
-                    //검색하면 기존 값 초기화 되도록 
-                    //function searchProjects() {
-                    //    document.getElementById('p_info').value = '';
-                    //    document.getElementById('start_date').value = '';
-                    //    document.getElementById('end_date').value = '';
-                    //    document.getElementById('client').value = '';
-                    //    updateSearchCase();
-                    //  }
-                    </script>
+                    <a href="#" class="btn-basic btn-gray" id="search_button">조회</a>
                 </div>
             </div>
         </div>
@@ -176,8 +166,9 @@
                                       }
                                   })
                                   .then(function(response) {
-                                    console.log(response.data)
-                                    // var employee = response.data.result.employees; //여기 모르겠음.
+                                    console.log(response)
+                                    // console.log(response.data)
+                                    var employee = response.data.result.employees; //여기 모르겠음.
                                     // console.log(employee)
                                     var tableBody = document.querySelector('#employeeTable tbody');
                                 
