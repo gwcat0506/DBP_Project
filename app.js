@@ -51,6 +51,16 @@ app.get("/prcreate", (req, res) => {
   res.sendFile(__dirname+"/src/public/projectcreate.html");
 });
 
+// 오시는 길 페이지
+app.get("/roadmap", (req, res) => {
+  res.sendFile(__dirname+"/src/public/roadmap.html");
+});
+
+// 사원 정보 갱신 페이지
+app.get("/empinfo", (req, res) => {
+  res.sendFile(__dirname+"/src/public/emp_info.html");
+});
+
 //서버 시작
 app.listen(PORT, () => {
   console.log(`
