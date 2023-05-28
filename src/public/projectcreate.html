@@ -155,11 +155,12 @@
                                 var p_info = document.getElementById('p_info').value;
                                 
                                 console.log("=====================")
-                                //console.log(start_date,end_date)
+                                console.log(start_date,end_date)
+                                
                                 project_info ={
                                     p_name: p_name,
-                                    start_date: Date.parse(start_date),
-                                    dead_line: Date.parse(end_date),
+                                    start_date: start_date,
+                                    dead_line: end_date,
                                     budget: parseInt(price),
                                     client: client,
                                     p_description: p_info
