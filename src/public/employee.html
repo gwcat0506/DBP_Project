@@ -136,6 +136,7 @@
                                         <th>경력</th>
                                         <th>사용기술</th>
                                         <th>연봉</th>
+                                        <th></th>
                                         
                                     </tr>
                                 </thead>
@@ -201,7 +202,16 @@
                                       var employeeNameCell = document.createElement('td');
                                       employeeNameCell.textContent = employee.salary;
                                       row.appendChild(employeeNameCell);
-                                
+
+                                      var buttonCell = document.createElement('td');
+                                      var button = document.createElement('button');
+                                      button.textContent = "수정";
+                                      button.addEventListener('click',function(){
+                                        window.location.href='employee.html';
+                                      });
+                                      buttonCell.appendChild(button);
+                                      row.appendChild(buttonCell);
+
                                       tableBody.appendChild(row);
                                     })
                                     
