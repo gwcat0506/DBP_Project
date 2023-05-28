@@ -483,6 +483,18 @@ a:link{
     word-break: keep-all;
 }
 
+.item-title-bold {
+  display:flex; 
+  padding:10px 20px; 
+  font-size:20px; 
+  font-weight: bold;
+  line-height:20px; 
+  color:#333; 
+  background-color:#f3f4f6; 
+  box-sizing:border-box; 
+  word-break: keep-all;
+}
+
 .item-text {
   display:flex; 
   padding:10px 20px; 
@@ -614,9 +626,6 @@ table th {
 
 }
 
-.flex-align-self-center{
-    font-weight: bold;
-}
 
 
 
