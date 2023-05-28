@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/f6319e9033.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body id="pj_body">
@@ -28,13 +29,12 @@
                         }
                     })
                     .then(function (response) {
-                        var user = response.data;
+                        var user = response.data.result;
                         console.log(user)
-                        document.getElementById('p_name').textContent = user.name;
-                        document.getElementById('p_id').textContent = user.id;
-                        document.getElementById('p_password').value = user.password;
-                        document.getElementById('p_resident').textContent = user.resident;
-                        document.getElementById('p_education').textContent = user.education;
+                        document.getElementById('p_name').textContent = user.e_name;
+                        document.getElementById('p_id').textContent = user.e_id;
+                        document.getElementById('p_password').value = user.login_password;
+                        document.getElementById('p_resident').textContent = user.resident_id;
                         document.getElementById('p_career').textContent = user.career;
                         document.getElementById('p_salary').textContent = user.salary;
                     })
@@ -104,8 +104,8 @@
                                         <div class="flex-align-self-center">이름</div>
                                     </div>
                                     <div class="item-title width-per-90">
-                                        <div class="flex-align-self-center">
-                                            <p id="p_name" name="p_name" size="4" style="text-align:center;">
+                                        <div>
+                                            <div id="p_name" name="p_name" size="4" style="text-align:center; font-size: 15px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -116,8 +116,8 @@
                                         <div class="flex-align-self-center">아이디</div>
                                     </div>
                                     <div class="item-title width-per-90">
-                                        <div class="flex-align-self-center">
-                                            <p id="p_id" name="p_id" size="4" style="text-align:center;">
+                                        <div>
+                                            <div id="p_id" name="p_id" size="4" style="text-align:center ; font-size: 15px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -128,11 +128,11 @@
                                         <div class="flex-align-self-center">비밀번호</div>
                                     </div>
                                     <div class="item-title width-per-90">
-                                        <div class="flex-align-self-center">
+                                        <div>
                                             <input type="text" id="p_password" name="p_password" size="15"
                                                 style="text-align:center;">
                                             <button id="password_reset"
-                                                style="border:solid black 2px; border-radius: 10px;">수정</button>
+                                                style="border:solid black 2px; border-radius: 10px; ">수정</button>
                                         </div>
                                     </div>
                                 </div>
@@ -143,20 +143,8 @@
                                         <div class="flex-align-self-center">주민등록번호</div>
                                     </div>
                                     <div class="item-title width-per-90">
-                                        <div class="flex-align-self-center">
-                                            <p id="p_resident" name="p_resident" size="4" style="text-align:left;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex-cell grid-1 ">
-                                <div class="flex-table-item">
-                                    <div class="item-title width-per-10">
-                                        <div class="flex-align-self-center">최종학력</div>
-                                    </div>
-                                    <div class="item-title width-per-90">
-                                        <div class="flex-align-self-center">
-                                            <p id="p_education" name="p_education" size="4" style="text-align:center;">
+                                        <div>
+                                            <div id="p_resident" name="p_resident" size="4" style="text-align:left; font-size: 15px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -167,8 +155,8 @@
                                         <div class="flex-align-self-center">경력</div>
                                     </div>
                                     <div class="item-title width-per-90">
-                                        <div class="flex-align-self-center">
-                                            <p id="p_career" name="p_career" size="4" style="text-align:center;">
+                                        <div>
+                                            <div id="p_career" name="p_career" size="4" style="text-align:center; font-size: 15px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -179,8 +167,8 @@
                                         <div class="flex-align-self-center">현재연봉</div>
                                     </div>
                                     <div class="item-title width-per-90">
-                                        <div class="flex-align-self-center">
-                                            <p id="p_salary" name="p_salary" size="4" style="text-align:center;">
+                                        <div>
+                                            <div id="p_salary" name="p_salary" size="4" style="text-align:center; font-size: 15px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +177,6 @@
                     </div>
                 </div>
         </div>
-
     </section>
 </body>
 

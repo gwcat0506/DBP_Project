@@ -583,7 +583,7 @@ a.btn-border-gray , button.btn-border-gray , input[type=submit].btn-border-gray 
 .con-title-group {
     display:flex; 
     align-items:center; 
-    margin-bottom:23px;
+    margin-bottom:23px;href
 }
 
 div{
@@ -613,6 +613,9 @@ table th {
 
 }
 
+.flex-align-self-center{
+    font-weight: bold;
+}
 
 
 
