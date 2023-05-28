@@ -1,6 +1,15 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+function formatResidentID(residentID) {
+  const year = residentID.slice(0, 2);
+  const month = residentID.slice(2, 4);
+  const day = residentID.slice(4, 6);
+
+  const prefix = parseInt(year) <= 21 ? "20" : "19";
+  return `${prefix}${year}-${month}-${day}`;
+}
+
 const searchEmployee = async (e_id, e_name, skills, career) => {
   const filters = {};
 
@@ -59,8 +68,16 @@ const searchEmployee = async (e_id, e_name, skills, career) => {
 
   employees = employees.map((emp) => {
     const skillStr = emp.employee_skill.map((es) => es.skill).join(", ");
-    const { employee_skill, ...rest } = emp;
-    return { ...rest, skills: skillStr };
+    const birthday = formatResidentID(emp.resident_id);
+    return {
+      e_id: emp.e_id,
+      e_name: emp.e_name,
+      career: emp.career,
+      skills: skillStr,
+      salary: emp.salary,
+      birthday: birthday,
+      status: emp.status,
+    };
   });
 
   return { employees };
