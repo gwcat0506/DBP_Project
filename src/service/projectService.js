@@ -273,17 +273,26 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       end_date: true,
       client: true,
     },
+    orderBy: [
+      { end_date: "asc" }, // 먼저 끝나는 프로젝트를 우선으로 함
+    ],
   });
 
-  const formattedProjects = projects.map((project) => ({
-    ...project,
-    start_date: project.start_date
-      ? project.start_date.toISOString().slice(0, 10)
-      : null,
-    end_date: project.end_date
-      ? project.end_date.toISOString().slice(0, 10)
-      : "진행 중", //end_date가 null인 경우
-  }));
+  const formattedProjects = projects
+    .map((project) => ({
+      ...project,
+      start_date: project.start_date
+        ? project.start_date.toISOString().slice(0, 10)
+        : null,
+      end_date: project.end_date
+        ? project.end_date.toISOString().slice(0, 10)
+        : "진행 중", //end_date가 null인 경우
+    }))
+    .sort((a, b) => {
+      if (a.end_date === "진행 중") return -1;
+      if (b.end_date === "진행 중") return 1;
+      return 0;
+    });
 
   return { projects: formattedProjects };
 };
