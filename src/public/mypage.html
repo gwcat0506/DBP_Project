@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" id="mypage_html">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,11 +13,48 @@
     <script src="https://kit.fontawesome.com/f6319e9033.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
+
 <body id="pj_body">
     <header id="header_pj">
         <script>
+            // 페이지 로드 시 사용자 정보 조회
+            window.addEventListener('DOMContentLoaded', function () {
+                // 액세스 토큰 가져오기
+                var access_token = localStorage.getItem('access_token');
 
+                // axios를 사용하여 서버에 GET 요청 보내기
+                axios
+                    .get('/api/user', {
+                        headers: {
+                            Cookie: 'user=' + access_token
+                        }
+                    })
+                    .then(function (response) {
+                        // 사용자 정보 조회 성공
+                        var user = response.data;
+                        document.getElementById('p_name').textContent = user.name;
+                        document.getElementById('p_id').textContent = user.id;
+                        document.getElementById('p_password').value = user.password;
+                        document.getElementById('p_resident').textContent = user.resident;
+                        document.getElementById('p_education').textContent = user.education;
+                        document.getElementById('p_career').textContent = user.career;
+                        document.getElementById('p_salary').textContent = user.salary;
+                    })
+                    .catch(function (error) {
+                        // 서버 요청 실패
+                        if (error.response) {
+                            console.log(error.response.data.message);
+                            // 실패 메시지 표시
+                            alert(error.response.data.message);
+                        } else {
+                            console.log(error);
+                            // 실패 메시지 표시
+                            alert('서버 요청에 실패하였습니다');
+                        }
+                    });
+            });
         </script>
+
         <nav class="navbar">
             <div class="navbar_logo">
                 <img src="public/images/prompt.png" width="150px">
@@ -32,14 +70,22 @@
                     const logoutIcon = document.getElementById('logout');
                     const mypageIcon = document.getElementById('mypage');
                     //로그아웃 (로그인 페이지로 이동)
-                    logoutIcon.addEventListener('click',function(){
-                        window.location.href='/'
+                    logoutIcon.addEventListener('click', function () {
+                        // 액세스 토큰 제거
+                        localStorage.removeItem('access_token');
+                        window.location.href = '/'
                     })
 
                     //마이페이지 이동
-                    mypageIcon.addEventListener('click',function(){
-                        window.location.href='/mypage'
-                    })
+                    mypageIcon.addEventListener('click', function () {
+                        // 액세스 토큰 체크
+                        var access_token = localStorage.getItem('access_token');
+                        if (access_token) {
+                            window.location.href = '/mypage';
+                        } else {
+                            alert('로그인 후 이용해주세요');
+                        }
+                    });
                 </script>
             </ul>
         </nav>
@@ -63,7 +109,7 @@
                                     </div>
                                     <div class="item-title width-per-90">
                                         <div class="flex-align-self-center">
-                                            <p id="p_name" name="p_name" size="4" style="text-align:center;" > 
+                                            <p id="p_name" name="p_name" size="4" style="text-align:center;">
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +121,7 @@
                                     </div>
                                     <div class="item-title width-per-90">
                                         <div class="flex-align-self-center">
-                                            <p id="p_id" name="p_id" size="4" style="text-align:center;"> 
+                                            <p id="p_id" name="p_id" size="4" style="text-align:center;">
                                         </div>
                                     </div>
                                 </div>
@@ -87,8 +133,10 @@
                                     </div>
                                     <div class="item-title width-per-90">
                                         <div class="flex-align-self-center">
-                                            <input type="text" id="p_password" name="p_password" size="15" style="text-align:center;">
-                                            <button id="password_reset" style="border:solid black 2px; border-radius: 10px;">수정</button> 
+                                            <input type="text" id="p_password" name="p_password" size="15"
+                                                style="text-align:center;">
+                                            <button id="password_reset"
+                                                style="border:solid black 2px; border-radius: 10px;">수정</button>
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +148,7 @@
                                     </div>
                                     <div class="item-title width-per-90">
                                         <div class="flex-align-self-center">
-                                            <p id="p_resident" name="p_resident" size="4" style="text-align:left;"> 
+                                            <p id="p_resident" name="p_resident" size="4" style="text-align:left;">
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +160,7 @@
                                     </div>
                                     <div class="item-title width-per-90">
                                         <div class="flex-align-self-center">
-                                            <p id="p_education" name="p_education" size="4" style="text-align:center;"> 
+                                            <p id="p_education" name="p_education" size="4" style="text-align:center;">
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +172,7 @@
                                     </div>
                                     <div class="item-title width-per-90">
                                         <div class="flex-align-self-center">
-                                            <p id="p_career" name="p_career" size="4" style="text-align:center;"> 
+                                            <p id="p_career" name="p_career" size="4" style="text-align:center;">
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +184,7 @@
                                     </div>
                                     <div class="item-title width-per-90">
                                         <div class="flex-align-self-center">
-                                            <p id="p_salary" name="p_salary" size="4" style="text-align:center;"> 
+                                            <p id="p_salary" name="p_salary" size="4" style="text-align:center;">
                                         </div>
                                     </div>
                                 </div>
@@ -148,5 +196,5 @@
 
     </section>
 </body>
-</html>
 
+</html>

@@ -2,6 +2,9 @@ const express = require("express");
 const router = require("./src/router");
 
 const app = express();
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
 const PORT = 3000;
 
 app.use(express.json());
