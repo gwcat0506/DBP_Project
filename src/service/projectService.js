@@ -272,6 +272,8 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       start_date: true,
       end_date: true,
       client: true,
+      budget: true,
+      p_description: true
     },
     orderBy: [
       { end_date: "asc" }, // 먼저 끝나는 프로젝트를 우선으로 함
