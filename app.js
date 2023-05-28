@@ -2,6 +2,9 @@ const express = require("express");
 const router = require("./src/router");
 
 const app = express();
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
 const PORT = 3000;
 
 app.use(express.json());
@@ -46,6 +49,16 @@ app.get("/evaluate", (req, res) => {
 // 프로젝트 생성 페이지
 app.get("/prcreate", (req, res) => {
   res.sendFile(__dirname+"/src/public/projectcreate.html");
+});
+
+// 오시는 길 페이지
+app.get("/roadmap", (req, res) => {
+  res.sendFile(__dirname+"/src/public/roadmap.html");
+});
+
+// 사원 정보 갱신 페이지
+app.get("/empinfo", (req, res) => {
+  res.sendFile(__dirname+"/src/public/emp_info.html");
 });
 
 //서버 시작

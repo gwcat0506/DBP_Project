@@ -19,27 +19,28 @@
                 <img src="public/images/prompt.png" width="150px">
             </div>
             <ul class="navbar_menu">
-                <li><a href="/main">Project</a></li>
-                <li><a href="/employee">Employee</a></li>
+              <li><a href="/main">Project</a></li>
+              <li><a href="/employee">Employee</a></li>
+              <li><a href="/roadmap">Location</a></li>
             </ul>
             <ul class="navbar_icons">
-                <li><i class="fa-solid fa-right-from-bracket" id="logout" style="font-size: 25px;"></i></li>
-                <li><i class="fa-solid fa-user" id="mypage" style="font-size: 25px;"></i></li>
-                <script>
-                    const logoutIcon = document.getElementById('logout');
-                    const mypageIcon = document.getElementById('mypage');
-                    //로그아웃 (로그인 페이지로 이동)
-                    logoutIcon.addEventListener('click',function(){
-                        window.location.href='/'
-                        // 로그아웃 메세지 전송
-                        alert('로그아웃 되었습니다.');
-                    })
+              <li><i class="fa-solid fa-right-from-bracket" id="logout" style="font-size: 25px;"></i></li>
+              <li><i class="fa-solid fa-user" id="mypage" style="font-size: 25px;"></i></li>
+              <script>
+                  const logoutIcon = document.getElementById('logout');
+                  const mypageIcon = document.getElementById('mypage');
+                  //로그아웃 (로그인 페이지로 이동)
+                  logoutIcon.addEventListener('click',function(){
+                      window.location.href='/'
+                      // 로그아웃 메세지 전송
+                      alert('로그아웃 되었습니다.');
+                  })
 
-                    //마이페이지 이동
-                    mypageIcon.addEventListener('click',function(){
-                        window.location.href='/mypage'
-                    })
-                </script>
+                  //마이페이지 이동
+                  mypageIcon.addEventListener('click',function(){
+                      window.location.href='/mypage'
+                  })
+              </script>
             </ul>
         </nav>
     </header>
