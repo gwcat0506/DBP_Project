@@ -364,9 +364,9 @@ const createProject = async (
     data: {
       p_id: p_id,
       p_name: p_name,
-      start_date: start_date,
+      start_date: formatDate(start_date),
       end_date: null,
-      dead_line: dead_line,
+      dead_line: formatDate(dead_line),
       client: client,
       p_description: p_description,
       budget: budget,
