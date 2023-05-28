@@ -127,7 +127,9 @@ const createProject = async (req, res) => {
   if (!result)
     return res.status(400).json({ status: 404, message: "프로젝트 생성 실패" });
 
-  return res.status(200).json({ status: 200, message: "프로젝트 생성 성공" });
+  return res
+    .status(200)
+    .json({ status: 200, message: "프로젝트 생성 성공", result });
 };
 
 module.exports = {

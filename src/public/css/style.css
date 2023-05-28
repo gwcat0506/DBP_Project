@@ -96,6 +96,7 @@ a{
 
 .navbar_menu li {
     padding: 8px 12px;
+    font-size: 20px;
     color: white;
 }
 
@@ -474,7 +475,7 @@ a:link{
 .flex-table-item .item-title {
     display:flex; 
     padding:10px 20px; 
-    font-size:14px; 
+    font-size:20px; 
     line-height:20px; 
     color:#333; 
     background-color:#f3f4f6; 
@@ -485,7 +486,7 @@ a:link{
 .item-text {
   display:flex; 
   padding:10px 20px; 
-  font-size:14px; 
+  font-size:20px; 
   line-height:20px; 
   color:#333; 
   box-sizing:border-box; 
@@ -495,7 +496,7 @@ a:link{
 .item-text-bold {
   display:flex; 
   padding:10px 20px; 
-  font-size:14px; 
+  font-size:20px; 
   font-weight: 700;
   line-height:20px; 
   color:#333; 
@@ -506,7 +507,7 @@ a:link{
 .flex-table-item .item-data {
     display:flex; 
     padding:10px 20px; 
-    font-size:14px; 
+    font-size:20px; 
     line-height:20px; 
     color:#888; 
     background-color:#fff; 
@@ -587,7 +588,7 @@ a.btn-border-gray , button.btn-border-gray , input[type=submit].btn-border-gray 
 }
 
 div{
-    display: block
+    display: block;
 }
 
 .read-table{
@@ -613,6 +614,9 @@ table th {
 
 }
 
+.flex-align-self-center{
+    font-weight: bold;
+}
 
 
 
@@ -658,4 +662,10 @@ a:hover, a:focus, a:active {text-decoration:none;}
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+textarea {
+  width: 270%;
+  height: 6.25em;
+  resize: none;
 }
