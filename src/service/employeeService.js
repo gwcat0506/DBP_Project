@@ -57,13 +57,13 @@ const searchEmployee = async (e_id, e_name, skills, career) => {
     },
   });
 
-  const formattedEmployees = employees.map((emp) => {
+  employees = employees.map((emp) => {
     const skillStr = emp.employee_skill.map((es) => es.skill).join(", ");
     const { employee_skill, ...rest } = emp;
-    return { ...rest, skills: skillStr ,employees : formattedEmployees};
+    return { ...rest, skills: skillStr };
   });
 
-  return { employees : formattedEmployees};
+  return { employees };
 };
 
 const updateEmployee = async (e_id, salary, status) => {
