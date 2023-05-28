@@ -56,9 +56,8 @@
         <div class="basic-group">
             <div class="btn-group">
                 <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
-                    <!-- 초기화 할줄 몰라서 main으로 redirect 했음 -->
                     <a href="/main" class="btn-basic btn-gray" >취소</a>
-                    <a href="/add" id ="create_btn"class="btn-basic btn-gray">생성</a>
+                    <a href="/pr" id ="create_btn"class="btn-basic btn-gray">생성</a>
                 </div>
             </div>
         </div>
@@ -152,9 +151,7 @@
                                 var price = document.getElementById('price').value;
                                 var client = document.getElementById('client').value;
                                 var p_info = document.getElementById('p_info').value;
-                                
-                                console.log("=====================")
-                                console.log(start_date,end_date)
+
 
                                 project_info ={
                                     p_name: p_name,
@@ -164,11 +161,14 @@
                                     client: client,
                                     p_description: p_info
                                 }
-                                console.log("good",project_info)
                                 axios
                                     .post('/api/project', project_info)
                                     .then(function(response) {
                                         alert("프로젝트 추가 완료")
+                                        //console.log("res",response.data.result)
+                                        // 변수 값을 로컬 스토리지에 저장
+                                        localStorage.setItem('p_id', response.data.result);
+
                                         window.location.href='/pr'
                                     })
                                     .catch(function(error) {

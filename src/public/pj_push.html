@@ -280,8 +280,10 @@
                             var tbody = table.getElementsByTagName("tbody")[0];
                             var rows = tbody.getElementsByTagName("tr");
 
+                            var local_p_id = localStorage.getItem('p_id');
+
                             var requestData = {
-                            "p_id": "P0014",
+                            "p_id": local_p_id,
                             "employees": []
                             };
 

@@ -77,7 +77,7 @@ const searchProjects = async (req, res) => {
     end_date,
     client
   );
-
+  
   return res
     .status(200)
     .json({ status: 200, message: "프로젝트 검색 성공", result });
@@ -87,7 +87,7 @@ const getProjectById = async (req, res) => {
   const { projectId } = req.params;
 
   const result = await projectService.getProjectById(projectId);
-
+  console.log("--",result)
   if (!result) {
     return res
       .status(404)

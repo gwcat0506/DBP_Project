@@ -262,7 +262,10 @@
                                       var button = document.createElement('button');
                                       button.textContent = "상세 조회";
                                       button.addEventListener('click',function(){
+                                        // 프로젝트 id를 로컬 스토리지에 저장
+                                        localStorage.setItem('p_id', project.p_id);
                                         window.location.href='/pr';
+
                                       });
                                       button.style.margin='5px';
 
