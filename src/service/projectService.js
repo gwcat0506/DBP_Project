@@ -273,17 +273,26 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       end_date: true,
       client: true,
     },
+    orderBy: [
+      { end_date: "asc" }, // 먼저 끝나는 프로젝트를 우선으로 함
+    ],
   });
 
-  const formattedProjects = projects.map((project) => ({
-    ...project,
-    start_date: project.start_date
-      ? project.start_date.toISOString().slice(0, 10)
-      : null,
-    end_date: project.end_date
-      ? project.end_date.toISOString().slice(0, 10)
-      : "진행 중", //end_date가 null인 경우
-  }));
+  const formattedProjects = projects
+    .map((project) => ({
+      ...project,
+      start_date: project.start_date
+        ? project.start_date.toISOString().slice(0, 10)
+        : null,
+      end_date: project.end_date
+        ? project.end_date.toISOString().slice(0, 10)
+        : "진행 중", //end_date가 null인 경우
+    }))
+    .sort((a, b) => {
+      if (a.end_date === "진행 중") return -1;
+      if (b.end_date === "진행 중") return 1;
+      return 0;
+    });
 
   return { projects: formattedProjects };
 };
@@ -314,7 +323,7 @@ const getProjectById = async (projectId) => {
         end_date: formatDate(curr.end_date),
         deal_line: curr.deal_line,
         client: curr.client,
-        budget: curr.budget,
+        budget: formatCurrency(curr.budget),
         employee: [],
       };
     }
@@ -355,15 +364,19 @@ const createProject = async (
     data: {
       p_id: p_id,
       p_name: p_name,
-      start_date: start_date,
+      start_date: formatDate(start_date),
       end_date: null,
-      dead_line: dead_line,
+      dead_line: formatDate(dead_line),
       client: client,
       p_description: p_description,
       budget: budget,
     },
   });
-  return data;
+  return data.p_id;
+};
+
+const formatCurrency = (num) => {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 };
 
 module.exports = {
