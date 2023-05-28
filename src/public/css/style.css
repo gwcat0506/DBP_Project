@@ -583,11 +583,11 @@ a.btn-border-gray , button.btn-border-gray , input[type=submit].btn-border-gray 
 .con-title-group {
     display:flex; 
     align-items:center; 
-    margin-bottom:23px;href
+    margin-bottom:23px;
 }
 
 div{
-    display: block
+    display: block;
 }
 
 .read-table{
