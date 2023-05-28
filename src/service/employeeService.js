@@ -74,7 +74,7 @@ const searchEmployee = async (e_id, e_name, skills, career) => {
       e_name: emp.e_name,
       career: emp.career,
       skills: skillStr,
-      salary: emp.salary,
+      salary: formatCurrency(emp.salary),
       birthday: birthday,
       status: emp.status,
     };
@@ -91,6 +91,10 @@ const updateEmployee = async (e_id, salary, status) => {
     data: { salary: salary, status: status },
   });
   return data;
+};
+
+const formatCurrency = (num) => {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 };
 
 module.exports = {
