@@ -92,11 +92,16 @@
                                                 
                                                 var idCell = document.createElement("td");
                                                 var nameCell = document.createElement("td");
+                                                var nameCell = document.createElement("td");
+                                                
                                                 var careerCell = document.createElement("td");
                                                 var skillsCell = document.createElement("td");
                         
                                                 idCell.innerText = employee.e_id;
                                                 nameCell.innerText = employee.e_name;
+                                                nameCell.onclick = function() {
+                                                    showEmployeeName(this);
+                                                };
                                                 careerCell.innerText = employee.career;
                                                 skillsCell.innerText = employee.skills;
                         
@@ -112,6 +117,9 @@
                                             console.log(error);
                                         });
                                 }
+                                
+                                
+                                
                                 // 프로젝트 마감일 최신순 검색
                                 function changeTableContent2() {
                                     var table = document.getElementById("projectTable");
@@ -230,66 +238,12 @@
         <div class="basic-group">
             <div class="card-item basic">
                 <div id="emp_div">
-               <label>클릭된 직원명</label>&nbsp;&nbsp;&nbsp;
-               <select name="employee" id="employee">
-                <option value="job">직무</option>
-                <option value="PM">PM</option>
-                <option value="BE">BE</option>
-                <option value="FE">FE</option>
-                <option value="ML">ML</option>
-                
-               </select>
-               <input type="button" value="삭제" id="emp_bt">
-
-            </div>
-
-            <div id="emp_div">
-            
-               <label>클릭된 직원명</label>&nbsp;&nbsp;&nbsp;
-               <select name="employee" id="employee" >
-                <option value="job">직무</option>
-                <option value="PM">PM</option>
-                <option value="BE">BE</option>
-                <option value="FE">FE</option>
-                <option value="ML">ML</option>
-                
-               </select>
-               <input type="button" value="삭제" id="emp_bt">
-             
-             </div>
-             <div id="emp_div">
-               <label>클릭된 직원명</label>&nbsp;&nbsp;&nbsp;
-               <select name="employee" id="employee">
-                <option value="job">직무</option>
-                <option value="PM">PM</option>
-                <option value="BE">BE</option>
-                <option value="FE">FE</option>
-                <option value="ML">ML</option>
-                
-               </select>
-               <input type="button" value="삭제" id="emp_bt">
-            </div>
-
-
-               <div id="emp_div">
-               
-               <label>클릭된 직원명</label>&nbsp;&nbsp;&nbsp;
-               <select name="employee" id="employee">
-                <option value="job">직무</option>
-                <option value="PM">PM</option>
-                <option value="BE">BE</option>
-                <option value="FE">FE</option>
-                <option value="ML">ML</option>
-                
-               </select>
-               <input type="button" value="삭제" id="emp_bt">
-            </div>
-             
-            
+                    <!-- 클릭 됐을 때 내용 추가 -->
+                </div>
             </div>
         </div>
         
-           
+        
         <div class="basic-group">
             <div class="btn-group">
                 <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
@@ -301,6 +255,69 @@
                 </div>
             </div>
         </div>
+        <script>
+        function showEmployeeName(cell) {
+            var employeeContainer = document.createElement("div");
+
+            var employeeName = cell.innerHTML;
+            var empDiv = document.getElementById("emp_div");     
+            
+            // 새로운 요소 추가
+            var label = document.createElement("label");
+            label.innerText = employeeName;////
+            
+            var select = document.createElement("select");
+            select.name = "employee";
+            select.id = "employee";
+            
+            var option1 = document.createElement("option");
+            option1.value = "job";
+            option1.innerText = "직무";
+            
+            var option2 = document.createElement("option");
+            option2.value = "PM";
+            option2.innerText = "PM";
+            
+            var option3 = document.createElement("option");
+            option3.value = "BE";
+            option3.innerText = "BE";
+            
+            var option4 = document.createElement("option");
+            option4.value = "FE";
+            option4.innerText = "FE";
+
+            var option5 = document.createElement("option");
+            option5.value = "ML";
+            option5.innerText = "ML";
+            
+            select.appendChild(option1);
+            select.appendChild(option2);
+            select.appendChild(option3);
+            select.appendChild(option4);
+            select.appendChild(option5);
+            
+            var deleteButton = document.createElement("input");
+            deleteButton.type = "button";
+            deleteButton.value = "삭제";
+            deleteButton.id = "emp_bt";
+
+            // 삭제 버튼 클릭 이벤트 처리
+            deleteButton.addEventListener("click", function() {
+                empDiv.removeChild(employeeContainer); // 해당 컨테이너 삭제
+            });
+            
+            employeeContainer.appendChild(label);
+            employeeContainer.appendChild(document.createTextNode("\u00A0\u00A0\u00A0")); // 공백 추가
+            employeeContainer.appendChild(select);
+            employeeContainer.appendChild(deleteButton);
+            
+            empDiv.appendChild(employeeContainer);
+            
+            // 새로운 요소 스타일링
+            label.style.marginRight = "10px";
+            
+        }
+        </script>
        
         
     </section>
