@@ -100,7 +100,7 @@
                                                 idCell.innerText = employee.e_id;
                                                 nameCell.innerText = employee.e_name;
                                                 nameCell.onclick = function() {
-                                                    showEmployeeName(this);
+                                                    showEmployeeName(idCell.innerText,nameCell.innerText);
                                                 };
                                                 careerCell.innerText = employee.career;
                                                 skillsCell.innerText = employee.skills;
@@ -158,6 +158,9 @@
                         
                                                 idCell.innerText = employee.e_id;
                                                 nameCell.innerText = employee.e_name;
+                                                nameCell.onclick = function() {
+                                                    showEmployeeName(idCell.innerText,nameCell.innerText);
+                                                };
                                                 projectnameCell.innerText = employee.p_name;
                                                 startdateCell.innerText = employee.start_date;
                                                 deadlineCell.innerText = employee.dead_line;
@@ -210,6 +213,9 @@
                         
                                                 idCell.innerText = employee.e_id;
                                                 nameCell.innerText = employee.e_name;
+                                                nameCell.onclick = function() {
+                                                    showEmployeeName(idCell.innerText,nameCell.innerText);
+                                                };
                                                 careerCell.innerText = employee.career;
                                                 skillsCell.innerText = employee.skills;
                         
@@ -237,9 +243,22 @@
 
         <div class="basic-group">
             <div class="card-item basic">
-                <div id="emp_div">
-                    <!-- 클릭 됐을 때 내용 추가 -->
-                </div>
+                <table id="position_table">
+                            
+                    <thead>
+                        <tr>
+                            <th>직원 번호</th>
+                            <th>직원 이름</th>
+                            <th>직무</th>
+                            <th></th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 내용 -->
+                    </tbody>
+                    
+                </table>
             </div>
         </div>
         
@@ -249,74 +268,120 @@
                 <div class="btn-right-group" style="flex-wrap : wrap; justify-content:flex-end; gap: 3px;">
                     
                     <input class="btn-basic2 btn-gray" type="button" value="취소">
-                    <input class="btn-basic2 btn-gray" type="button" value="추가">
-                    
-                    
+                    <input class="btn-basic2 btn-gray" type="button" value="추가" id="add_btn">
+
+                    <script>
+                        const addButton = document.getElementById("add_btn")
+
+                        // "추가" 버튼 클릭 이벤트 처리
+                        addButton.addEventListener("click", function() {
+
+                            var table = document.getElementById("position_table");
+                            var tbody = table.getElementsByTagName("tbody")[0];
+                            var rows = tbody.getElementsByTagName("tr");
+
+                            var requestData = {
+                            "p_id": "P0006",
+                            "employees": []
+                            };
+
+                            for (var i = 0; i < rows.length; i++) {
+                            var cells = rows[i].getElementsByTagName("td");
+
+                            //console.log("cells",cells)
+                            var employee = {
+                                "e_id": cells[0].textContent,
+                                "position": cells[2].querySelector("select").value
+                            };
+                            requestData.employees.push(employee);
+                            }
+                            
+                            console.log(JSON.stringify(requestData));
+                            // POST 요청 보내기
+                            axios.post("api/project/putEmployee", requestData)
+                                .then(function(response) {
+                                    // 요청 성공 시 처리 로직
+                                    console.log(response.data);
+                                    // 추가적인 작업 수행
+                                })
+                                .catch(function(error) {
+                                    // 요청 실패 시 처리 로직
+                                    console.error(error);
+                                    // 에러 처리
+                                });
+                        });
+                        
+                    </script>
+                                        
                 </div>
             </div>
         </div>
         <script>
-        function showEmployeeName(cell) {
-            var employeeContainer = document.createElement("div");
-
-            var employeeName = cell.innerHTML;
-            var empDiv = document.getElementById("emp_div");     
+            function showEmployeeName(e_id, e_name) {
+                var tbody = document.getElementById("position_table").getElementsByTagName("tbody")[0];
             
-            // 새로운 요소 추가
-            var label = document.createElement("label");
-            label.innerText = employeeName;////
+                var employeeRow = document.createElement("tr");
             
-            var select = document.createElement("select");
-            select.name = "employee";
-            select.id = "employee";
+                var idCell = document.createElement("td");
+                idCell.innerText = e_id;
             
-            var option1 = document.createElement("option");
-            option1.value = "job";
-            option1.innerText = "직무";
+                var nameCell = document.createElement("td");
+                nameCell.innerText = e_name;
             
-            var option2 = document.createElement("option");
-            option2.value = "PM";
-            option2.innerText = "PM";
+                var jobCell = document.createElement("td");
+                var select = document.createElement("select");
+                select.name = "employee";
+                select.id = "employee";
             
-            var option3 = document.createElement("option");
-            option3.value = "BE";
-            option3.innerText = "BE";
+                var option1 = document.createElement("option");
+                option1.value = "job";
+                option1.innerText = "직무";
             
-            var option4 = document.createElement("option");
-            option4.value = "FE";
-            option4.innerText = "FE";
-
-            var option5 = document.createElement("option");
-            option5.value = "ML";
-            option5.innerText = "ML";
+                var option2 = document.createElement("option");
+                option2.value = "PM";
+                option2.innerText = "PM";
             
-            select.appendChild(option1);
-            select.appendChild(option2);
-            select.appendChild(option3);
-            select.appendChild(option4);
-            select.appendChild(option5);
+                var option3 = document.createElement("option");
+                option3.value = "BE";
+                option3.innerText = "BE";
             
-            var deleteButton = document.createElement("input");
-            deleteButton.type = "button";
-            deleteButton.value = "삭제";
-            deleteButton.id = "emp_bt";
-
-            // 삭제 버튼 클릭 이벤트 처리
-            deleteButton.addEventListener("click", function() {
-                empDiv.removeChild(employeeContainer); // 해당 컨테이너 삭제
-            });
+                var option4 = document.createElement("option");
+                option4.value = "FE";
+                option4.innerText = "FE";
             
-            employeeContainer.appendChild(label);
-            employeeContainer.appendChild(document.createTextNode("\u00A0\u00A0\u00A0")); // 공백 추가
-            employeeContainer.appendChild(select);
-            employeeContainer.appendChild(deleteButton);
+                var option5 = document.createElement("option");
+                option5.value = "ML";
+                option5.innerText = "ML";
             
-            empDiv.appendChild(employeeContainer);
+                select.appendChild(option1);
+                select.appendChild(option2);
+                select.appendChild(option3);
+                select.appendChild(option4);
+                select.appendChild(option5);
             
-            // 새로운 요소 스타일링
-            label.style.marginRight = "10px";
+                jobCell.appendChild(select);
             
-        }
+                var deleteCell = document.createElement("td");
+                var deleteButton = document.createElement("input");
+                deleteButton.type = "button";
+                deleteButton.value = "삭제";
+                deleteButton.className = "emp_bt";
+            
+                // 삭제 버튼 클릭 이벤트 처리
+                deleteButton.addEventListener("click", function() {
+                    tbody.removeChild(employeeRow); // 해당 행 삭제
+                });
+            
+                deleteCell.appendChild(deleteButton);
+            
+                employeeRow.appendChild(idCell);
+                employeeRow.appendChild(nameCell);
+                employeeRow.appendChild(jobCell);
+                employeeRow.appendChild(deleteCell);
+            
+                tbody.appendChild(employeeRow);
+            }
+            
         </script>
        
         
