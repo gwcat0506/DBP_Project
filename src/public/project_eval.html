@@ -85,7 +85,7 @@
                     <div id="result">
                         <div class="read-table">
                             <div class="horizontal-scroller">
-                                <table class="index_table" id = "projectTable" border="1" style="background-color: #EAECF2;">
+                                <table class="index_table" id = "pmTable" border="1" style="background-color: #EAECF2;">
                                     <colgroup>
                                     <!-- 이후에 지정 -->
                                     </colgroup>
@@ -107,12 +107,22 @@
                                 </table>
                                 <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
                                     <p style="text-align: center;" >
-                                        평균점수 :
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold;">
+                                            평균점수 :
+                                        </label>
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold; color: blue;"id="avg1">
+                                            
+                                        </label>
                                     </p>
                                 </div>
                                 <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
-                                    <p style="text-align: center;">
-                                        평균점수 :
+                                    <p style="text-align: center;" >
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold;">
+                                            평균점수 :
+                                        </label>
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold; color: blue;"id="avg2">
+                                            
+                                        </label>
                                     </p>
                                 </div>
 
@@ -133,7 +143,7 @@
                     <div id="result">
                         <div class="read-table">
                             <div class="horizontal-scroller">
-                                <table class="index_table" id = "projectTable" border="1" style="background-color: #EAECF2;">
+                                <table class="index_table" id = "customerTable" border="1" style="background-color: #EAECF2;">
                                     <colgroup>
                                     <!-- 이후에 지정 -->
                                     </colgroup>
@@ -155,12 +165,22 @@
                                 </table>
                                 <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
                                     <p style="text-align: center;" >
-                                        평균점수 :
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold;">
+                                            평균점수 :
+                                        </label>
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold; color: blue;" id="avg3">
+                                            
+                                        </label>
                                     </p>
                                 </div>
                                 <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
-                                    <p style="text-align: center;">
-                                        평균점수 :
+                                    <p style="text-align: center;" >
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold;">
+                                            평균점수 :
+                                        </label>
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold; color: blue;" id="avg4">
+                                            
+                                        </label>
                                     </p>
                                 </div>
 
@@ -181,7 +201,7 @@
                     <div id="result">
                         <div class="read-table">
                             <div class="horizontal-scroller">
-                                <table class="index_table" id = "projectTable" border="1" style="background-color: #EAECF2;">
+                                <table class="index_table" id = "peerTable" border="1" style="background-color: #EAECF2;">
                                     <colgroup>
                                     <!-- 이후에 지정 -->
                                     </colgroup>
@@ -203,18 +223,188 @@
                                 </table>
                                 <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
                                     <p style="text-align: center;" >
-                                        평균점수 :
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold;">
+                                            평균점수 :
+                                        </label>
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold; color: blue;"id="avg5">
+                                            
+                                        </label>
                                     </p>
                                 </div>
                                 <div style="display: inline-block; align-content: center; padding-right: 100px; width: 42%;">
-                                    <p style="text-align: center;">
-                                        평균점수 :
+                                    <p style="text-align: center;" >
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold;">
+                                            평균점수 :
+                                        </label>
+                                        <label style="text-align: center; font-size: 20px; font-weight: bold; color: blue;"id="avg6">
+                                            
+                                        </label>
                                     </p>
                                 </div>
+                                
+                                <script>
+                                    
+                                    var e_id = localStorage.getItem('e_id');
+                                    var p_id = localStorage.getItem('p_id');
 
+                                    //test
+                                    //p_id="P0001"
+                                    //e_id="E0002"
+                                    console.log(e_id,p_id)
+
+                                    axios
+                                        .get('/api/project/evaluation/'+e_id+'/'+p_id)
+                                        .then(function (response) {
+                                            var data = response.data.result;
+                                            console.log(data)
+
+                                            //Table1(PM평가)
+                                            var tableBody = document.querySelector('#pmTable tbody');
+                                            // 기존 내용 초기화
+                                            tableBody.innerHTML = '';
+
+                                            //datas.forEach(function(data) {
+
+                                            var row = document.createElement('tr');
+
+                                            //업무 수행 점수
+                                            var work_score_Cell = document.createElement('td');
+                                            work_score_Cell.textContent = data.pm.working_score;
+                                            row.appendChild(work_score_Cell);
+                                            //내용
+                                            var work_score_content_Cell = document.createElement('td');
+                                            work_score_content_Cell.textContent = data.pm.working_comment;
+                                            row.appendChild(work_score_content_Cell);
+                                            //커뮤니케이션 점수
+                                            var cummuni_score_Cell = document.createElement('td');
+                                            cummuni_score_Cell.textContent = data.pm.communication_score;
+                                            row.appendChild(cummuni_score_Cell);
+                                            //내용
+                                            var cummuni_content_Cell = document.createElement('td');
+                                            cummuni_content_Cell.textContent = data.pm.communication_comment;
+                                            row.appendChild(cummuni_content_Cell);
+
+                                            tableBody.appendChild(row);
+
+                                            //Table2(고객평가)
+                                            var tableBody = document.querySelector('#customerTable tbody');
+                                            // 기존 내용 초기화
+                                            tableBody.innerHTML = '';
+
+                                            var row = document.createElement('tr');
+
+                                            //업무 수행 점수
+                                            var work_score2_Cell = document.createElement('td');
+                                            work_score2_Cell.textContent = data.customer.working_score;
+                                            row.appendChild(work_score2_Cell);
+                                            //내용
+                                            var work_score_content2_Cell = document.createElement('td');
+                                            work_score_content2_Cell.textContent = data.customer.working_comment;
+                                            row.appendChild(work_score_content2_Cell);
+                                            //커뮤니케이션 점수
+                                            var cummuni_score2_Cell = document.createElement('td');
+                                            cummuni_score2_Cell.textContent = data.customer.communication_score;
+                                            row.appendChild(cummuni_score2_Cell);
+                                            //내용
+                                            var cummuni_content2_Cell = document.createElement('td');
+                                            cummuni_content2_Cell.textContent = data.customer.communication_comment;
+                                            row.appendChild(cummuni_content2_Cell);
+
+                                            tableBody.appendChild(row);
+
+                                            //Table3(동료평가)
+                                            var tableBody = document.querySelector('#peerTable tbody');
+                                            // 기존 내용 초기화
+                                            tableBody.innerHTML = '';
+
+                                            data.peer.evaluation.forEach(function(data) {
+                                            
+                                                var row = document.createElement('tr');
+                                                //업무 수행 점수
+                                                var work_score3_Cell = document.createElement('td');
+                                                work_score3_Cell.textContent = data.working_score;
+                                                row.appendChild(work_score3_Cell);
+                                                //업무 수행 내용
+                                                var work_score_content3_Cell = document.createElement('td');
+                                                work_score_content3_Cell.textContent = data.working_comment;
+                                                row.appendChild(work_score_content3_Cell);
+                                                //커뮤니케이션 점수
+                                                var cummuni_score3_Cell = document.createElement('td');
+                                                cummuni_score3_Cell.textContent = data.communication_score;
+                                                row.appendChild(cummuni_score3_Cell);
+                                                //커뮤니케이션 내용
+                                                var cummuni_content3_Cell = document.createElement('td');
+                                                cummuni_content3_Cell.textContent = data.communication_comment;
+                                                row.appendChild(cummuni_content3_Cell);
+
+                                    
+                                            tableBody.appendChild(row);
+                                            })
+
+                                            //평균 점수(6개) 출력하기 
+                                            //pm
+                                            var score1 = document.getElementById('avg1');
+                                            if (typeof data.pm.working_score === 'undefined') {
+                                                score1.textContent = "미기입";
+                                            } else {
+                                                score1.textContent = data.pm.working_score + "점";
+                                            }
+
+                                            var score2 = document.getElementById('avg2');
+                                            if (typeof data.pm.communication_score === 'undefined') {
+                                                score2.textContent = "미기입";
+                                            } else {
+                                                score2.textContent = data.pm.communication_score+"점";
+                                            }
+
+                                            //customer
+                                            var score3 = document.getElementById('avg3');
+                                            if (typeof data.customer.working_score === 'undefined') {
+                                                score3.textContent = "미기입";
+                                            } else {
+                                                score3.textContent = data.customer.working_score + "점";
+                                            }
+
+                                            var score4 = document.getElementById('avg4');
+                                            if (typeof data.customer.communication_score === 'undefined') {
+                                                score4.textContent = "미기입";
+                                            } else {
+                                                score4.textContent = data.customer.communication_score+"점";
+                                            }
+
+                                            //peer
+                                            var score5 = document.getElementById('avg5');
+                                            if ( data.peer.avg_score.work_avg === null) {
+                                                score5.textContent = "미기입";
+                                            } else {
+                                                score5.textContent = data.peer.avg_score.work_avg + "점";
+                                            }
+
+                                            var score6 = document.getElementById('avg6');
+                                            if ( data.peer.avg_score.com_avg === null) {
+                                                score6.textContent = "미기입";
+                                            } else {
+                                                score6.textContent = data.peer.avg_score.com_avg+"점";
+                                            }
+                                            
+                                        })
+                                        .catch(function (error) {
+                                            if (error.response) {
+                                                alert(error.response.data.message);
+                                            } else {
+                                                console.log(error);
+                                                alert('직원 평가 조회에 실패하였습니다');
+                                            }
+                                        });
+                                    
+                                </script>
                                 
                             </div>
                         </div>
+
+
+
+
                     </div>
                 </div>
             </div>
