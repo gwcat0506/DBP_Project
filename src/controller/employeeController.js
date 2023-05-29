@@ -21,7 +21,7 @@ const updateEmployee = async (req, res) => {
   const { salary, status } = req.body;
   const result = await employeeService.updateEmployee(e_id, salary, status);
 
-  return res.status(200).json({ status: 200, message: "사원 정보 수정 성공" });
+  return res.status(200).json({ status: 200, success:true, message: "사원 정보 수정 성공" });
 };
 
 module.exports = { searchEmployee, updateEmployee };
