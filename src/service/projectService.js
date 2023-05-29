@@ -273,7 +273,7 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       end_date: true,
       client: true,
       budget: true,
-      p_description: true
+      p_description: true,
     },
     orderBy: [
       { end_date: "asc" }, // 먼저 끝나는 프로젝트를 우선으로 함
@@ -313,7 +313,8 @@ const getProjectById = async (projectId) => {
     return null;
   }
 
-  const formatDate = (date) => date.toISOString().slice(0, 10);
+  const formatDate = (date) =>
+    date ? date.toISOString().slice(0, 10) : "진행 중";
 
   const project = rawResults.reduce((acc, curr) => {
     if (!acc.p_id) {
@@ -323,7 +324,7 @@ const getProjectById = async (projectId) => {
         p_description: curr.p_description,
         start_date: formatDate(curr.start_date),
         end_date: formatDate(curr.end_date),
-        deal_line: curr.deal_line,
+        deal_line: formatDate(curr.deal_line),
         client: curr.client,
         budget: formatCurrency(curr.budget),
         employee: [],
