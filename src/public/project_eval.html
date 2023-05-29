@@ -51,9 +51,25 @@
     </header>
     <section class="contents-wrap">
         <div class="con_title-group" style="margin: 20px;">
-            <div class="con-title">
-                ㅇㅇㅇ프로젝트 ㅇㅇㅇ사원 평가 조회
+            <div class="con-title" id="p_title">
+                프로젝트 이름
             </div>
+            <div class="con-title" id="e_title">
+                사원 이름
+            </div>
+
+            <script>
+                window.onload = function() {
+                    var p_name = localStorage.getItem('p_name');
+                    var e_name = localStorage.getItem('e_name');
+
+                    var divElement = document.querySelector('#p_title');
+                    divElement.innerHTML = "<"+p_name + ' 프로젝트 > ';
+
+                    var divElement2 = document.querySelector('#e_title');
+                    divElement2.innerHTML = e_name + ' 사원 평가 조회';
+                }
+            </script>
         </div>
         <div class="eval_table">
             <div style="margin: 20px; font-size: 15px;">
