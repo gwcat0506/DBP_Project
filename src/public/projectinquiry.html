@@ -170,51 +170,54 @@
 
                                         //프로젝트 직원 조회
                                         var employee = response.data.result.project.employee;
-                                        //console.log(employee)
+                                        //프로젝트에 직원이 있을 경우에만 출력
+                                        if (employee[0].e_id !== null) {
+                                            var tableBody = document.querySelector('#insertEmployee tbody');
+                                            // 기존 내용 초기화
+                                            tableBody.innerHTML = '';
+
+                                            employee.forEach(function(employee) {
+                                            
+                                            var row = document.createElement('tr');
+                                            //직원 번호
+                                            var employee_NumberCell = document.createElement('td');
+                                            employee_NumberCell.textContent = employee.e_id;
+                                            row.appendChild(employee_NumberCell);
+                                            //직원 이름
+                                            var employee_NameCell = document.createElement('td');
+                                            employee_NameCell.textContent = employee.e_name;
+                                            row.appendChild(employee_NameCell);
+                                            // 직무
+                                            var employee_PositionCell = document.createElement('td');
+                                            employee_PositionCell.textContent = employee.position;
+                                            row.appendChild(employee_PositionCell);
+                                            // 투입일자
+                                            var employee_put_in_dateCell = document.createElement('td');
+                                            employee_put_in_dateCell.textContent = employee.put_in_date;
+                                            row.appendChild(employee_put_in_dateCell);
+
+                                            // 더보기
+                                            var buttonCell = document.createElement('td');
+                                            var button = document.createElement('button');
+                                            button.textContent = "더보기";
+                                            button.addEventListener('click',function(){
+                                                // 직원 id 값을 로컬 스토리지에 저장
+                                                localStorage.setItem('e_id', employee.e_id);
+                                                localStorage.setItem('e_name', employee.e_name);
+                                                localStorage.setItem('p_name', project_info.p_name);
+
+                                                window.location.href='/evaluate';
+                                            });
+                                            button.style.margin='5px';
+
+                                            buttonCell.appendChild(button);
+                                            row.appendChild(buttonCell);
+                                    
+                                            tableBody.appendChild(row);
+                                        })}
                                         
 
-                                        var tableBody = document.querySelector('#insertEmployee tbody');
-                                        // 기존 내용 초기화
-                                        tableBody.innerHTML = '';
-
-                                        employee.forEach(function(employee) {
                                         
-                                        var row = document.createElement('tr');
-                                        //직원 번호
-                                        var employee_NumberCell = document.createElement('td');
-                                        employee_NumberCell.textContent = employee.e_id;
-                                        row.appendChild(employee_NumberCell);
-                                        //직원 이름
-                                        var employee_NameCell = document.createElement('td');
-                                        employee_NameCell.textContent = employee.e_name;
-                                        row.appendChild(employee_NameCell);
-                                        // 직무
-                                        var employee_PositionCell = document.createElement('td');
-                                        employee_PositionCell.textContent = employee.position;
-                                        row.appendChild(employee_PositionCell);
-                                        // 투입일자
-                                        var employee_put_in_dateCell = document.createElement('td');
-                                        employee_put_in_dateCell.textContent = employee.put_in_date;
-                                        row.appendChild(employee_put_in_dateCell);
-
-                                        // 더보기
-                                        var buttonCell = document.createElement('td');
-                                        var button = document.createElement('button');
-                                        button.textContent = "더보기";
-                                        button.addEventListener('click',function(){
-                                            // 직원 id 값을 로컬 스토리지에 저장
-                                            localStorage.setItem('e_id', employee.e_id);
-                                            localStorage.setItem('e_name', employee.e_name);
-                                            localStorage.setItem('p_name', project_info.p_name);
-
-                                            window.location.href='/evaluate';
-                                        });
-                                        button.style.margin='5px';
-
-                                        buttonCell.appendChild(button);
-                                        row.appendChild(buttonCell);
-                                
-                                        tableBody.appendChild(row);
                                     
                                     })
                                     .catch(function (error) {
@@ -225,7 +228,7 @@
                                             alert('프로젝트 조회에 실패하였습니다');
                                         }
                                     });
-                                });
+                                
                             </script>
                             
 
