@@ -156,7 +156,7 @@
                                     }
                                     autoClickButton();
                                 });
-                                
+
                                 document.getElementById('search_button').addEventListener('click', function() {
                 
                                 var e_id = document.getElementById('e_id').value;
@@ -229,7 +229,11 @@
 
                                         window.location.href='/empinfo'; 
                                       });
-                                      button.style.margin='5px';
+                                      
+                                      button.style.margin='15px';
+                                      button.style.backgroundColor = 'limegreen';
+                                      //button.style.backgroundColor = 'skyblue';
+                                      button.style.color = 'black';
 
                                       buttonCell.appendChild(button);
                                       row.appendChild(buttonCell);
