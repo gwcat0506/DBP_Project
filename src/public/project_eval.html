@@ -51,6 +51,9 @@
     </header>
     <section class="contents-wrap">
         <div class="con_title-group" style="margin: 20px;">
+            <!-- <div class="con-title" >
+                평가 조회 
+            </div> -->
             <div class="con-title" id="p_title">
                 프로젝트 이름
             </div>
@@ -63,11 +66,12 @@
                     var p_name = localStorage.getItem('p_name');
                     var e_name = localStorage.getItem('e_name');
 
-                    var divElement = document.querySelector('#p_title');
-                    divElement.innerHTML = "<"+p_name + ' 프로젝트 > ';
+                    var divElement = document.getElementById("p_title");
+                    divElement.textContent = "프로젝트 이름 : "+p_name + ' '
+                    
 
-                    var divElement2 = document.querySelector('#e_title');
-                    divElement2.innerHTML = e_name + ' 사원 평가 조회';
+                    var divElement2 = document.getElementById("e_title");
+                    divElement2.innerHTML = "직원 이름 : "+e_name;
                 }
             </script>
         </div>
