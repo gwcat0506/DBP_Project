@@ -324,7 +324,7 @@ const getProjectById = async (projectId) => {
         p_description: curr.p_description,
         start_date: formatDate(curr.start_date),
         end_date: formatDate(curr.end_date),
-        deal_line: formatDate(curr.deal_line),
+        dead_line: formatDate(curr.dead_line),
         client: curr.client,
         budget: formatCurrency(curr.budget),
         employee: [],
