@@ -334,6 +334,7 @@ const getProjectById = async (projectId) => {
       e_id: curr.e_id,
       position: curr.position,
       put_in_date: formatDate(curr.put_in_date),
+      put_out_date: formatDate(curr.put_out_date),
       e_name: curr.e_name,
     });
 
@@ -375,7 +376,7 @@ const createProject = async (
       budget: budget,
     },
   });
-  
+
   return data.p_id;
 };
 
