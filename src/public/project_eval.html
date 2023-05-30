@@ -76,9 +76,9 @@
                 }
             </script>
         </div>
-        <div class="eval_table">
+        <div class="eval_table" id="pmEvaluation">
             <div style="margin: 20px; font-size: 20px; font-weight: bold;">
-                pm평가
+                PM평가
             </div>
             
             <div class="basic-group">
@@ -192,7 +192,7 @@
                 </div>
             </div>
         </div>
-        <div class="eval_table">
+        <div class="eval_table" id="peerEvaluation">
             <div style="margin: 20px; font-size: 20px; font-weight: bold;">
                 동료 평가
             </div>
@@ -244,14 +244,24 @@
                                 </div>
                                 
                                 <script>
-                                    
                                     var e_id = localStorage.getItem('e_id');
                                     var p_id = localStorage.getItem('p_id');
+                                    var position = localStorage.getItem('position');
 
+                                    
+                                    //position이 PM이면 다른 평가를 받을 일이 없으므로 고객평가만 띄우기
+                                    var position = localStorage.getItem('position');
+                                    var pmEvaluationTable = document.getElementById('pmEvaluation');
+                                    var peerEvaluationTable = document.getElementById('peerEvaluation');
+
+                                    if (position === 'PM') {
+                                    pmEvaluationTable.style.display = 'none';
+                                    peerEvaluationTable.style.display = 'none';}
+                                    
                                     //test
                                     //p_id="P0001"
                                     //e_id="E0002"
-                                    console.log(e_id,p_id)
+                                    console.log(e_id,p_id,position)
 
                                     axios
                                         .get('/api/project/evaluation/'+e_id+'/'+p_id)
