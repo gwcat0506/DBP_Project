@@ -90,10 +90,10 @@
                             <div class="flex-cell grid-2">
                                 <div class="flex-table-item">
                                     <div class="item-text-bold width-per-40 m-width-per-30">
-                                        <div class="flex-align-self-center">시작일</div>
+                                        <div class="flex-align-self-center">시작일/마감일</div>
                                     </div>
                                     <div class="item-text width-per-60 m-width-per-70">
-                                        <div class="flex-align-self-center" id="start_date">
+                                        <div class="flex-align-self-center" id="start_dead_date">
                                             
                                         </div>
                                     </div>
@@ -137,11 +137,11 @@
                             </div>
                             <div class="flex-cell grid-1">
                               <div class="flex-table-item">
-                                  <div class="item-text-bold width-per-40 m-width-per-30">
+                                  <div class="item-text-bold width-per-20 m-width-per-30">
                                     
                                       <div class="flex-align-self-center">설명</div>
                                   </div>
-                                  <div class="item-text width-per-60 m-width-per-70">
+                                  <div class="item-text width-per-80 m-width-per-70">
                                       <div class="flex-align-self-center" id="p_description">
                                       </div>
                                   </div>
@@ -157,12 +157,14 @@
                                     .get('/api/project/'+p_id)
                                     .then(function (response) {
                                         var project_info = response.data.result.project;
+                                        var dead_line = response.data.result.project.dead_line;
+                                        console.log(dead_line)
                                         
                                         //프로젝트 상세 조회
-                                        // console.log(response.data.result)
+                                        console.log(response.data.result)
                                         document.getElementById('p_id').textContent = project_info.p_id;
                                         document.getElementById('p_name').textContent = project_info.p_name;
-                                        document.getElementById('start_date').textContent = project_info.start_date;
+                                        document.getElementById('start_dead_date').textContent = project_info.start_date +" / " + project_info.dead_line;
                                         document.getElementById('end_date').textContent = project_info.end_date;
                                         document.getElementById('client').textContent = project_info.client;
                                         document.getElementById('budget').textContent = project_info.budget;
@@ -211,7 +213,9 @@
                                                 window.location.href='/evaluate';
                                             });
                                             button.style.margin='5px';
-
+                                            button.style.borderRadius = '10px';
+                                            button.style.padding='5px';
+                                            button.style.background = 'pink';
                                             buttonCell.appendChild(button);
                                             row.appendChild(buttonCell);
                                     

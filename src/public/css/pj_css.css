@@ -49,13 +49,15 @@ a.btn-gray{
 }
 
 input.btn-basic{
-    left: -1350px;
+    
+    float: left;
     position:relative; 
-    display:inline-flex; 
+    display:inline-block; 
     align-items:center; 
-    justify-content:center; 
+    justify-content:space-between; 
     min-width:53px; 
     height:30px; 
+    width: 130px;
     padding:0 10px; 
     font-size:14px; 
     line-height:28px; 
@@ -65,6 +67,7 @@ input.btn-basic{
     border-radius:3px; 
     box-sizing:border-box;
     transition:all 0.25s ease;
+    margin-right: 10px;
     }
 
 a:link{
@@ -297,26 +300,7 @@ a:hover, a:focus, a:active {text-decoration:none;}
 
 
 
-input.btn-basic2{
-    top: -235px;
-    left: -139
-    0px;
-    position:relative; 
-    display:inline-flex; 
-    align-items:center; 
-    justify-content:center; 
-    min-width:53px; 
-    height:30px; 
-    padding:0 10px; 
-    font-size:14px; 
-    line-height:28px; 
-    font-weight:400; 
-    text-align:center; 
-    border:1px solid #000; 
-    border-radius:3px; 
-    box-sizing:border-box;
-    transition:all 0.25s ease;
-    }
+
 
 #emp_div{
     margin-top: 30px;
@@ -333,14 +317,16 @@ input.btn-basic2{
     text-align: center;
 }
 input.btn-basic2{
-    left: -700px;
-    margin-bottom: -550px;
+    
+    margin: auto 0;
+    top: 50px;
     position:relative; 
-    display:inline-flex; 
+    display:inline-block; 
     align-items:center; 
     justify-content:center; 
     min-width:53px; 
     height:30px; 
+    width: 100px;
     padding:0 30px; 
     font-size:14px; 
     line-height:28px; 
@@ -350,4 +336,9 @@ input.btn-basic2{
     border-radius:3px; 
     box-sizing:border-box;
     transition:all 0.25s ease;
+    
+    }
+    .btn2{
+        margin: auto;
+
     }
