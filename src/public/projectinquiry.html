@@ -198,6 +198,11 @@
                                             employee_put_in_dateCell.textContent = employee.put_in_date;
                                             row.appendChild(employee_put_in_dateCell);
 
+                                            // 투입종료
+                                            var employee_put_in_dateCell = document.createElement('td');
+                                            employee_put_in_dateCell.textContent = employee.put_out_date;
+                                            row.appendChild(employee_put_in_dateCell);
+
                                             // 직원 id 값을 로컬 스토리지에 저장
                                             
                                             localStorage.setItem('p_id', local_p_id);
@@ -273,7 +278,8 @@
                                         <th>직원 번호</th>
                                         <th>직원 이름</th>
                                         <th>직무</th>
-                                        <th>투입일자</th>
+                                        <th>투입시작</th>
+                                        <th>투입종료</th>
                                         <th>평가</th>
                                         
                                     </tr>
