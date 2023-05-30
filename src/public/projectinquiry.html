@@ -150,26 +150,26 @@
                             <script>
                                 
                                 var local_p_id = localStorage.getItem('p_id');
-                                
-                                p_id = local_p_id
-                                console.log("local_p_id",local_p_id)
+                                                                
+                                p_id = local_p_id;
+                                console.log("local_p_id", local_p_id);
                                 axios
-                                    .get('/api/project/'+p_id)
-                                    .then(function (response) {
+                                    .get('/api/project/' + p_id)
+                                    .then(function(response) {
                                         var project_info = response.data.result.project;
                                         var dead_line = response.data.result.project.dead_line;
-                                        console.log(dead_line)
-                                        
+                                        //console.log(dead_line)
+                                                                        
                                         //프로젝트 상세 조회
-                                        console.log(response.data.result)
+                                        //console.log(response.data.result)
                                         document.getElementById('p_id').textContent = local_p_id;
                                         document.getElementById('p_name').textContent = project_info.p_name;
-                                        document.getElementById('start_dead_date').textContent = project_info.start_date +" / " + project_info.dead_line;
+                                        document.getElementById('start_dead_date').textContent = project_info.start_date + " / " + project_info.dead_line;
                                         document.getElementById('end_date').textContent = project_info.end_date;
                                         document.getElementById('client').textContent = project_info.client;
                                         document.getElementById('budget').textContent = project_info.budget;
                                         document.getElementById('p_description').textContent = project_info.p_description;
-
+                                
                                         //프로젝트 직원 조회
                                         var employee = response.data.result.project.employee;
                                         //프로젝트에 직원이 있을 경우에만 출력
@@ -177,117 +177,123 @@
                                             var tableBody = document.querySelector('#insertEmployee tbody');
                                             // 기존 내용 초기화
                                             tableBody.innerHTML = '';
-
+                                
                                             employee.forEach(function(employee) {
-                                            
-                                            var row = document.createElement('tr');
-                                            //직원 번호
-                                            var employee_NumberCell = document.createElement('td');
-                                            employee_NumberCell.textContent = employee.e_id;
-                                            row.appendChild(employee_NumberCell);
-                                            //직원 이름
-                                            var employee_NameCell = document.createElement('td');
-                                            employee_NameCell.textContent = employee.e_name;
-                                            row.appendChild(employee_NameCell);
-                                            // 직무
-                                            var employee_PositionCell = document.createElement('td');
-                                            employee_PositionCell.textContent = employee.position;
-                                            row.appendChild(employee_PositionCell);
-                                            // 투입일자
-                                            var employee_put_in_dateCell = document.createElement('td');
-                                            employee_put_in_dateCell.textContent = employee.put_in_date;
-                                            row.appendChild(employee_put_in_dateCell);
-
-                                            // 투입종료
-                                            
-                                            if (employee.put_out_date === '진행 중') {
-                                                var buttonCell = document.createElement('td');
-                                                var stop_button = document.createElement('button');
-
-                                                stop_button.textContent = "투입종료";
-
-                                                stop_button.style.margin='5px';
-                                                stop_button.style.borderRadius = '10px';
-                                                stop_button.style.padding='5px';
-                                                stop_button.style.background = 'pink';
-                                                
-                                                stop_button.addEventListener('click',function(){
-                                                    console.log(local_p_id,employee.e_id)
-                                                    const confirmed = confirm(employee.e_name+" 직원을 프로젝트에서 투입종료 시키겠습니까?");
-                                                    if (confirmed) {
-                                                        axios.patch('/api/project/putout',{ 
+                                
+                                                var row = document.createElement('tr');
+                                                //직원 번호
+                                                var employee_NumberCell = document.createElement('td');
+                                                employee_NumberCell.textContent = employee.e_id;
+                                                row.appendChild(employee_NumberCell);
+                                                //직원 이름
+                                                var employee_NameCell = document.createElement('td');
+                                                employee_NameCell.textContent = employee.e_name;
+                                                row.appendChild(employee_NameCell);
+                                                // 직무
+                                                var employee_PositionCell = document.createElement('td');
+                                                employee_PositionCell.textContent = employee.position;
+                                                row.appendChild(employee_PositionCell);
+                                                // 투입일자
+                                                var employee_put_in_dateCell = document.createElement('td');
+                                                employee_put_in_dateCell.textContent = employee.put_in_date;
+                                                row.appendChild(employee_put_in_dateCell);
+                                
+                                                // 투입종료
+                                                if (employee.put_out_date === '진행 중') {
+                                                    var buttonCell = document.createElement('td');
+                                                    var stop_button = document.createElement('button');
+                                
+                                                    stop_button.textContent = "투입종료";
+                                
+                                                    stop_button.style.margin = '5px';
+                                                    stop_button.style.borderRadius = '10px';
+                                                    stop_button.style.padding = '5px';
+                                                    stop_button.style.background = 'pink';
+                                
+                                                    stop_button.addEventListener('click', function() {
+                                                        const confirmed = confirm(employee.e_name + " 직원을 프로젝트에서 투입종료 시키겠습니까?");
+                                
+                                                        if (confirmed) {
+                                                            axios
+                                                            .patch('/api/project/putout', {
                                                                 p_id: local_p_id,
-                                                                e_id: employee.e_id                                                            })
+                                                                e_id: employee.e_id
+                                                            })
                                                             .then(function(response) {
-                                                                alert(employee.e_name+" 직원이 프로젝트에서 삭제되었습니다.")
-                                                                //페이지 새로고침
+                                                                alert(employee.e_name + " 직원이 프로젝트에서 삭제되었습니다.");
+                                                                // 페이지 새로고침
                                                                 location.reload();
                                                             })
                                                             .catch(function(error) {
                                                                 console.log(error);
                                                             });
+                                                        }
+                                                    });
+                                
+                                                    buttonCell.appendChild(stop_button);
+                                                    row.appendChild(buttonCell);
+                                                } else {
+                                                    var employee_put_out_Cell = document.createElement('td');
+                                                    employee_put_out_Cell.textContent = employee.put_out_date;
+                                                    row.appendChild(employee_put_out_Cell);
+                                                }
+                                
+                                                // 직원 id 값을 로컬 스토리지에 저장
+                                                localStorage.setItem('p_id', local_p_id);
+                                                localStorage.setItem('p_name', project_info.p_name);
+                                
+                                                // 평가 더보기
+                                                var buttonCell = document.createElement('td');
+                                                var button = document.createElement('button');
+                                                button.textContent = "더보기";
+                                                button.addEventListener('click', function() {
+                                                    localStorage.setItem('e_id', employee.e_id);
+                                                    localStorage.setItem('e_name', employee.e_name);
+                                                    localStorage.setItem('position', employee.position);
+                                                    //log(employee.e_id,employee.e_name,employee.position)
+                                                    window.location.href = '/evaluate';
+                                                });
+                                                button.style.margin = '5px';
+                                                button.style.borderRadius = '10px';
+                                                button.style.padding = '5px';
+                                                button.style.background = 'pink';
+                                                buttonCell.appendChild(button);
+                                                row.appendChild(buttonCell);
+                                
+                                                // 삭제 
+                                                var button2Cell = document.createElement('td');
+                                                var button2 = document.createElement('button');
+                                                button2.textContent = "삭제";
+                                                button2.addEventListener('click', function() {
+                                                    console.log(local_p_id, employee.e_id);
+                                                    const confirmed = confirm(employee.e_name + " 직원을 프로젝트에서 삭제 하시겠습니까?");
+                                                    
+                                                    if (confirmed) {
+                                                        axios
+                                                        .delete('/api/project/employee/'+p_id+"/"+employee.e_id)
+                                                        .then(function(response) {
+                                                            alert(employee.e_name + " 직원이 프로젝트에서 삭제되었습니다.");
+                                                            //페이지 새로고침
+                                                            location.reload();
+                                                        })
+                                                        .catch(function(error) {
+                                                            console.log(error);
+                                                        });
                                                     }
                                                 });
-                                                buttonCell.appendChild(stop_button);
-                                                row.appendChild(buttonCell);
-                                                
-                                              }else{
-                                                var employee_put_out_Cell = document.createElement('td');
-                                                employee_put_out_Cell.textContent = employee.put_out_date;
-                                                row.appendChild(employee_put_out_Cell);
-                                              }
-                                            
-                                            
-
-                                            // 직원 id 값을 로컬 스토리지에 저장
-                                            localStorage.setItem('p_id', local_p_id);
-                                            localStorage.setItem('p_name', project_info.p_name);
-                                            
-                                            // 평가 더보기
-                                            var buttonCell = document.createElement('td');
-                                            var button = document.createElement('button');
-                                            button.textContent = "더보기";
-                                            button.addEventListener('click',function(){
-                                                localStorage.setItem('e_id', employee.e_id);
-                                                localStorage.setItem('e_name', employee.e_name);
-                                                localStorage.setItem('position', employee.position);
-                                                console.log(employee.e_id,employee.e_name,employee.position)
-                                                window.location.href='/evaluate';
-                                            });
-                                            button.style.margin='5px';
-                                            button.style.borderRadius = '10px';
-                                            button.style.padding='5px';
-                                            button.style.background = 'pink';
-                                            buttonCell.appendChild(button);
-                                            row.appendChild(buttonCell);
-
-                                            // 삭제 
-                                            var button2Cell = document.createElement('td');
-                                            var button2 = document.createElement('button2');
-                                            button2.textContent = "삭제";
-                                            button2.addEventListener('click',function(){
-                                                localStorage.setItem('e_id', employee.e_id);
-                                                localStorage.setItem('e_name', employee.e_name);
-                                                localStorage.setItem('position', employee.position);
-                                                console.log(employee.e_id,employee.e_name,employee.position)
-                                                //window.location.href='/evaluate';
-                                            });
-                                            button2.style.margin='5px';
-                                            button2.style.borderRadius = '10px';
-                                            button2.style.padding='5px';
-                                            button2.style.color = 'white';
-                                            button2.style.background = 'black';
-                                            button2Cell.appendChild(button2);
-                                            row.appendChild(button2Cell);
-                                    
-                                            tableBody.appendChild(row);
-                                        })}
-                                        
-
-                                        
-                                    
+                                                button2.style.margin = '5px';
+                                                button2.style.borderRadius = '10px';
+                                                button2.style.padding = '5px';
+                                                button2.style.color = 'white';
+                                                button2.style.background = 'black';
+                                                button2Cell.appendChild(button2);
+                                                row.appendChild(button2Cell);
+                                
+                                                tableBody.appendChild(row);
+                                            })
+                                        }
                                     })
-                                    .catch(function (error) {
+                                    .catch(function(error) {
                                         if (error.response) {
                                             alert(error.response.data.message);
                                         } else {
@@ -295,8 +301,9 @@
                                             alert('프로젝트 조회에 실패하였습니다');
                                         }
                                     });
+                                                                
+                                </script>
                                 
-                            </script>
                             
 
                         </div>
