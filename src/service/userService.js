@@ -15,6 +15,7 @@ const updatePwd = async (token, login_password) => {
     },
     data: { login_password: login_password },
   });
+  //onsole.log(data)
   return data;
 };
 

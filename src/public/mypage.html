@@ -21,6 +21,7 @@
             // 페이지 로드 시 사용자 정보 조회
             window.addEventListener('DOMContentLoaded', function () {
                 var access_token = localStorage.getItem('access_token');
+                console.log("token",access_token)
 
                 axios
                     .get('/api/user', {
@@ -30,7 +31,7 @@
                     })
                     .then(function (response) {
                         var user = response.data.result;
-                        console.log(user)
+                        //console.log(user)
                         document.getElementById('p_name').textContent = user.e_name;
                         document.getElementById('p_id').textContent = user.e_id;
                         document.getElementById('p_password').value = user.login_password;
@@ -93,7 +94,7 @@
             </div>
         </div>
         <div class="basic-group">
-            <form id="command" name="form1" action="#" method="post" autocomplete="off">
+            <form id="command" name="form1" method="post" autocomplete="off">
                 <input type="hidden" name="page" value>
                 <div class="card-item basic">
                     <div>
@@ -134,6 +135,46 @@
                                             <button id="password_reset"
                                                 style="border:solid black 2px; border-radius: 10px; ">수정</button>
                                         </div>
+                                        <script>
+                                            
+                                            var access_token = localStorage.getItem('access_token');
+                                            
+
+                                            //비밀번호 변경 
+                                            document.getElementById('password_reset').addEventListener('click', function(event) {
+                                            event.preventDefault();
+
+                                            var input = document.getElementById('p_password');
+                                            var password = input.value;
+
+                                            //console.log("token=",access_token)
+                                            //console.log("password=",password)
+                                            
+                                            const config = {
+                                                headers: {
+                                                  Authorization: 'Bearer ' + access_token
+                                                }
+                                              };
+                                              
+                                              const data = {
+                                                login_password: password
+                                              };
+                                              
+                                              axios.patch('/api/user/password', data, config)
+                                                .then(function (response) {
+                                                    localStorage.setItem('access_token', access_token);
+                                                    alert("비밀번호 변경이 완료되었습니다.")
+                                                    window.location.href = '/mypage';
+                                                })
+                                                .catch(function (error) {
+                                                    localStorage.setItem('access_token', access_token);
+                                                    console.log("Error");
+                                                });
+                                            });
+
+
+                                            
+                                        </script>
                                     </div>
                                 </div>
                             </div>

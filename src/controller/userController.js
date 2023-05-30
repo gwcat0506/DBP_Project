@@ -4,11 +4,14 @@ const { userService } = require("../service");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-// 비밀번호 수정
+// 비밀번호 변경
 const updatePwd = async (req, res) => {
   const token =
     req.headers.authorization && req.headers.authorization.split(" ")[1];
   const { login_password } = req.body;
+
+  //console.log("new_password",login_password)
+  //console.log("token",token)
 
   if (!token) {
     return res.status(401).json({ message: "로그인이 필요합니다." });
