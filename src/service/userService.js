@@ -54,7 +54,7 @@ const getUserIdFromToken = (token) => {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     return decoded.docs.user_id; // 토큰 해독하여 사용자 ID 받기
   } catch (error) {
-    throw new Error("토큰 해독 실패");
+    throw new Error("세션이 종료되었습니다. 다시 로그인해주세요.");
   }
 };
 
