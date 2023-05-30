@@ -42,7 +42,7 @@ const getUser = async (token) => {
     resident_id: formatResidentID(user.employee.resident_id),
     education: user.education,
     career: user.employee.career,
-    salary: user.employee.salary,
+    salary: formatCurrency(user.employee.salary),
   };
 
   return result;
@@ -66,5 +66,9 @@ function formatResidentID(residentID) {
   const prefix = parseInt(year) <= 21 ? "20" : "19";
   return `${prefix}${year}-${month}-${day}`;
 }
+
+const formatCurrency = (num) => {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + " 원";
+};
 
 module.exports = { getUser, updatePwd };
