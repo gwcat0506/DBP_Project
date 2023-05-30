@@ -66,13 +66,14 @@
                 window.onload = function() {
                     var p_name = localStorage.getItem('p_name');
                     var e_name = localStorage.getItem('e_name');
+                    var position = localStorage.getItem('position');
 
                     var divElement = document.getElementById("p_title");
                     divElement.textContent = "프로젝트 이름 : "+p_name;
                     
 
                     var divElement2 = document.getElementById("e_title");
-                    divElement2.innerHTML = "직원 이름 : "+e_name;
+                    divElement2.innerHTML = "직원 이름 : "+e_name+" ("+position+")";
                 }
             </script>
         </div>
@@ -247,10 +248,8 @@
                                     var e_id = localStorage.getItem('e_id');
                                     var p_id = localStorage.getItem('p_id');
                                     var position = localStorage.getItem('position');
-
                                     
                                     //position이 PM이면 다른 평가를 받을 일이 없으므로 고객평가만 띄우기
-                                    var position = localStorage.getItem('position');
                                     var pmEvaluationTable = document.getElementById('pmEvaluation');
                                     var peerEvaluationTable = document.getElementById('peerEvaluation');
 
