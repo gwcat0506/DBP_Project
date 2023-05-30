@@ -20,6 +20,23 @@ function calculateAverage(evaluations) {
   };
 }
 
+// 투입 직원 종료
+const putOutEmployee = async (p_id, e_id) => {
+  const currentDate = new Date();
+  const data = await prisma.project_employee.update({
+    where: {
+      p_id_e_id: {
+        p_id: p_id,
+        e_id: e_id,
+      },
+    },
+    data: {
+      put_out_date: currentDate,
+    },
+  });
+  return data;
+};
+
 // 평가 조회
 const getEvaluationById = async (e_id, p_id) => {
   const pm_customer_evaluations = await prisma.evaluate_pm_customer.findMany({
@@ -385,6 +402,7 @@ const formatCurrency = (num) => {
 };
 
 module.exports = {
+  putOutEmployee,
   getEvaluationById,
   searchScore,
   searchCareer,
