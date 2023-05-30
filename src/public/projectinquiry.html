@@ -210,6 +210,8 @@
                                             button.addEventListener('click',function(){
                                                 localStorage.setItem('e_id', employee.e_id);
                                                 localStorage.setItem('e_name', employee.e_name);
+                                                localStorage.setItem('position', employee.position);
+                                                console.log(employee.e_id,employee.e_name,employee.position)
                                                 window.location.href='/evaluate';
                                             });
                                             button.style.margin='5px';
