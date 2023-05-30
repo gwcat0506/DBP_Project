@@ -1,3 +1,6 @@
+.update-button:hover {
+    cursor: pointer;
+}
 
 .navbar{
     display: flex;

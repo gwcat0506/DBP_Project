@@ -162,7 +162,7 @@
                                         
                                         //프로젝트 상세 조회
                                         console.log(response.data.result)
-                                        document.getElementById('p_id').textContent = project_info.p_id;
+                                        document.getElementById('p_id').textContent = local_p_id;
                                         document.getElementById('p_name').textContent = project_info.p_name;
                                         document.getElementById('start_dead_date').textContent = project_info.start_date +" / " + project_info.dead_line;
                                         document.getElementById('end_date').textContent = project_info.end_date;
@@ -198,8 +198,48 @@
                                             employee_put_in_dateCell.textContent = employee.put_in_date;
                                             row.appendChild(employee_put_in_dateCell);
 
-                                            // 직원 id 값을 로컬 스토리지에 저장
+                                            // 투입종료
                                             
+                                            if (employee.put_out_date === '진행 중') {
+                                                var buttonCell = document.createElement('td');
+                                                var stop_button = document.createElement('button');
+
+                                                stop_button.textContent = "투입종료";
+
+                                                stop_button.style.margin='5px';
+                                                stop_button.style.borderRadius = '10px';
+                                                stop_button.style.padding='5px';
+                                                stop_button.style.background = 'pink';
+                                                
+                                                stop_button.addEventListener('click',function(){
+                                                    console.log(local_p_id,employee.e_id)
+                                                    const confirmed = confirm(employee.e_name+" 직원을 프로젝트에서 투입종료 시키겠습니까?");
+                                                    if (confirmed) {
+                                                        axios.patch('/api/project/putout',{ 
+                                                                p_id: local_p_id,
+                                                                e_id: employee.e_id                                                            })
+                                                            .then(function(response) {
+                                                                alert(employee.e_name+" 직원이 프로젝트에서 삭제되었습니다.")
+                                                                //페이지 새로고침
+                                                                location.reload();
+                                                            })
+                                                            .catch(function(error) {
+                                                                console.log(error);
+                                                            });
+                                                    }
+                                                });
+                                                buttonCell.appendChild(stop_button);
+                                                row.appendChild(buttonCell);
+                                                
+                                              }else{
+                                                var employee_put_out_Cell = document.createElement('td');
+                                                employee_put_out_Cell.textContent = employee.put_out_date;
+                                                row.appendChild(employee_put_out_Cell);
+                                              }
+                                            
+                                            
+
+                                            // 직원 id 값을 로컬 스토리지에 저장
                                             localStorage.setItem('p_id', local_p_id);
                                             localStorage.setItem('p_name', project_info.p_name);
                                             
@@ -210,6 +250,8 @@
                                             button.addEventListener('click',function(){
                                                 localStorage.setItem('e_id', employee.e_id);
                                                 localStorage.setItem('e_name', employee.e_name);
+                                                localStorage.setItem('position', employee.position);
+                                                console.log(employee.e_id,employee.e_name,employee.position)
                                                 window.location.href='/evaluate';
                                             });
                                             button.style.margin='5px';
@@ -218,6 +260,25 @@
                                             button.style.background = 'pink';
                                             buttonCell.appendChild(button);
                                             row.appendChild(buttonCell);
+
+                                            // 삭제 
+                                            var button2Cell = document.createElement('td');
+                                            var button2 = document.createElement('button2');
+                                            button2.textContent = "삭제";
+                                            button2.addEventListener('click',function(){
+                                                localStorage.setItem('e_id', employee.e_id);
+                                                localStorage.setItem('e_name', employee.e_name);
+                                                localStorage.setItem('position', employee.position);
+                                                console.log(employee.e_id,employee.e_name,employee.position)
+                                                //window.location.href='/evaluate';
+                                            });
+                                            button2.style.margin='5px';
+                                            button2.style.borderRadius = '10px';
+                                            button2.style.padding='5px';
+                                            button2.style.color = 'white';
+                                            button2.style.background = 'black';
+                                            button2Cell.appendChild(button2);
+                                            row.appendChild(button2Cell);
                                     
                                             tableBody.appendChild(row);
                                         })}
@@ -271,8 +332,10 @@
                                         <th>직원 번호</th>
                                         <th>직원 이름</th>
                                         <th>직무</th>
-                                        <th>투입일자</th>
+                                        <th>투입시작</th>
+                                        <th>투입종료</th>
                                         <th>평가</th>
+                                        <th></th>
                                         
                                     </tr>
                                 </thead>

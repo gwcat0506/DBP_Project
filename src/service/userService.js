@@ -42,7 +42,7 @@ const getUser = async (token) => {
     resident_id: formatResidentID(user.employee.resident_id),
     education: user.education,
     career: user.employee.career,
-    salary: user.employee.salary,
+    salary: formatCurrency(user.employee.salary),
   };
 
   return result;
@@ -54,7 +54,7 @@ const getUserIdFromToken = (token) => {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     return decoded.docs.user_id; // 토큰 해독하여 사용자 ID 받기
   } catch (error) {
-    throw new Error("토큰 해독 실패");
+    throw new Error("세션이 종료되었습니다. 다시 로그인해주세요.");
   }
 };
 
@@ -66,5 +66,9 @@ function formatResidentID(residentID) {
   const prefix = parseInt(year) <= 21 ? "20" : "19";
   return `${prefix}${year}-${month}-${day}`;
 }
+
+const formatCurrency = (num) => {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + " 원";
+};
 
 module.exports = { getUser, updatePwd };

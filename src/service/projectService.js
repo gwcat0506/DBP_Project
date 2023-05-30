@@ -20,6 +20,36 @@ function calculateAverage(evaluations) {
   };
 }
 
+// 프로젝트 직원 삭제
+const removeEmployeeById = async (p_id, e_id) => {
+  const data = await prisma.project_employee.delete({
+    where: {
+      p_id_e_id: {
+        p_id: p_id,
+        e_id: e_id,
+      },
+    },
+  });
+  return data;
+};
+
+// 투입 직원 종료
+const putOutEmployee = async (p_id, e_id) => {
+  const currentDate = new Date();
+  const data = await prisma.project_employee.update({
+    where: {
+      p_id_e_id: {
+        p_id: p_id,
+        e_id: e_id,
+      },
+    },
+    data: {
+      put_out_date: currentDate,
+    },
+  });
+  return data;
+};
+
 // 평가 조회
 const getEvaluationById = async (e_id, p_id) => {
   const pm_customer_evaluations = await prisma.evaluate_pm_customer.findMany({
@@ -316,29 +346,29 @@ const getProjectById = async (projectId) => {
   const formatDate = (date) =>
     date ? date.toISOString().slice(0, 10) : "진행 중";
 
-  const project = rawResults.reduce((acc, curr) => {
-    if (!acc.p_id) {
-      acc = {
-        p_id: curr.p_id,
-        p_name: curr.p_name,
-        p_description: curr.p_description,
-        start_date: formatDate(curr.start_date),
-        end_date: formatDate(curr.end_date),
-        dead_line: formatDate(curr.dead_line),
-        client: curr.client,
-        budget: formatCurrency(curr.budget),
-        employee: [],
-      };
-    }
-    acc.employee.push({
-      e_id: curr.e_id,
-      position: curr.position,
-      put_in_date: formatDate(curr.put_in_date),
-      e_name: curr.e_name,
-    });
-
-    return acc;
-  }, {});
+  const project = {
+    p_id: rawResults[0].p_id,
+    p_name: rawResults[0].p_name,
+    p_description: rawResults[0].p_description,
+    start_date: formatDate(rawResults[0].start_date),
+    end_date: formatDate(rawResults[0].end_date),
+    dead_line: formatDate(rawResults[0].dead_line),
+    client: rawResults[0].client,
+    budget: formatCurrency(rawResults[0].budget),
+    employee: rawResults
+      .map((result) => ({
+        e_id: result.e_id,
+        position: result.position,
+        put_in_date: formatDate(result.put_in_date),
+        put_out_date: formatDate(result.put_out_date),
+        e_name: result.e_name,
+      }))
+      .sort((a, b) => {
+        if (a.put_out_date === "진행 중") return -1; // put_out_date가 "진행 중"인 경우 먼저 나오도록 설정
+        if (b.put_out_date === "진행 중") return 1;
+        return new Date(b.put_out_date) - new Date(a.put_out_date); // put_out_date가 최신인 것부터 정렬
+      }),
+  };
 
   return { project };
 };
@@ -362,7 +392,7 @@ const createProject = async (
     const lastNumber = parseInt(lastPId.substr(1));
     p_id = `P${("0000" + (lastNumber + 1)).slice(-4)}`;
   }
-  // const formatDate = (date) => date.toISOString().slice(0, 10);
+
   const data = await prisma.project.create({
     data: {
       p_id: p_id,
@@ -375,14 +405,17 @@ const createProject = async (
       budget: budget,
     },
   });
+
   return data.p_id;
 };
 
 const formatCurrency = (num) => {
-  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + " 원";
 };
 
 module.exports = {
+  removeEmployeeById,
+  putOutEmployee,
   getEvaluationById,
   searchScore,
   searchCareer,

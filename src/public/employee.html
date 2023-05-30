@@ -131,12 +131,13 @@
                                 </colgroup>
                                 <thead>
                                     <tr>
-                                        <th><b>사번</b></th>
-                                        <th><b>사원명</b></th>
-                                        <th><b>생년 월일</b></th>
-                                        <th><b>경력</b></th>
-                                        <th><b>사용기술</b></th>
-                                        <th><b>연봉</b></th>
+
+                                        <th>사번</th>
+                                        <th>사원명</th>
+                                        <th>생년 월일</th>
+                                        <th>경력<span style="font-size: smaller">(단위: 연차)</span></th>
+                                        <th>사용기술</th>
+                                        <th>연봉<span style="font-size: smaller">(단위: 원)</span></th>
                                         <th></th>
                                         
                                     </tr>
@@ -216,6 +217,7 @@
                                       var buttonCell = document.createElement('td');
                                       var button = document.createElement('button');
                                       button.textContent = "사원 정보 갱신";
+                                      button.classList.add('update-button');
                                       button.addEventListener('click',function(){
                                         
                                         // 직원 정보 값을 로컬 스토리지에 저장

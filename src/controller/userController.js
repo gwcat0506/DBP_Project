@@ -10,9 +10,6 @@ const updatePwd = async (req, res) => {
     req.headers.authorization && req.headers.authorization.split(" ")[1];
   const { login_password } = req.body;
 
-  //console.log("new_password",login_password)
-  //console.log("token",token)
-
   if (!token) {
     return res.status(401).json({ message: "로그인이 필요합니다." });
   }
