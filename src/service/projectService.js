@@ -20,6 +20,19 @@ function calculateAverage(evaluations) {
   };
 }
 
+// 프로젝트 직원 삭제
+const removeEmployeeById = async (p_id, e_id) => {
+  const data = await prisma.project_employee.delete({
+    where: {
+      p_id_e_id: {
+        p_id: p_id,
+        e_id: e_id,
+      },
+    },
+  });
+  return data;
+};
+
 // 투입 직원 종료
 const putOutEmployee = async (p_id, e_id) => {
   const currentDate = new Date();
@@ -402,6 +415,7 @@ const formatCurrency = (num) => {
 };
 
 module.exports = {
+  removeEmployeeById,
   putOutEmployee,
   getEvaluationById,
   searchScore,

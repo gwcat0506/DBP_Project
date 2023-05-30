@@ -1,6 +1,20 @@
 const { Request, Response, NextFunction } = require("express");
 const { projectService } = require("../service");
 
+const removeEmployeeById = async (req, res) => {
+  const { p_id, e_id } = req.params;
+
+  const result = await projectService.removeEmployeeById(p_id, e_id);
+
+  if (!result) {
+    return res
+      .status(404)
+      .json({ status: 404, message: "직원 삭제에 실패하였습니다." });
+  }
+
+  return res.status(200).json({ status: 200, message: "직원 삭제 성공" });
+};
+
 const putOutEmployee = async (req, res) => {
   const { p_id, e_id } = req.body;
 
@@ -146,6 +160,7 @@ const createProject = async (req, res) => {
 };
 
 module.exports = {
+  removeEmployeeById,
   putOutEmployee,
   getEvaluationById,
   searchScore,
