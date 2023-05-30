@@ -132,10 +132,22 @@
                                         <div>
                                             <input type="password" id="p_password" name="p_password" size="15"
                                                 style="text-align:center;">
+                                            <i class="fa fa-eye fa-lg" id="togglePassword" style="font-size: 20px;"></i>
                                             <button id="password_reset"
                                                 style="border:solid black 2px; border-radius: 10px; ">수정</button>
                                         </div>
                                         <script>
+                                            
+                                            // 눈 아이콘 누르면 비밀번호 보이기 기능
+                                            const passwordInput = document.getElementById('p_password');
+                                            const togglePassword = document.getElementById('togglePassword');
+                        
+                                            togglePassword.addEventListener('click', function () {
+                                                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                                                passwordInput.setAttribute('type', type);
+                                                togglePassword.classList.toggle('fa-eye-slash');
+                                            });
+                                            
                                             
                                             var access_token = localStorage.getItem('access_token');
                                             
