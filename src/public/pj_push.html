@@ -21,7 +21,7 @@
         <div class="con_title-group">
             <div class="con-title">
                 직원 검색
-                <div class="close close2"></div>
+                
             </div>
             </div>
         
@@ -267,10 +267,17 @@
             <div class="btn-group">
                 <div class="btn2">
                     
-                    <input class="btn-basic2 btn-gray" type="button" value="취소">
+                    <input class="btn-basic2 btn-gray" type="button" value="취소" id="cancel_btn">
                     <input class="btn-basic2 btn-gray" type="button" value="추가" id="add_btn">
 
                     <script>
+                        //취소 
+                        document.getElementById('cancel_btn').addEventListener('click', function() {
+                            //localStorage.setItem('access_token', access_token);
+                            window.location.href = '/pr';
+                            });
+
+
                         const addButton = document.getElementById("add_btn")
 
                         // "추가" 버튼 클릭 이벤트 처리
