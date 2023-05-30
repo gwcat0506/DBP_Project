@@ -57,6 +57,7 @@
             <div class="con-title" id="p_title" >
                 프로젝트 이름
             </div>
+            <br>
             <div class="con-title" id="e_title">
                 사원 이름
             </div>
@@ -76,7 +77,7 @@
             </script>
         </div>
         <div class="eval_table">
-            <div style="margin: 20px; font-size: 15px;">
+            <div style="margin: 20px; font-size: 20px; font-weight: bold;">
                 pm평가
             </div>
             
@@ -134,7 +135,7 @@
             </div>
         </div>
         <div class="eval_table">
-            <div style="margin: 20px; font-size: 15px;">
+            <div style="margin: 20px; font-size: 20px; font-weight: bold;">
                 고객 평가
             </div>
             
@@ -192,7 +193,7 @@
             </div>
         </div>
         <div class="eval_table">
-            <div style="margin: 20px; font-size: 15px;">
+            <div style="margin: 20px; font-size: 20px; font-weight: bold;">
                 동료 평가
             </div>
             
@@ -286,6 +287,10 @@
 
                                             tableBody.appendChild(row);
 
+                                            row.style.background = 'white';
+
+                                            
+
                                             //Table2(고객평가)
                                             var tableBody = document.querySelector('#customerTable tbody');
                                             // 기존 내용 초기화
@@ -311,6 +316,7 @@
                                             row.appendChild(cummuni_content2_Cell);
 
                                             tableBody.appendChild(row);
+                                            row.style.background = 'white';
 
                                             //Table3(동료평가)
                                             var tableBody = document.querySelector('#peerTable tbody');
@@ -339,6 +345,7 @@
 
                                     
                                             tableBody.appendChild(row);
+                                            row.style.background = 'white';
                                             })
 
                                             //평균 점수(6개) 출력하기 
