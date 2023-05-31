@@ -22,7 +22,7 @@ app.get("/signup", (req, res) => {
 });
 // 프로젝트 조회(main) 페이지
 app.get("/main", (req, res) => {
-  res.sendFile(__dirname + "/src/public/main.html");
+  res.sendFile(__dirname + "/src/public/index.html");
 });
 // 마이페이지
 app.get("/mypage", (req, res) => {
