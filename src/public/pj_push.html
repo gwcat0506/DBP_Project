@@ -189,7 +189,7 @@
                                             <th><b>커뮤니케이션 능력 평점</b></th>
                                         </tr>
                                     `;
-                                    axios.get('/api/project/putEmployee/career')
+                                    axios.get('/api/project/putEmployee/score')
                                         .then(function (response) {
                                             
                                             var table = document.getElementById("projectTable");
@@ -207,21 +207,21 @@
                                                 
                                                 var idCell = document.createElement("td");
                                                 var nameCell = document.createElement("td");
-                                                var careerCell = document.createElement("td");
-                                                var skillsCell = document.createElement("td");
+                                                var avg_workCell = document.createElement("td");
+                                                var avg_comCell = document.createElement("td");
                         
                                                 idCell.innerText = employee.e_id;
                                                 nameCell.innerText = employee.e_name;
                                                 nameCell.onclick = function() {
                                                     showEmployeeName(idCell.innerText,nameCell.innerText);
                                                 };
-                                                careerCell.innerText = employee.career;
-                                                skillsCell.innerText = employee.skills;
+                                                avg_workCell.innerText = employee.avg_work;
+                                                avg_comCell.innerText = employee.avg_com;
                         
                                                 row.appendChild(idCell);
                                                 row.appendChild(nameCell);
-                                                row.appendChild(careerCell);
-                                                row.appendChild(skillsCell);
+                                                row.appendChild(avg_workCell);
+                                                row.appendChild(avg_comCell);
                         
                                                 tbody.appendChild(row);
                                             });
