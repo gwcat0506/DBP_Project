@@ -17,7 +17,6 @@
     
     
     <section class="contents-wrap">
-        
         <div class="con_title-group">
             <div class="con-title">
                 직원 검색
@@ -41,14 +40,14 @@
                 <div id="result">
                     <div class="read-table">
                         <div class="horizontal-scroller">
-                            <table class="index_table" id="projectTable">
+                            <table class="index_table" id="projectTable" >
                             
                                 <thead>
                                     <tr>
-                                        <th>직원 번호</th>
-                                        <th>직원 이름</th>
-                                        <th>경력</th>
-                                        <th>사용 가능 기술</th>
+                                        <th><b>직원 번호</b></th>
+                                        <th><b>직원 이름</b></th>
+                                        <th><b>경력</b></th>
+                                        <th><b>사용 가능 기술</b></th>
                                         
                                     </tr>
                                 </thead>
@@ -68,10 +67,10 @@
                                     var thead = table.querySelector("thead");
                                     thead.innerHTML = `
                                         <tr>
-                                            <th>직원 번호</th>
-                                            <th>직원 이름</th>
-                                            <th>경력</th>
-                                            <th>사용 가능 기술</th>
+                                            <th><b>직원 번호</b></th>
+                                            <th><b>직원 이름</b></th>
+                                            <th><b>경력</b></th>
+                                            <th><b>사용 가능 기술</b></th>
                                         </tr>
                                     `;
                                     axios.get('/api/project/putEmployee/career')
@@ -126,11 +125,11 @@
                                     var thead = table.querySelector("thead");
                                     thead.innerHTML = `
                                         <tr>
-                                            <th>직원 번호</th>
-                                            <th>직원 이름</th>
-                                            <th>참여 프로젝트명</th>
-                                            <th>프로젝트 시작일</th>
-                                            <th>프로젝트 마감일</th>
+                                            <th><b>직원 번호</b></th>
+                                            <th><b>직원 이름</b></th>
+                                            <th><b>참여 프로젝트명</b></th>
+                                            <th><b>프로젝트 시작일</b></th>
+                                            <th><b>프로젝트 마감일</b></th>
                                         </tr>
                                     `;
                                     axios.get('/api/project/putEmployee/deadline')
@@ -184,10 +183,10 @@
                                     var thead = table.querySelector("thead");
                                     thead.innerHTML = `
                                         <tr>
-                                            <th>직원 번호</th>
-                                            <th>직원 이름</th>
-                                            <th>업무 수행 능력 평점</th>
-                                            <th>커뮤니케이션 능력 평점</th>
+                                            <th><b>직원 번호</b></th>
+                                            <th><b>직원 이름</b></th>
+                                            <th><b>업무 수행 능력 평점</b></th>
+                                            <th><b>커뮤니케이션 능력 평점</b></th>
                                         </tr>
                                     `;
                                     axios.get('/api/project/putEmployee/career')
@@ -237,32 +236,45 @@
                 </div>
             </div>
         </div>
-        <div class="con-title2">
-            직무 선택
-        </div>
 
-        <div class="basic-group">
-            <div class="card-item basic">
-                <table id="position_table">
-                            
-                    <thead>
-                        <tr>
-                            <th>직원 번호</th>
-                            <th>직원 이름</th>
-                            <th>직무</th>
-                            <th></th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- 내용 -->
-                    </tbody>
-                    
-                </table>
+
+
+
+
+        <div class="con_title-group" style="margin-top: 100px;">
+            <div class="con-title">
+                직무 선택
+                
             </div>
         </div>
         
-        
+        <div class="basic-group">
+            <div class="card-item basic">
+                <div id="result">
+                    <div class="read-table">
+                        <div class="horizontal-scroller">
+                            <table class="index_table" id="position_table">
+                            
+                                <thead>
+                                    <tr>
+                                        <th><b>직원 번호</b></th>
+                                        <th><b>직원 이름</b></th>
+                                        <th><b>직무</b></th>
+                                        <th></th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 내용 -->
+                                </tbody>
+                                
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="basic-group">
             <div class="btn-group">
                 <div class="btn2">
@@ -392,12 +404,6 @@
                 tbody.appendChild(employeeRow);
             }
         </script>
-       
-        
     </section>
-
-    
-    
 </body>
-
 </html>
