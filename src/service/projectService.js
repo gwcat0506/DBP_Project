@@ -227,11 +227,12 @@ const putEmployees = async (p_id, employees) => {
 
 // 프로젝트 검색
 const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
-  // 인용 부호 제거
   let clean_start_date =
     start_date !== undefined ? start_date.replace(/['"]+/g, "") : null;
   let clean_end_date =
     end_date !== undefined ? end_date.replace(/['"]+/g, "") : null;
+
+  const currentDate = new Date();
 
   const whereClause = {};
   if (p_id !== null) {
@@ -244,56 +245,40 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       contains: p_name,
     };
   }
-  if (clean_start_date !== null && clean_end_date !== null) {
-    whereClause.OR = [
-      {
-        AND: [
-          {
-            start_date: {
-              gte: new Date(clean_start_date),
-            },
+
+  if (clean_end_date !== null) {
+    if (new Date(clean_end_date) > currentDate) {
+      // 입력된 end_date가 현재 날짜보다 뒤라면, DB의 end_date가 null인 프로젝트도 포함
+      whereClause.OR = [
+        {
+          end_date: {
+            lte: new Date(clean_end_date),
           },
-          {
-            end_date: {
-              lte: new Date(clean_end_date),
-            },
-          },
-        ],
-      },
-      {
-        AND: [
-          {
-            start_date: {
-              gte: new Date(clean_start_date),
-            },
-          },
-          {
-            end_date: null,
-          },
-        ],
-      },
-    ];
-  } else if (clean_start_date !== null) {
+        },
+        {
+          end_date: null,
+        },
+      ];
+    } else {
+      // 입력된 end_date가 현재 날짜보다 이전이라면, DB의 end_date가 null이 아닌 것만 포함
+      whereClause.end_date = {
+        lte: new Date(clean_end_date),
+      };
+    }
+  }
+
+  if (clean_start_date !== null) {
     whereClause.start_date = {
       gte: new Date(clean_start_date),
     };
-  } else if (clean_end_date !== null) {
-    whereClause.OR = [
-      {
-        end_date: {
-          lte: new Date(clean_end_date),
-        },
-      },
-      {
-        end_date: null,
-      },
-    ];
   }
+
   if (client !== null) {
     whereClause.client = {
       contains: client,
     };
   }
+
   const projects = await prisma.project.findMany({
     where: whereClause,
     select: {
@@ -305,9 +290,7 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
       budget: true,
       p_description: true,
     },
-    orderBy: [
-      { end_date: "asc" }, // 먼저 끝나는 프로젝트를 우선으로 함
-    ],
+    orderBy: [{ end_date: "asc" }],
   });
 
   const formattedProjects = projects
@@ -318,7 +301,7 @@ const searchProjects = async (p_id, p_name, start_date, end_date, client) => {
         : null,
       end_date: project.end_date
         ? project.end_date.toISOString().slice(0, 10)
-        : "진행 중", //end_date가 null인 경우
+        : "진행 중",
     }))
     .sort((a, b) => {
       if (a.end_date === "진행 중") return -1;
