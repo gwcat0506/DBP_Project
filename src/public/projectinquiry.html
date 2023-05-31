@@ -177,9 +177,10 @@
                                             var tableBody = document.querySelector('#insertEmployee tbody');
                                             // 기존 내용 초기화
                                             tableBody.innerHTML = '';
-                                
+                                            
+                                            var employee_count = 0; 
                                             employee.forEach(function(employee) {
-                                
+                                                employee_count++;
                                                 var row = document.createElement('tr');
                                                 //직원 번호
                                                 var employee_NumberCell = document.createElement('td');
@@ -291,6 +292,9 @@
                                 
                                                 tableBody.appendChild(row);
                                             })
+                                            var inputEmployee = document.getElementById('input_employee');
+                                            inputEmployee.textContent = "투입 직원 (인원 : " + employee_count + "명)";
+
                                         }
                                     })
                                     .catch(function(error) {
@@ -313,7 +317,7 @@
       
         <div class="soft-group" style="margin-top: 80px;">
           <div class="con_title-group">
-            <div class="con-title">
+            <div class="con-title" id="input_employee">
                 투입 직원
             </div>
           </div>
